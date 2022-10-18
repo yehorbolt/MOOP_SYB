@@ -1,4 +1,23 @@
+import mysql.connector
+
+mydb = mysql.connector.connect(
+  host="localhost",
+  user="root",
+  password="MySQLPass_11",
+  database="atm"
+)
+
+mycursor = mydb.cursor()
+
+mycursor.execute("SHOW TABLES")
+
+for x in mycursor:
+  print(x)
+
+
 #Основний файл з запуском гри, atm_start.py запускає нашу систему MonkePal
 
-if __name__ == '__main__':
-    print("Hello, my dear friend!");
+# if __name__ == '__main__':
+#    print("Hello, my dear friend!");
+
+
