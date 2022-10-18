@@ -4,7 +4,8 @@ db = mysql.connector.connect(
   host="localhost",
   user="root",
   password="MySQLPass_11",
-  database="atm"
+  database="atm",
+  auth_plugin="mysql_native_password"
 )
 
 mycursor = db.cursor()
@@ -19,5 +20,3 @@ for x in mycursor:
 
 # if __name__ == '__main__':
 #    print("Hello, my dear friend!");
-
-
