@@ -1,13 +1,13 @@
 import mysql.connector
 
-mydb = mysql.connector.connect(
+db = mysql.connector.connect(
   host="localhost",
   user="root",
   password="MySQLPass_11",
   database="atm"
 )
 
-mycursor = mydb.cursor()
+mycursor = db.cursor()
 
 mycursor.execute("SHOW TABLES")
 
