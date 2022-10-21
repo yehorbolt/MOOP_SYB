@@ -3,13 +3,11 @@ class User:
   password = "default"
 
   def User(self, login, password):
-#    if login == null || password == null:
-#        throw
+    # check exception here
     self.login = login
     self.password = password
 
   def changePassword(self, newPassword):
+      # check exception here
       if newPassword != 0:
           self.password = newPassword
-
-

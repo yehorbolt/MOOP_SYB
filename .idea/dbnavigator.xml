@@ -63,7 +63,9 @@
     <diagnostics-history />
   </component>
   <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
-    <recently-used-interfaces />
+    <recently-used-interfaces>
+      <mapping database-type="MYSQL" interface-id="70a6f58e-bc92-4048-82a0-c8fae41da43e" />
+    </recently-used-interfaces>
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
@@ -78,12 +80,12 @@
           <driver-library value="" />
           <driver value="" />
           <url-type value="DATABASE" />
-          <host value="localhost" />
+          <host value="bunu9twon1zilnedmecc-mysql.services.clever-cloud.com" />
           <port value="3306" />
-          <database value="atm" />
+          <database value="bunu9twon1zilnedmecc" />
           <type value="USER_PASSWORD" />
-          <user value="root" />
-          <deprecated-pwd value="TXlTUUxQYXNzXzEx" />
+          <user value="uhdonzzoqdo00pjp" />
+          <deprecated-pwd value="cVdLUFVLNkdQREo1V2FSMnZZc0c=" />
         </database>
         <properties>
           <auto-commit value="false" />
@@ -465,7 +467,9 @@
         <prompt-execution value="false" />
       </statement-execution>
       <script-execution>
-        <command-line-interfaces />
+        <command-line-interfaces>
+          <value id="70a6f58e-bc92-4048-82a0-c8fae41da43e" name="MySQL client" executable-path="$PROJECT_DIR$/../atm.sql" database-type="MYSQL" />
+        </command-line-interfaces>
         <execution-timeout value="300" />
       </script-execution>
       <method-execution>
