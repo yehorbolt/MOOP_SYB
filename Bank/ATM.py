@@ -6,7 +6,7 @@ class ATM:
     adress = "default"
     bank_id = "1"
 
-    def ATM(self, id, adress):
+    def __init__(self, id, adress):
         self.id = id
         self.adress = adress
 

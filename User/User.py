@@ -2,7 +2,7 @@ class User:
   login = "default"
   password = "default"
 
-  def User(self, login, password):
+  def __init__(self, login, password):
     # check exception here
     self.login = login
     self.password = password
