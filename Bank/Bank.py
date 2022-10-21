@@ -1,6 +1,5 @@
 # class that is responsible for the Bank
 class Bank:
-    id = 1
     name = "Monkey Bank"
     headquarters = "Kyiv"
     branch = "Main"
