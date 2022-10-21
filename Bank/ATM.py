@@ -1,14 +1,11 @@
-import Bank
+import Bank as b
 
 # class that is responsible for ATMs
 class ATM:
-    id = 0
     adress = "default"
-    bank_id = "1"
 
-    def __init__(self, id, adress):
-        self.id = id
+    def __init__(self, adress):
         self.adress = adress
 
-    def updateLastID(Bank, id):
-        Bank = id
+
+
