@@ -1,10 +1,14 @@
-import ConnectToDB.ConnectToSQL as db
 
-db.ConnectToSQL.connect(db)
-select = "DELETE FROM user WHERE iduser = 1"
-db.ConnectToSQL.execute(db, select)
-print("---------------------------------------------")
-select = "SELECT * FROM user"
-db.ConnectToSQL.execute(db, select)
+
+print("-------------------------------------")
+mycursor.execute("show global variables like '%connections%'")
+
+
+
+for x in mycursor:
+  print(x)
 
 #Основний файл з запуском гри, atm_start.py запускає нашу систему MonkePal
+
+# if __name__ == '__main__':
+#    print("Hello, my dear friend!");
