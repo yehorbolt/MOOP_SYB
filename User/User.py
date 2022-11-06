@@ -1,6 +1,8 @@
 class User:
   login = "default"
   password = "default"
+  name = "default"
+  surname = "default"
 
   def __init__(self, login, password):
     # check exception here

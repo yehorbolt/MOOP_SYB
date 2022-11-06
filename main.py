@@ -1,29 +1,20 @@
 import mysql.connector
 
 db = mysql.connector.connect(
-  host="127.0.0.1",
-  user="ehorb",
-  password="BolotovVehor1",
-  database="atm",
-  auth_plugin='mysql_native_password'
+  user="severhin1",
+  password="AVNS_6rTR6l_ji_IFCMJbuSj",
+  host="db-mysql-lon1-41175-do-user-12692486-0.b.db.ondigitalocean.com",
+  port="25060",
+  database="defaultdb",
 )
+
 
 mycursor = db.cursor()
 
-mycursor.execute("SHOW DATABASES")
+mycursor.execute("SHOW TABLES")
 
 for x in mycursor:
   print(x)
 
-print("-------------------------------------")
-mycursor.execute("show global variables like '%connections%'")
-
-
-
-for x in mycursor:
-  print(x)
 
 #Основний файл з запуском гри, atm_start.py запускає нашу систему MonkePal
-
-# if __name__ == '__main__':
-#    print("Hello, my dear friend!");
