@@ -1,5 +1,5 @@
 # MOOP_SYB
-MonkeFlip
+MonkeFlip! 
 This project is a final for a discipline called "OOP Methods". 
 This project is a small game that represents the interaction between user and atm. 
 
