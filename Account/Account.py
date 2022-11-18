@@ -29,3 +29,4 @@ class Account:
 
   def generateNumber(self, name, surname, status):
       # this method should generate a number for self account
+        return 
