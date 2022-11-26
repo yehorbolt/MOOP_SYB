@@ -1,5 +1,5 @@
 import mysql.connector
-
+import os
 db = mysql.connector.connect(
   host="bunu9twon1zilnedmecc-mysql.services.clever-cloud.com",
   user="uhdonzzoqdo00pjp",
