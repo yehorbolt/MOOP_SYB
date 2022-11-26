@@ -1,4 +1,5 @@
-import ConnectToDB.ConnectToDb as con
+from MOOP_SYB.ConnectToDB import ConnectToDb as con
+
 class User:
   id = 0
   login = "default"

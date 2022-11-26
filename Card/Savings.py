@@ -1,4 +1,4 @@
-from Card.Card import Card
+from Card import Card
 
 #class that is responsible for checking card
 class Savings(Card):
