@@ -6,6 +6,8 @@ class Card:
     type = "default"
     balance = 0
     gold = 0
+    valid = 1
+    account_id = 0
 
     #creates a Card
     def __init__(self, id, number, password, type, gold):

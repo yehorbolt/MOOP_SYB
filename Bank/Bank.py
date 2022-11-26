@@ -4,8 +4,6 @@ class Bank:
     name = "Monkey Bank"
     headquarters = "Kyiv"
     branch = "Main"
-    atmlist = ()
-    lastATMID = 0
 
     #change name of the bank
     def changeName(self, newName):
@@ -22,11 +20,3 @@ class Bank:
 
     #delete ATM to th bank
 #    def delATM(self, ATM):
-
-    #set last ATM id
-    def setLastATMID(self, newid):
-        self.lastATMID = newid
-
-    #get last ATM id
-    def пetLastATMID(self):
-        return self.lastATMID
