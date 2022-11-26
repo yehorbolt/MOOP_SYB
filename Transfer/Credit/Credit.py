@@ -1,5 +1,5 @@
-from Transfer.Transfer import Transfer
-from Transfer.Credit import CreditSystem
+from MOOP_SYB.Transfer import Transfer
+import CreditSystem
 
 class Credit(Transfer):
     id = 0

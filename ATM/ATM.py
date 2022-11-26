@@ -1,4 +1,4 @@
-import Bank
+from MOOP_SYB.Bank import Bank
 
 # class that is responsible for ATMs
 class ATM:
@@ -10,7 +10,7 @@ class ATM:
         self.id = id
         self.adress = adress
 
-    #changes adress
+    # changes adress
     def changeAdress(self, adress):
         if (adress != 0 & self.adress != adress):
             self.adress = adress
@@ -18,10 +18,10 @@ class ATM:
     def updateLastId(Bank, id):
         Bank = id
 
-    #prints ui output
+    # prints ui output
     # def printOutput(self):
     #   print(uiOutput)
 
-    #updates id if other atm was deleted
-    #def updateId(self, id):
-    #work with DB here
+    # updates id if other atm was deleted
+    # def updateId(self, id):
+    # work with DB here
