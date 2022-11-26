@@ -4,9 +4,7 @@ import Bank
 class ATM:
     id = 0
     adress = "default"
-    uiInput = ""
-    uiOutput = ""
-    cardReader = "none"
+    bank_id = 0
 
     def __init__(self, id, adress):
         self.id = id
