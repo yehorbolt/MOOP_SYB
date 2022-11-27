@@ -13,7 +13,7 @@ class Credit(Card):
 
     #take money from the card
     def makeTransaction(self, amount):
-        if (self.balance > amount):
+        if self.balance > amount:
             self.balance -= amount
         #else
             #exceptions

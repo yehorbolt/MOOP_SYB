@@ -1,8 +1,9 @@
 import mysql.connector
 from mysql.connector import Error
 
+
 def execute(query):
-     try:
+    try:
         connection_config_dict = {
             'user': 'severhin1',
             'password': 'AVNS_6rTR6l_ji_IFCMJbuSj',
@@ -16,13 +17,14 @@ def execute(query):
             cursor = connection.cursor()
             cursor.execute(query)
 
-     except Error as e:
+    except Error as e:
         print("Error while connecting to MySQL", e)
-     finally:
+    finally:
         if connection.is_connected():
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
+
 
 def executeWithVal(query, values):
     try:
@@ -47,8 +49,9 @@ def executeWithVal(query, values):
             connection.close()
             print("MySQL connection is closed")
 
+
 def executePrint(query):
-     try:
+    try:
         connection_config_dict = {
             'user': 'severhin1',
             'password': 'AVNS_6rTR6l_ji_IFCMJbuSj',
@@ -64,9 +67,9 @@ def executePrint(query):
             records = cursor.fetchall()
             print("Data: ", records)
 
-     except Error as e:
+    except Error as e:
         print("Error while connecting to MySQL", e)
-     finally:
+    finally:
         if connection.is_connected():
             cursor.close()
             connection.close()

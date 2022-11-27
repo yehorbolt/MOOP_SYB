@@ -7,12 +7,12 @@ class Bank:
 
     #change name of the bank
     def changeName(self, newName):
-        if (newName != 0 & self.name != newName):
+        if newName != 0 & self.name != newName:
             self.name = newName;
 
     #add ATM to th bank
     def changeHeadquarters(self, headquarters):
-        if (headquarters != 0 & self.headquarters != headquarters):
+        if headquarters != 0 & self.headquarters != headquarters:
             self.headquarters = headquarters;
 
     #add ATM to th bank

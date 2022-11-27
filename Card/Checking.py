@@ -11,7 +11,7 @@ class Checking(Card):
 
     #make transaction from one card to another card
     def makeTransaction(self, card, amount):
-        if (self.balance > amount):
+        if self.balance > amount:
             self.balance -= amount
             #checks
             card.balance += amount
@@ -20,7 +20,7 @@ class Checking(Card):
 
     #take money from the card
     def witdraw(self, amount):
-        if (self.balance > amount):
+        if self.balance > amount:
             self.balance -= amount
         #else
             #exceptions
