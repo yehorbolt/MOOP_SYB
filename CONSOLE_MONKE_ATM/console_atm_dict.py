@@ -1,6 +1,7 @@
 # import User... (return needed data)
 import random
 import datetime
+import os
 
 # login, password
 # num, status (gold primary...), activated/inactivate, balance,
@@ -56,7 +57,6 @@ class ATM:
                 print(self.list[r]["user"][1])
         self.list[x]["user"][1] == self.password
         dict_users = self.list
-        print(dict_users)
 
     # add User information like User
     def __init__(self, login, password):

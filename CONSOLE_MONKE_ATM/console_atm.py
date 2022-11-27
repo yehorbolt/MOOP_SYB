@@ -1,7 +1,7 @@
 # import User... (return needed data)
 import random
 import datetime
-
+import os
 
 class ATM:
     # login, password
@@ -50,8 +50,10 @@ class ATM:
 
         choose_menu = input("Enter a number: ")
         if choose_menu == "1":
+            os.system('cls' if os.name == 'nt' else 'clear')
             atm.e_pocket()
         elif choose_menu == "2":
+            os.system('cls' if os.name == 'nt' else 'clear')
             atm.change_pass()
         else:
             print("Log out..")
@@ -78,8 +80,10 @@ class ATM:
         print("\nChoose your action action:")
         choose_card = input("Enter a number: ")
         if choose_card in num_array:
+            os.system('cls' if os.name == 'nt' else 'clear')
             atm.card_menu(int(choose_card) - 1)
         elif choose_card == str(i):
+            os.system('cls' if os.name == 'nt' else 'clear')
             atm.add_card()
         else:
             atm.menu()
@@ -104,6 +108,7 @@ class ATM:
         print("7. Delete card")
         print("an. Exit")
         choose_card_menu = input("\nEnter your number: ")
+        os.system('cls' if os.name == 'nt' else 'clear')
         if choose_card_menu == "1":
             atm.put_on_card(card_num)
         elif choose_card_menu == "2":
@@ -162,6 +167,7 @@ class ATM:
                 print("Exit")
         else:
             print("Your card is inactive")
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.card_menu(card_num)
 
     # 2
@@ -215,6 +221,7 @@ class ATM:
                 print("Exit")
         else:
             print("Your card is inactive")
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
         atm.card_menu(card_num)
 
@@ -262,6 +269,7 @@ class ATM:
                 print("This card does not exist")
         else:
             print("Your card is inactive")
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
         atm.card_menu(card_num)
 
@@ -273,13 +281,13 @@ class ATM:
             print("Deposit page")
             print("\nYour deposit balance " + str(self.card_list[card_num][4]))
             print("Your card balance " + str(self.card_list[card_num][3]))
-            print("Menu")
+            print("\n Deposit menu")
             print("1. Withdraw deposit")
             print("2. Put on Deposit")
             print("an. Exit")
             choose_dep = input("\nEnter a number: ")
             if choose_dep == "1":
-                how_dep = input("How much do you want to withdraw")
+                how_dep = input("How much do you want to withdraw: ")
                 if int(how_dep) > self.card_list[card_num][4]:
                     print("Hmm, you do not have that amount of money on deposit")
                 else:
@@ -287,7 +295,7 @@ class ATM:
                     self.card_list[card_num][3] += int(how_dep)
                     print("Withdraw successfully")
             if choose_dep == "2":
-                how_dep = input("How much do you put in deposit")
+                how_dep = input("How much do you put in deposit: ")
                 if int(how_dep) > self.card_list[card_num][3]:
                     print("Hmm, you do not have that amount of money on card balance")
                 else:
@@ -298,6 +306,7 @@ class ATM:
                 print("Exit")
         else:
             print("Your card is inactive")
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
         atm.card_menu(card_num)
 
@@ -340,6 +349,7 @@ class ATM:
                 print("Exit")
         else:
             print("Your card is inactive")
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
         atm.card_menu(card_num)
 
@@ -366,6 +376,7 @@ class ATM:
             atm.card_menu(card_num)
         else:
             atm.card_menu(card_num)
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
         atm.card_menu(card_num)
 
@@ -386,6 +397,7 @@ class ATM:
             atm.card_menu(card_num)
         else:
             atm.card_menu(card_num)
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
         atm.e_pocket()
 
@@ -432,6 +444,7 @@ class ATM:
             print("Exit")
         else:
             print("Exit")
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.e_pocket()
 
     # Menu Change password
@@ -456,6 +469,7 @@ class ATM:
             print("Return to menu")
         else:
             print("Return to menu")
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.menu()
 
 
@@ -467,27 +481,27 @@ print("------------------------Sign in/Sign up----------------------")
 print("-------------------------------------------------------------")
 print("Enter a number: ")
 print("1. Sign in")
-print("2. I don`t have an account")
 print("an. Exit")
 print("-------------------------------------------------------------\n")
 choose = input("Choose your action: ")
 
 while True:
     if choose == "1":
-        print("\n-----------------------MonkePal--------------------------")
-        print("Sign in")
-        accName = input("\nInput your login: ")
-        accPass = input("Input your password: ")
-        # check entered login and pass
-        atm = ATM(accName, amount_of_money)
-        atm.menu()
+        accName = ""
+        accPass = ""
+        while accName != "login" and accPass != "password":
+            print("\n-----------------------MonkePal--------------------------")
+            print("Sign in")
+            accName = input("\nInput your login: ")
+            accPass = input("Input your password: ")
+            if accName != "login" and accPass != "password":
+                print("Wrong login or password")
+                os.system('cls' if os.name == 'nt' else 'clear')
 
-    elif choose == "2":
-        print("-----------------------MonkePal--------------------------")
-        print("\nSign up")
-        accName = input("Input your login: ")
-        accPass = input("Input your password: ")
-        # there we add all information we need to input for creating an account
+    # check entered login and pass
+        atm = ATM(accName, amount_of_money)
+        os.system('cls' if os.name == 'nt' else 'clear')
+        atm.menu()
     else:
         break
 
