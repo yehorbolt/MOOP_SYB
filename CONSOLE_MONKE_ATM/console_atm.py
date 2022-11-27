@@ -45,7 +45,7 @@ class ATM:
         print("1. Check my e-pocket")
         # change pass
         print("2. Change account password")
-        print("an. Log out")
+        print("Other. Log out")
         print("--------------------------------------------------------------\n")
 
         choose_menu = input("Enter a number: ")
