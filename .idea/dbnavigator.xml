@@ -32,10 +32,10 @@
       <console name="Connection" type="STANDARD" schema="atm" session="Main" />
     </connection>
     <connection id="028005dc-5fc8-426f-861c-4ed9c05ae2e5">
-      <console name="Connection to atm " type="STANDARD" schema="atm" session="Main" />
+      <console name="Connection to atm " type="STANDARD" schema="" session="Main" />
     </connection>
     <connection id="3f5e6c99-03b9-4d24-abdf-aac55404de2e">
-      <console name="Connection (Digital Ocean)" type="STANDARD" schema="defaultdb" session="Main" />
+      <console name="Connection (Digital Ocean)" type="STANDARD" schema="" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
