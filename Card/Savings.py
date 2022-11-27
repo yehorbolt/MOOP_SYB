@@ -1,6 +1,7 @@
 from Card import Card
 
-#class that is responsible for checking card
+
+# class that is responsible for checking card
 class Savings(Card):
     id = 0
     number = ""
@@ -10,30 +11,30 @@ class Savings(Card):
     gold = 0
     userInterest = 0
 
-    #take money from the card
+    # take money from the card
     def withdraw(self, amount):
-        if (self.balance > amount):
+        if self.balance > amount:
             self.balance -= amount
-        #else
-            #exceptions
+        # else
+        # exceptions
         # db call
 
-    #put money on the card
+    # put money on the card
     def putMoney(self, limit):
-        #some checks
+        # some checks
         self.limit = limit
-        #else
-            #exceptions
+        # else
+        # exceptions
 
-    #changePassword
+    # changePassword
     def changePassword(self, newPassword):
         super()
 
-    #checkBalance
+    # checkBalance
     def checkBalance(self):
         self()
 
-    #creates a new Card
+    # creates a new Card
     def __init__(self, id, number, password, gold):
         type = "credit"
         super(self, id, number, password, type, gold)
