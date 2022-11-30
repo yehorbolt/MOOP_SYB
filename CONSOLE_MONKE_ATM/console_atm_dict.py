@@ -1,21 +1,7 @@
 # import User... (return needed data)
 import random
 import datetime
-
-# login, password
-# num, status (gold primary...), activated/inactivate, balance,
-# dep. balance, withdraw by day, daemon (Card type, Spotify, Netflix)
-dict_users = [
-    {"user": ["login", "password"], "cards": [["4149499378941895", False, True, 900, 250, 1000, 5, True, False],
-                                              ["4487489778941895", True, True, 850, 0, 10000, 30, False, True],
-                                              ["4148789658751925", False, True, 0, 0, 1000, 0, False, False]]},
-    {"user": ["login1", "password1"], "cards": [["4586499378941895", False, True, 900, 250, 1000, 0, False, False]]}
-]
-
-cards_list = []
-for b in range(len(dict_users)):
-    for t in range(len(dict_users[b]["cards"])):
-        cards_list.append(dict_users[b]["cards"][t])
+import os
 
 
 class ATM:
@@ -37,26 +23,6 @@ class ATM:
                     if int(self.card_list[n][3]) > int(self.card_list[n][6]):
                         self.card_list[n][3] -= self.card_list[n][6]
         print("\nA new day has come, the deposit has been updated and money for subscriptions has been withdrawn")
-
-    def update_base(self):
-        for r in range(len(self.list)):
-            for o in range(len(self.list[r]["cards"])):
-                for s in range(len(self.users_list)):
-                    if self.users_list[s][0] == self.list[r]["cards"][o]:
-                        self.list[r]["cards"][o] == self.users_list[s]
-        print(self.list)
-        dict_users = self.list
-
-    def update_user(self, login):
-        x = 0
-        for r in range(len(self.list)):
-            if self.list[r]["user"][0] == login:
-                x = r
-                print(self.password)
-                print(self.list[r]["user"][1])
-        self.list[x]["user"][1] == self.password
-        dict_users = self.list
-        print(dict_users)
 
     # add User information like User
     def __init__(self, login, password):
@@ -87,6 +53,7 @@ class ATM:
         print("--------------------------------------------------------------\n")
 
         choose_menu = input("Enter a number: ")
+        os.system('cls' if os.name == 'nt' else 'clear')
         if choose_menu == "1":
             atm.e_pocket()
         elif choose_menu == "2":
@@ -115,6 +82,7 @@ class ATM:
         atm.update()
         print("\nChoose your action action:")
         choose_card = input("Enter a number: ")
+        os.system('cls' if os.name == 'nt' else 'clear')
         if choose_card in num_array:
             atm.card_menu(int(choose_card) - 1)
         elif choose_card == str(i):
@@ -141,6 +109,7 @@ class ATM:
         print("6. Activate/Deactivate")
         print("an. Exit")
         choose_card_menu = input("\nEnter your number: ")
+        os.system('cls' if os.name == 'nt' else 'clear')
         if choose_card_menu == "1":
             atm.put_on_card(card_num)
         elif choose_card_menu == "2":
@@ -197,9 +166,8 @@ class ATM:
                 print("Exit")
         else:
             print("Your card is inactive")
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
-        atm.update_base()
         atm.card_menu(card_num)
 
     # 2
@@ -253,9 +221,8 @@ class ATM:
                 print("Exit")
         else:
             print("Your card is inactive")
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
-        atm.update_base()
         atm.card_menu(card_num)
 
     # 3
@@ -302,9 +269,8 @@ class ATM:
                 print("This card does not exist")
         else:
             print("Your card is inactive")
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
-        atm.update_base()
         atm.card_menu(card_num)
 
     # 4
@@ -340,9 +306,8 @@ class ATM:
                 print("Exit")
         else:
             print("Your card is inactive")
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
-        atm.update_base()
         atm.card_menu(card_num)
 
     # 5
@@ -384,9 +349,8 @@ class ATM:
                 print("Exit")
         else:
             print("Your card is inactive")
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
-        atm.update_base()
         atm.card_menu(card_num)
 
     # 6
@@ -412,9 +376,8 @@ class ATM:
             atm.card_menu(card_num)
         else:
             atm.card_menu(card_num)
-
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.update()
-        atm.update_base()
         atm.card_menu(card_num)
 
     # E-pocket Add card
@@ -460,8 +423,7 @@ class ATM:
             print("Exit")
         else:
             print("Exit")
-
-        atm.update_base()
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.e_pocket()
 
     # Menu Change password
@@ -482,13 +444,31 @@ class ATM:
             # there we check password and update on db if true
             print("\n Your password was changed")
             self.password = new_pass
-            atm.update_user(self.login)
+            for r in range(len(self.list)):
+                if self.list[r]["user"][0] == self.login:
+                    self.list[r]["user"][1] = self.password
         elif choose_pass == "2":
             print("Return to menu")
         else:
             print("Return to menu")
+        os.system('cls' if os.name == 'nt' else 'clear')
         atm.menu()
 
+
+# login, password
+# num, status (gold primary...), activated/inactivate, balance,
+# dep. balance, withdraw by day, daemon (Card type, Spotify, Netflix)
+dict_users = [
+    {"user": ["login", "password"], "cards": [["4149499378941895", False, True, 900, 250, 1000, 5, True, False],
+                                              ["4487489778941895", True, True, 850, 0, 10000, 30, False, True],
+                                              ["4148789658751925", False, True, 0, 0, 1000, 0, False, False]]},
+    {"user": ["login1", "password1"], "cards": [["4586499378941895", False, True, 900, 250, 1000, 0, False, False]]}
+]
+
+cards_list = []
+for b in range(len(dict_users)):
+    for t in range(len(dict_users[b]["cards"])):
+        cards_list.append(dict_users[b]["cards"][t])
 
 while True:
 
@@ -518,9 +498,11 @@ while True:
                     lg = True
 
         if lg:
+            os.system('cls' if os.name == 'nt' else 'clear')
             atm = ATM(accName, accPass)
             atm.menu()
         else:
+            os.system('cls' if os.name == 'nt' else 'clear')
             print("Wrong login/password")
     elif choose == "2":
         print("-----------------------MonkePal--------------------------")
@@ -532,10 +514,12 @@ while True:
         for p in range(len(dict_users)):
             if dict_users[p]["user"][0] == accName:
                 lg = False
-        if len(accName) < 3: lg = False
+        if len(accName) < 3:
+            lg = False
 
         if not lg:
             print("That login was created/Length less than 3")
+            os.system('cls' if os.name == 'nt' else 'clear')
         else:
             while True:
                 print("Password must be 8 symbols or more")
