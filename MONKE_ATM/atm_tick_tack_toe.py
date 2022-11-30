@@ -386,7 +386,7 @@ class TicTacToe(Frame):
             self.btn8.config(image=self.ttt_o)
         elif (value[4] == value[7] != '') and value[1] == '':
             self.btn2['text'] = comp_turn
-            self.btn8.config(image=self.ttt_o)
+            self.btn2.config(image=self.ttt_o)
         elif (value[1] == value[7] != '') and value[4] == '':
             self.btn5['text'] = comp_turn
             self.btn5.config(image=self.ttt_o)
