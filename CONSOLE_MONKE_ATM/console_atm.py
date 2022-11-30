@@ -3,6 +3,7 @@ import random
 import datetime
 import os
 
+
 class ATM:
     # login, password
     # num, status (gold primary...), activated/inactivate, balance,
@@ -477,7 +478,7 @@ amount_of_money = 10000
 
 print("-------------------------------------------------------------")
 print("--------------------Welcome to the MonkePal------------------")
-print("------------------------Sign in/Sign up----------------------")
+print("----------------------------Sign in--------------------------")
 print("-------------------------------------------------------------")
 print("Enter a number: ")
 print("1. Sign in")
@@ -498,7 +499,7 @@ while True:
                 print("Wrong login or password")
                 os.system('cls' if os.name == 'nt' else 'clear')
 
-    # check entered login and pass
+        # check entered login and pass
         atm = ATM(accName, amount_of_money)
         os.system('cls' if os.name == 'nt' else 'clear')
         atm.menu()
