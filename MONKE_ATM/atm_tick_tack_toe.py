@@ -115,30 +115,48 @@ class TicTacToe(Frame):
     def onclick(self, args):
 
         if self.btn1['text'] == '' and args == 1:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn1['text'] = self.turn
             self.btn1.config(image=self.ttt_x)
         elif self.btn2['text'] == '' and args == 2:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn2['text'] = self.turn
             self.btn2.config(image=self.ttt_x)
         elif self.btn3['text'] == '' and args == 3:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn3['text'] = self.turn
             self.btn3.config(image=self.ttt_x)
         elif self.btn4['text'] == '' and args == 4:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn4['text'] = self.turn
             self.btn4.config(image=self.ttt_x)
         elif self.btn5['text'] == '' and args == 5:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn5['text'] = self.turn
             self.btn5.config(image=self.ttt_x)
         elif self.btn6['text'] == '' and args == 6:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn6['text'] = self.turn
             self.btn6.config(image=self.ttt_x)
         elif self.btn7['text'] == '' and args == 7:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn7['text'] = self.turn
             self.btn7.config(image=self.ttt_x)
         elif self.btn8['text'] == '' and args == 8:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn8['text'] = self.turn
             self.btn8.config(image=self.ttt_x)
         elif self.btn9['text'] == '' and args == 9:
+            self.winOrLose = ""
+            self.check_data.configure(image=self.winOrLose)
             self.btn9['text'] = self.turn
             self.btn9.config(image=self.ttt_x)
 
@@ -179,137 +197,89 @@ class TicTacToe(Frame):
                 if 'O' in [self.btn1['text'], self.btn2['text'], self.btn3['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
             elif check2:
                 if 'O' in [self.btn4['text'], self.btn5['text'], self.btn6['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
             elif check3:
                 if 'O' in [self.btn7['text'], self.btn8['text'], self.btn9['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
             elif check4:
                 if 'O' in [self.btn1['text'], self.btn4['text'], self.btn7['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
             elif check5:
                 if 'O' in [self.btn2['text'], self.btn5['text'], self.btn8['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
             elif check6:
                 if 'O' in [self.btn3['text'], self.btn6['text'], self.btn9['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
             elif check7:
                 if 'O' in [self.btn1['text'], self.btn5['text'], self.btn9['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
             elif check8:
                 if 'O' in [self.btn3['text'], self.btn5['text'], self.btn7['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
-                    time.sleep(2)
-                    self.winOrLose = ""
-                    self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
 
         if self.is_won:
@@ -336,9 +306,6 @@ class TicTacToe(Frame):
         if self.is_won:
             if ('X' in check) and ('O' in check) and ('' not in check):
                 self.winOrLose = PhotoImage(file='../images/ATM/ttt_tie.png')
-                self.check_data.configure(image=self.winOrLose)
-                time.sleep(2)
-                self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.erase_after()
 
@@ -420,136 +387,127 @@ class TicTacToe(Frame):
 
         else:
             try:
-                index = value.index('X')
-            except ValueError:
                 index = value.index('O')
+            except ValueError:
+                index = value.index('X')
 
             if index == 0:
-                select = random.choice([2, 4, 3])
-                if select == 2 and value[2] == '':
+                if value[2] == '':
                     self.btn3['text'] = comp_turn
                     self.btn3.config(image=self.ttt_o)
-                elif select == 4 and value[4] == '':
+                elif value[4] == '':
                     self.btn5['text'] = comp_turn
                     self.btn5.config(image=self.ttt_o)
-                elif select == 3 and value[3] == '':
+                elif value[3] == '':
                     self.btn4['text'] = comp_turn
                     self.btn4.config(image=self.ttt_o)
             elif index == 1:
-                select = random.choice([6, 4, 8])
-                if select == 6 and value[6] == '':
+                if value[6] == '':
                     self.btn7['text'] = comp_turn
                     self.btn7.config(image=self.ttt_o)
-                elif select == 4 and value[4] == '':
+                elif value[4] == '':
                     self.btn5['text'] = comp_turn
                     self.btn5.config(image=self.ttt_o)
-                elif select == 8 and value[8] == '':
+                elif value[8] == '':
                     self.btn9['text'] = comp_turn
                     self.btn9.config(image=self.ttt_o)
             elif index == 2:
-                select = random.choice([8, 4, 6])
-                if select == 8 and value[8] == '':
-                    self.btn8['text'] = comp_turn
-                    self.btn8.config(image=self.ttt_o)
-                elif select == 4 and value[4] == '':
+                if value[8] == '':
+                    self.btn9['text'] = comp_turn
+                    self.btn9.config(image=self.ttt_o)
+                elif value[4] == '':
                     self.btn5['text'] = comp_turn
                     self.btn5.config(image=self.ttt_o)
-                elif select == 6 and value[6] == '':
+                elif value[6] == '':
                     self.btn7['text'] = comp_turn
                     self.btn7.config(image=self.ttt_o)
             elif index == 3:
-                select = random.choice([6, 4, 2])
-                if select == 6 and value[6] == '':
+                if value[6] == '':
                     self.btn7['text'] = comp_turn
                     self.btn7.config(image=self.ttt_o)
-                elif select == 4 and value[4] == '':
+                elif value[4] == '':
                     self.btn5['text'] = comp_turn
                     self.btn5.config(image=self.ttt_o)
-                elif select == 2 and value[2] == '':
+                elif value[2] == '':
                     self.btn3['text'] = comp_turn
                     self.btn3.config(image=self.ttt_o)
             elif index == 4:
-                select = random.choice([3, 5, 7])
-                if select == 3 and value[3] == '':
+                if value[3] == '':
                     self.btn4['text'] = comp_turn
                     self.btn4.config(image=self.ttt_o)
-                elif select == 5 and value[5] == '':
+                elif value[5] == '':
                     self.btn6['text'] = comp_turn
                     self.btn6.config(image=self.ttt_o)
-                elif select == 7 and value[7] == '':
+                elif value[7] == '':
                     self.btn8['text'] = comp_turn
                     self.btn8.config(image=self.ttt_o)
             elif index == 5:
-                select = random.choice([6, 4, 2])
-                if select == 6 and value[6] == '':
+                if value[6] == '':
                     self.btn7['text'] = comp_turn
                     self.btn7.config(image=self.ttt_o)
-                elif select == 4 and value[4] == '':
+                elif value[4] == '':
                     self.btn5['text'] = comp_turn
                     self.btn5.config(image=self.ttt_o)
-                elif select == 2 and value[2] == '':
+                elif value[2] == '':
                     self.btn3['text'] = comp_turn
                     self.btn3.config(image=self.ttt_o)
             elif index == 6:
-                select = random.choice([0, 4, 8])
-                if select == 0 and value[0] == '':
+                if value[0] == '':
                     self.btn1['text'] = comp_turn
                     self.btn1.config(image=self.ttt_o)
-                elif select == 4 and value[4] == '':
+                elif value[4] == '':
                     self.btn5['text'] = comp_turn
                     self.btn5.config(image=self.ttt_o)
-                elif select == 8 and value[8] == '':
+                elif value[8] == '':
                     self.btn9['text'] = comp_turn
                     self.btn9.config(image=self.ttt_o)
             elif index == 7:
-                select = random.choice([0, 2, 4])
-                if select == 0 and value[0] == '':
+                if value[0] == '':
                     self.btn1['text'] = comp_turn
                     self.btn1.config(image=self.ttt_o)
-                elif select == 2 and value[2] == '':
+                elif value[2] == '':
                     self.btn3['text'] = comp_turn
                     self.btn3.config(image=self.ttt_o)
-                elif select == 4 and value[4] == '':
+                elif value[4] == '':
                     self.btn5['text'] = comp_turn
                     self.btn5.config(image=self.ttt_o)
             elif index == 8:
-                select = random.choice([3, 4, 5])
-                if select == 3 and value[3] == '':
+                if value[3] == '':
                     self.btn4['text'] = comp_turn
                     self.btn4.config(image=self.ttt_o)
-                elif select == 4 and value[4] == '':
+                elif value[4] == '':
                     self.btn5['text'] = comp_turn
                     self.btn5.config(image=self.ttt_o)
-                elif select == 5 and value[5] == '':
+                elif value[5] == '':
                     self.btn6['text'] = comp_turn
                     self.btn6.config(image=self.ttt_o)
             else:
-                for i, v in enumerate(value, 1):
+                for i in len(value):
                     if value[i] == '':
-                        if i == 1:
+                        if i == 0:
                             self.btn1['text'] = comp_turn
                             self.btn1.config(image=self.ttt_o)
-                        elif i == 2:
+                        elif i == 1:
                             self.btn2['text'] = comp_turn
                             self.btn2.config(image=self.ttt_o)
-                        elif i == 3:
+                        elif i == 2:
                             self.btn3['text'] = comp_turn
                             self.btn3.config(image=self.ttt_o)
-                        elif i == 4:
+                        elif i == 3:
                             self.btn4['text'] = comp_turn
                             self.btn4.config(image=self.ttt_o)
-                        elif i == 5:
+                        elif i == 4:
                             self.btn5['text'] = comp_turn
                             self.btn5.config(image=self.ttt_o)
-                        elif i == 6:
+                        elif i == 5:
                             self.btn6['text'] = comp_turn
                             self.btn6.config(image=self.ttt_o)
-                        elif i == 7:
+                        elif i == 6:
                             self.btn7['text'] = comp_turn
                             self.btn7.config(image=self.ttt_o)
-                        elif i == 8:
+                        elif i == 7:
                             self.btn8['text'] = comp_turn
                             self.btn8.config(image=self.ttt_o)
-                        elif i == 9:
+                        elif i == 8:
                             self.btn9['text'] = comp_turn
                             self.btn9.config(image=self.ttt_o)
