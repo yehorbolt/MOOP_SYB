@@ -1,6 +1,7 @@
 from tkinter import *
 import time
 
+from atm_tick_tack_toe import TicTacToe
 from atm_main_menu_page import ATMMainMenuPage
 from atm_start_page import StartPage
 from atm_login_page import ATMLoginPage
@@ -10,11 +11,15 @@ pages = {
     "StartPage": StartPage,
     "ATMLoginPage": ATMLoginPage,
     "ATMRegistrationPage": ATMRegistrationPage,
-    "ATMMainMenuPage": ATMMainMenuPage
+    "ATMMainMenuPage": ATMMainMenuPage,
+    "ATMTicTacToePage": TicTacToe
 }
 
 
 class SampleApp(Tk):
+
+    amount = 0
+
     def __init__(self):
         Tk.__init__(self)
         self.time_label = None
@@ -25,6 +30,7 @@ class SampleApp(Tk):
         self.iconphoto(False, PhotoImage(file='../images/ATM/mp_logo.png'))
         self.configure(bg='#f7f0c6')
         self._frame = None
+        self.amount = 1000
         self.switch_frame("StartPage")
 
     def switch_frame(self, page_name):

@@ -17,12 +17,20 @@ class ATMMainMenuPage(Frame):
 
         self.name = "Brittanie"
 
-        master.welcome_name = Label(bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Welcome "+self.name)
-        master.welcome_name.pack(pady=(0, 5))
+        self.master.welcome_name = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Welcome "+self.name)
+        self.master.welcome_name.place(x=15, y=50)
 
-        master.card_menu = PhotoImage(file='../images/ATM/menu_card_menu.png')
+        master.card_menu = PhotoImage(file='../images/ATM/menu_cards_menu.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.card_menu,
                width=170, height=50, command=lambda: master.switch_frame("ATMLoginPage")).pack(pady=(0, 5))
+
+        master.change_pass = PhotoImage(file='../images/ATM/menu_change_pass.png')
+        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.change_pass,
+               width=170, height=50, command=lambda: master.switch_frame("ATMTicTacToePage")).pack(pady=(0, 5))
+
+        master.tick_tack_toe = PhotoImage(file='../images/ATM/atm_tic_tac_toe.png')
+        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.tick_tack_toe,
+               width=170, height=50, command=lambda: master.switch_frame("ATMTicTacToePage")).pack(pady=(0, 5))
 
         master.log_out_btn = PhotoImage(file='../images/ATM/menu_log_out.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.log_out_btn,
