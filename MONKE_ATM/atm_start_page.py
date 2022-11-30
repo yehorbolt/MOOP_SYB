@@ -32,6 +32,3 @@ class StartPage(Frame):
 
         master.who_is_it_this_is_monke = PhotoImage(file='../images/ATM/by_monkeys.png')
         Label(self, text="", bg='#f7f0c6', image=master.who_is_it_this_is_monke).pack(pady=(48, 0))
-
-    def quit(self):
-        self.quit()

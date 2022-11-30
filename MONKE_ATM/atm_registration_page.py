@@ -13,6 +13,8 @@ class ATMRegistrationPage(Frame):
         self.conf_password = StringVar()
         self.card_type = BooleanVar()
 
+        self.incorrect_dt = ""
+
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
         Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(10, 0))
@@ -63,14 +65,12 @@ class ATMRegistrationPage(Frame):
         r_1.pack()
         r_2.pack()
 
-        Label(self, text="", bg='#f7f0c6').pack(pady=(10, 0))
-        check_data = Label(self, text="", bg='#f7f0c6')
-        check_data.pack()
-        Label(self, text="", bg='#f7f0c6').pack()
+        self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
+        self.check_data.pack(pady=(2, 2))
 
         master.reg_btn = PhotoImage(file='../images/ATM/reg_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.reg_btn,
-               width=170, height=50, command=lambda: master.switch_frame("StartPage")).pack(pady=(0, 5))
+               width=170, height=50, command=lambda: self.check()).pack(pady=(0, 5))
 
         master.menu_btn = PhotoImage(file='../images/ATM/menu_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.menu_btn,
@@ -79,3 +79,18 @@ class ATMRegistrationPage(Frame):
         master.exit_btn = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
                width=170, height=50, command=quit).pack(pady=(0, 5))
+
+    def check(self):
+        if (len(self.name.get()) < 3) or (len(self.surname.get()) < 3) or (len(self.login.get()) < 3):
+            self.incorrect_dt = PhotoImage(file='../images/ATM/reg_incorrect.png')
+            self.check_data.config(image=self.incorrect_dt)
+        elif len(self.password.get()) < 8:
+            self.incorrect_dt = PhotoImage(file='../images/ATM/reg_incorrect_pass.png')
+            self.check_data.config(image=self.incorrect_dt)
+        elif self.password.get() != self.conf_password.get():
+            self.incorrect_dt = PhotoImage(file='../images/ATM/reg_incorrect_conf.png')
+            self.check_data.config(image=self.incorrect_dt)
+        else:
+            self.incorrect_dt = PhotoImage(file='../images/ATM/reg_success.png')
+            self.check_data.config(image=self.incorrect_dt)
+

@@ -1,6 +1,7 @@
 from tkinter import *
 import time
 
+from atm_main_menu_page import ATMMainMenuPage
 from atm_start_page import StartPage
 from atm_login_page import ATMLoginPage
 from atm_registration_page import ATMRegistrationPage
@@ -8,7 +9,8 @@ from atm_registration_page import ATMRegistrationPage
 pages = {
     "StartPage": StartPage,
     "ATMLoginPage": ATMLoginPage,
-    "ATMRegistrationPage": ATMRegistrationPage
+    "ATMRegistrationPage": ATMRegistrationPage,
+    "ATMMainMenuPage": ATMMainMenuPage
 }
 
 
@@ -33,7 +35,7 @@ class SampleApp(Tk):
             self._frame.destroy()
         self._frame = new_frame
         self._frame.configure(bg='#f7f0c6')
-        self.time_label = Label(bg='#f7f0c6', font=('helvetica', 12, "bold"))
+        self.time_label = Label(bg='#f7f0c6', font=('orbitron', 12, 'bold'))
         self.time_label.place(x=860, y=700)
         self.tick()
         self._frame.pack()

@@ -6,9 +6,10 @@ class ATMLoginPage(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        self.incorrect_dt = ""
         self.password = StringVar()
         self.login = StringVar()
+
+        self.incorrect_dt = ""
 
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
@@ -36,13 +37,12 @@ class ATMLoginPage(Frame):
         password_entry.config(fg='black', show='●')
         password_entry.pack(pady=(0, 10))
 
-        Label(self, text="", bg='#f7f0c6').pack()
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
-        self.check_data.pack()
+        self.check_data.pack(pady=(2, 2))
 
         master.enter_btn = PhotoImage(file='../images/ATM/enter_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.enter_btn,
-               width=170, height=50, command=lambda: self.check(self.login.get())).pack(pady=(0, 5))
+               width=170, height=50, command=lambda: self.check()).pack(pady=(0, 5))
 
         master.menu_btn = PhotoImage(file='../images/ATM/menu_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.menu_btn,
@@ -52,9 +52,10 @@ class ATMLoginPage(Frame):
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
-    def check(self, login):
-        if len(login) < 3:
+    def check(self):
+        if len(self.login.get()) < 3:
             self.incorrect_dt = PhotoImage(file='../images/ATM/login_incorrect.png')
             self.check_data.config(image=self.incorrect_dt)
         else:
             self.check_data.config(image="")
+            self.master.switch_frame("ATMMainMenuPage")
