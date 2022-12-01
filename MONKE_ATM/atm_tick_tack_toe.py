@@ -1,4 +1,3 @@
-from threading import Thread
 from tkinter import *
 
 
@@ -111,113 +110,66 @@ class TicTacToe(Frame):
         self.btn9.config(image=self.empty_box)
 
     def onclick(self, args):
-
         if args == 1:
             if self.btn1['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn1['text'] = self.turn
                 self.btn1.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
         if args == 2:
             if self.btn2['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn2['text'] = self.turn
                 self.btn2.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
         if args == 3:
             if self.btn3['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn3['text'] = self.turn
                 self.btn3.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
         if args == 4:
             if self.btn4['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn4['text'] = self.turn
                 self.btn4.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
         if args == 5:
             if self.btn5['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn5['text'] = self.turn
                 self.btn5.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
         if args == 6:
             if self.btn6['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn6['text'] = self.turn
                 self.btn6.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
         if args == 7:
             if self.btn7['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn7['text'] = self.turn
                 self.btn7.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
         if args == 8:
             if self.btn8['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn8['text'] = self.turn
                 self.btn8.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
         if args == 9:
             if self.btn9['text'] == '':
                 self.winOrLose = ""
                 self.check_data.configure(image=self.winOrLose)
                 self.btn9['text'] = self.turn
                 self.btn9.config(image=self.ttt_x)
-                self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
-                              self.btn4['text'], self.btn5['text'], self.btn6['text'],
-                              self.btn7['text'], self.btn8['text'], self.btn9['text']]
-                Thread(target=self.all_call, args=(self.value,)).start()
-
+        self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
+                      self.btn4['text'], self.btn5['text'], self.btn6['text'],
+                      self.btn7['text'], self.btn8['text'], self.btn9['text']]
+        self.computer(self.value)
         self.winner_checker()
         self.tie_checker(self.value)
-
-    def all_call(self, value):
-        # winning calculator
-        winner_thread = Thread(target=self.winner_checker)
-        winner_thread.start()
-
-        # this for tie checker
-        tie_thread = Thread(target=self.tie_checker, args=(value,))
-        tie_thread.start()
-
-        # computer player
-        computer_thread = Thread(target=self.computer, args=(value,))
-        computer_thread.start()
 
     def winner_checker(self):
         check1 = self.btn1['text'] == self.btn2['text'] == self.btn3['text'] != ''
@@ -320,7 +272,6 @@ class TicTacToe(Frame):
                     self.master.amount += 100
                     print(self.master.amount)
                     self.erase_after()
-
         if self.is_won:
             if check1:
                 add_points()
@@ -338,8 +289,6 @@ class TicTacToe(Frame):
                 add_points()
             elif check8:
                 add_points()
-
-        Thread(target=self.tie_checker, args=(self.value,)).start()
 
     def tie_checker(self, check):
         if self.is_won:
@@ -423,132 +372,47 @@ class TicTacToe(Frame):
         elif (value[2] == value[6] != '') and value[4] == '':
             self.btn5['text'] = comp_turn
             self.btn5.config(image=self.ttt_o)
-
         else:
-            try:
-                index = value.index('X')
-            except ValueError:
-                index = value.index('O')
-
-            if index == 0:
-                if value[2] == '':
-                    self.btn3['text'] = comp_turn
-                    self.btn3.config(image=self.ttt_o)
-                elif value[4] == '':
-                    self.btn5['text'] = comp_turn
-                    self.btn5.config(image=self.ttt_o)
-                elif value[3] == '':
-                    self.btn4['text'] = comp_turn
-                    self.btn4.config(image=self.ttt_o)
-            elif index == 1:
-                if value[6] == '':
-                    self.btn7['text'] = comp_turn
-                    self.btn7.config(image=self.ttt_o)
-                elif value[4] == '':
-                    self.btn5['text'] = comp_turn
-                    self.btn5.config(image=self.ttt_o)
-                elif value[8] == '':
-                    self.btn9['text'] = comp_turn
-                    self.btn9.config(image=self.ttt_o)
-            elif index == 2:
-                if value[8] == '':
-                    self.btn9['text'] = comp_turn
-                    self.btn9.config(image=self.ttt_o)
-                elif value[4] == '':
-                    self.btn5['text'] = comp_turn
-                    self.btn5.config(image=self.ttt_o)
-                elif value[6] == '':
-                    self.btn7['text'] = comp_turn
-                    self.btn7.config(image=self.ttt_o)
-            elif index == 3:
-                if value[6] == '':
-                    self.btn7['text'] = comp_turn
-                    self.btn7.config(image=self.ttt_o)
-                elif value[4] == '':
-                    self.btn5['text'] = comp_turn
-                    self.btn5.config(image=self.ttt_o)
-                elif value[2] == '':
-                    self.btn3['text'] = comp_turn
-                    self.btn3.config(image=self.ttt_o)
-            elif index == 4:
-                if value[3] == '':
-                    self.btn4['text'] = comp_turn
-                    self.btn4.config(image=self.ttt_o)
-                elif value[5] == '':
-                    self.btn6['text'] = comp_turn
-                    self.btn6.config(image=self.ttt_o)
-                elif value[7] == '':
-                    self.btn8['text'] = comp_turn
-                    self.btn8.config(image=self.ttt_o)
-            elif index == 5:
-                if value[6] == '':
-                    self.btn7['text'] = comp_turn
-                    self.btn7.config(image=self.ttt_o)
-                elif value[4] == '':
-                    self.btn5['text'] = comp_turn
-                    self.btn5.config(image=self.ttt_o)
-                elif value[2] == '':
-                    self.btn3['text'] = comp_turn
-                    self.btn3.config(image=self.ttt_o)
-            elif index == 6:
-                if value[0] == '':
-                    self.btn1['text'] = comp_turn
-                    self.btn1.config(image=self.ttt_o)
-                elif value[4] == '':
-                    self.btn5['text'] = comp_turn
-                    self.btn5.config(image=self.ttt_o)
-                elif value[8] == '':
-                    self.btn9['text'] = comp_turn
-                    self.btn9.config(image=self.ttt_o)
-            elif index == 7:
-                if value[0] == '':
-                    self.btn1['text'] = comp_turn
-                    self.btn1.config(image=self.ttt_o)
-                elif value[2] == '':
-                    self.btn3['text'] = comp_turn
-                    self.btn3.config(image=self.ttt_o)
-                elif value[4] == '':
-                    self.btn5['text'] = comp_turn
-                    self.btn5.config(image=self.ttt_o)
-            elif index == 8:
-                if value[3] == '':
-                    self.btn4['text'] = comp_turn
-                    self.btn4.config(image=self.ttt_o)
-                elif value[4] == '':
-                    self.btn5['text'] = comp_turn
-                    self.btn5.config(image=self.ttt_o)
-                elif value[5] == '':
-                    self.btn6['text'] = comp_turn
-                    self.btn6.config(image=self.ttt_o)
-            else:
-                for i in range(len(value)):
-                    if value[i] == '':
-                        if i == 0:
-                            self.btn1['text'] = comp_turn
-                            self.btn1.config(image=self.ttt_o)
-                        elif i == 1:
-                            self.btn2['text'] = comp_turn
-                            self.btn2.config(image=self.ttt_o)
-                        elif i == 2:
-                            self.btn3['text'] = comp_turn
-                            self.btn3.config(image=self.ttt_o)
-                        elif i == 3:
-                            self.btn4['text'] = comp_turn
-                            self.btn4.config(image=self.ttt_o)
-                        elif i == 4:
-                            self.btn5['text'] = comp_turn
-                            self.btn5.config(image=self.ttt_o)
-                        elif i == 5:
-                            self.btn6['text'] = comp_turn
-                            self.btn6.config(image=self.ttt_o)
-                        elif i == 6:
-                            self.btn7['text'] = comp_turn
-                            self.btn7.config(image=self.ttt_o)
-                        elif i == 7:
-                            self.btn8['text'] = comp_turn
-                            self.btn8.config(image=self.ttt_o)
-                        elif i == 8:
-                            self.btn9['text'] = comp_turn
-                            self.btn9.config(image=self.ttt_o)
+            for i in range(len(value)):
+                if value[i] == '':
+                    if i == 0:
+                        self.btn1['text'] = comp_turn
+                        self.btn1.config(image=self.ttt_o)
+                        break
+                    if i == 1:
+                        self.btn2['text'] = comp_turn
+                        self.btn2.config(image=self.ttt_o)
+                        break
+                    if i == 2:
+                        self.btn3['text'] = comp_turn
+                        self.btn3.config(image=self.ttt_o)
+                        break
+                    if i == 3:
+                        self.btn4['text'] = comp_turn
+                        self.btn4.config(image=self.ttt_o)
+                        break
+                    if i == 4:
+                        self.btn5['text'] = comp_turn
+                        self.btn5.config(image=self.ttt_o)
+                        break
+                    if i == 5:
+                        self.btn6['text'] = comp_turn
+                        self.btn6.config(image=self.ttt_o)
+                        break
+                    if i == 6:
+                        self.btn7['text'] = comp_turn
+                        self.btn7.config(image=self.ttt_o)
+                        break
+                    if i == 7:
+                        self.btn8['text'] = comp_turn
+                        self.btn8.config(image=self.ttt_o)
+                        break
+                    if i == 8:
+                        self.btn9['text'] = comp_turn
+                        self.btn9.config(image=self.ttt_o)
+                        break
+        self.value = [self.btn1['text'], self.btn2['text'], self.btn3['text'],
+                      self.btn4['text'], self.btn5['text'], self.btn6['text'],
+                      self.btn7['text'], self.btn8['text'], self.btn9['text']]
         self.winner_checker()
         self.tie_checker(self.value)
