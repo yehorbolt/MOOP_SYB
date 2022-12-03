@@ -22,4 +22,20 @@ Database realtions:
 4. 1 ATM has N Transactios
 5. 1 Bank has N ATMs
 
-All the classes are the representations of an object in database and in real life. 
+All the classes are the representations of objects in database and in real life.
+So, how the program works?
+A user creates his account when registrating -> created new user and his account in database
+Then user chooses a card he wants to have -> card is added to database
+
+And then user has various things to do:
+1. Withdraw money.
+2. Put money on the card.
+3. Make transaction.
+4. Create a new card.
+5. Delete card.
+6. Delete account (deletes user itself).
+
+There are 3 different types of cards:
+1. Savings ()
+2. Credit ()
+3. Checking ()
