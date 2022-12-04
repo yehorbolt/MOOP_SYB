@@ -1,7 +1,7 @@
 from ConnectToDB import ConnectToDb as con
 
 """
-This class is responsible for a user
+    This class is responsible for an user entity
 """
 class User:
     id = int(1)
@@ -9,7 +9,7 @@ class User:
     password = str("default")
 
     """
-    Execute the query in database and return the records from specific table
+    Constructor 
     :param timestamp: query
     :type timestamp: str 
     :returns: all the records in specific table in database
@@ -72,6 +72,16 @@ class User:
         con.executeWithVal(query, val)
 
     """
+    Deletes the User from the database
+    :param: self
+    :type: User 
+    :returns: nothing
+    """
+    def deleteUser(self):
+        query = "DELETE FROM user WHERE id = " + str (self.id) + ";"
+        con.execute(query)
+
+    """
     Returns string representation of the User 
     :param: self
     :type: User 
@@ -79,5 +89,4 @@ class User:
     :rtype: str
     """
     def __str__(self):
-        return f"login: {self.login}, password: {self.password}"
-
+        return f"id: {self.id}, login: {self.login}, password: {self.password}"
