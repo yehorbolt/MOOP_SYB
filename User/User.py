@@ -25,7 +25,7 @@ class User:
         self.id = con.getLastId("user") + 1
         self.login = login
         self.password = password
-        self.createUser(self.id, self.login, self.password)
+        self.createUser()
 
     """
     Checks if User with login given is already in a database
@@ -48,9 +48,9 @@ class User:
     :type: User, int, str, str 
     :returns: nothing
     """
-    def createUser(self, id, login, password):
+    def createUser(self):
         query = "INSERT INTO user (id, login, password) VALUES (%s, %s, %s);"
-        val = (id, login, password)
+        val = (self.id, self.login, self.password)
         con.executeWithVal(query, val)
 
     """
