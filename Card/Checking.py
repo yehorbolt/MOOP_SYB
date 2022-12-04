@@ -1,4 +1,5 @@
 from Card import Card
+from Transfer.Transaction import Transaction
 from ConnectToDB import ConnectToDb as con
 
 """
@@ -14,6 +15,15 @@ class Checking(Card):
     limit = float (0)
     valid = bool (0)
     account_id = int (0)
+
+    """
+    Constructor 
+    :param: self
+    :type: Checking
+    :returns: nothing
+    """
+    def __init__(self, password, cardType, gold, balance, limit, valid, account):
+        super(Checking, self).__init__(password, "checking", gold, balance, limit, valid, account)
 
     #make transaction from one card to another card
     def makeTransaction(self, card, amount):
