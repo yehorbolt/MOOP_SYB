@@ -111,7 +111,7 @@ class Card:
     """
     def validType(self, type):
         type = str (type)
-        if type != "savings" and type != "credit" and type != "checking":
+        if type != "savings" or type != "credit" or type != "checking":
             return False
         else:
             return True
@@ -128,6 +128,15 @@ class Card:
             raise Exception("You have entered same password for a Card!")
         assert self.validPassword(newPassword) == True, "Password must be be 4 numbers from 0 to 9!"
         self.password = newPassword
+        self.updatePassword()
+
+    """
+    This method updates the Card password in the database
+    :param: self
+    :type: Card
+    :returns: nothing
+    """
+    def updatePassword(self):
         query = "UPDATE card SET password = %s WHERE id = %s;"
         val = (self.password, self.id)
         con.executeWithVal(query, val)
@@ -145,6 +154,15 @@ class Card:
             raise Exception("You have entered same balance for a Card!")
         assert newBalance >= 0, "newBalance must be equal or more than 0!"
         self.balance = newBalance
+        self.updateBalance()
+
+    """
+    This method updates the Card balance in the database
+    :param: self
+    :type: Card
+    :returns: nothing
+    """
+    def updateBalance(self):
         query = "UPDATE card SET balance = %s WHERE id = %s;"
         val = (self.balance, self.id)
         con.executeWithVal(query, val)
@@ -160,6 +178,15 @@ class Card:
         if gold == self.gold:
             raise Exception("You have entered same gold status for a Card!")
         self.gold = gold
+        self.updateGold()
+
+    """
+    This method updates the Card gold status in the database
+    :param: self
+    :type: Card
+    :returns: nothing
+    """
+    def updateGold(self):
         query = "UPDATE card SET gold = %s WHERE id = %s;"
         val = (self.gold, self.id)
         con.executeWithVal(query, val)
@@ -175,6 +202,15 @@ class Card:
         if valid == self.valid:
             raise Exception("You have entered same valid status for a Card!")
         self.valid = valid
+        self.updateValid()
+
+    """
+    This method updates the Card valid status in the database
+    :param: self
+    :type: Card
+    :returns: nothing
+    """
+    def updateValid(self):
         if self.valid == True:
             query = "UPDATE card SET valid = %s WHERE id = %s;"
             val = (self.balance, self.id)
@@ -194,6 +230,15 @@ class Card:
             raise Exception("You have entered same limit for a Card!")
         assert newLimit >= 0, "newLimit must be equal or more than 0!"
         self.limit = newLimit
+        self.updateValid()
+
+        """
+    This method updates the Card limit in the database
+    :param: self
+    :type: Card
+    :returns: nothing
+    """
+    def updateLimit(self):
         query = 'UPDATE card SET "limit" = %s WHERE id = %s;'
         val = (self.limit, self.id)
         con.executeWithVal(query, val)
