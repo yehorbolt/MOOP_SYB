@@ -1,7 +1,8 @@
 # MOOP_SYB
 MonkeFlip! 
 This project is a final task for a discipline called "OOP Methods". 
-It is a small game that represents the interaction between user and atm. 
+It is a console program that represents the interaction between user and atm.
+Its' usage can be widened, because there are lot of other abilities except for working with ATM as a User.
 
 Technologies used:
 1. Python
