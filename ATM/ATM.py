@@ -23,7 +23,7 @@ class ATM:
         self.id = con.getLastId("atm") + 1
         self.address = address
         self.bank_id = bank.id
-        self.createAtm(self.id, self.address, self.bank_id)
+        self.createAtm()
 
     """
     Checks if ATM with address and bank_id given is already in a database
@@ -46,9 +46,9 @@ class ATM:
     :type: ATM, int, str, int
     :returns: nothing
     """
-    def createAtm(self, id, address, bank_id):
+    def createAtm(self):
         query = "INSERT INTO atm (id, address, bank_id) VALUES (%s, %s, %s);"
-        val = (id, address, bank_id)
+        val = (self.id, self.address, self.bank_id)
         con.executeWithVal(query, val)
 
     """

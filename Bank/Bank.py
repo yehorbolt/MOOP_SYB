@@ -27,7 +27,7 @@ class Bank:
         self.name = name
         self.headquarters = headquarters
         self.branch = branch
-        self.createBank(self.id, self.name, self.headquarters, self.branch)
+        self.createBank()
 
 
     """
@@ -52,9 +52,9 @@ class Bank:
     :type: User, int, str, str 
     :returns: nothing
     """
-    def createBank(self, id, name, headquarters, branch):
+    def createBank(self):
         query = "INSERT INTO bank (id, name, headquarters, branch) VALUES (%s, %s, %s, %s);"
-        val = (id, name, headquarters, branch)
+        val = (self.id, self.name, self.headquarters, self.branch)
         con.executeWithVal(query, val)
 
     """
