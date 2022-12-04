@@ -19,9 +19,6 @@ class Bank:
         assert type(name) is str, "Name must be a string!"
         assert type(headquarters) is str, "Headquarters must be a string!"
         assert type(branch) is str, "Branch must be a string!"
-        name = str(name)                    # converts name (object) into str
-        headquarters = str(headquarters)    # converts headquarters (object) into str
-        branch = str(branch)                # converts branch (object) into str
         assert self.checkName(name) == True, "Bank with such name is already existing! Create a bank with another name!"
         self.id = con.getLastId("bank") + 1
         self.name = name
@@ -48,8 +45,8 @@ class Bank:
 
     """
     Creates user in database
-    :param: self, id, login, password
-    :type: User, int, str, str 
+    :param: self
+    :type: User
     :returns: nothing
     """
     def createBank(self):
