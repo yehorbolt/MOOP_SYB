@@ -2,12 +2,13 @@ from Card import Card
 
 #class that is responsible for checking card
 class Checking(Card):
-    id = 0
-    number = ""
-    password = ""
-    type = "checking"
-    balance = 0
-    gold = 0
+    id = int (0)
+    number = int (0)
+    password = int (0)
+    type = str ("default")
+    gold = bool (0)
+    balance = int (0)
+    account_id = int (0)
 
     #make transaction from one card to another card
     def makeTransaction(self, card, amount):

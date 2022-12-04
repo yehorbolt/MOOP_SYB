@@ -1,8 +1,9 @@
 # class that is responsible for the Bank
 class Bank:
-    name = "Monkey Bank"
-    headquarters = "Kyiv"
-    branch = "Main"
+    id = int (0)
+    name = str ("Monkey Bank")
+    headquarters = str ("Kyiv")
+    branch = str ("Main")
 
     #change name of the bank
     def changeName(self, newName):

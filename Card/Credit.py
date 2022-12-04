@@ -2,14 +2,15 @@ from Card import Card
 
 #class that is responsible for checking card
 class Credit(Card):
-    id = 0
-    number = ""
-    password = ""
-    type = "credit"
-    balance = 0
-    gold = 0
-    limit = 0
-    bankInterest = 0
+    id = int (0)
+    number = int (0)
+    password = int (0)
+    type = str ("default")
+    gold = bool (0)
+    balance = int (0)
+    account_id = int (0)
+    limit = int (0)
+    bankInterest = float (0)
 
     #take money from the card
     def makeTransaction(self, amount):
