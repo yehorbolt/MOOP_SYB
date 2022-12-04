@@ -21,6 +21,7 @@ class User:
         assert type(password) is str, "Password must be a string!"
         assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
         assert password.__len__() >= 8, "Password must be longer than 7 symbols!"
+        assert type(money) is float or type(money) is int, "Money must be a float or an int!"
         self.id = con.getLastId("user") + 1
         self.login = login
         self.password = password
@@ -77,6 +78,31 @@ class User:
     def updatePassword(self):
         query = "UPDATE user SET password = %s WHERE id = %s;"
         val = (self.password, self.id)
+        con.executeWithVal(query, val)
+
+    """
+    Changes the money of the User
+    :param: self, new money
+    :type: User, float/int
+    :returns: nothing
+    """
+    def changeMoney(self, newMoney):
+        assert type(newMoney) is float or type(newMoney) is int, "newMoney must be a float or an int!"
+        assert newMoney >= 0, "newMoney must be more than -1"
+        if newMoney == self.newMoney:
+            raise Exception("You have entered same amount of money!")
+        self.password = newMoney
+        self.updateMoney()
+
+    """
+    Update amount of the money the User has in database
+    :param: self
+    :type: User
+    :returns: nothing
+    """
+    def updatePassword(self):
+        query = "UPDATE user SET money = %s WHERE id = %s;"
+        val = (self.money, self.id)
         con.executeWithVal(query, val)
 
     """
