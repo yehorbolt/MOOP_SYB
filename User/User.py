@@ -18,8 +18,6 @@ class User:
     def __init__(self, login, password):
         assert type(login) is str, "Login must be a string!"
         assert type(password) is str, "Password must be a string!"
-        login = str(login)  # converts login (object) into str
-        password = str(password)  # converts password (object) into str
         assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
         assert password.__len__() >= 8, "Password must be longer than 7 symbols!"
         self.id = con.getLastId("user") + 1
@@ -44,8 +42,8 @@ class User:
 
     """
     Creates user in database
-    :param: self, id, login, password
-    :type: User, int, str, str 
+    :param: self
+    :type: User
     :returns: nothing
     """
     def createUser(self):

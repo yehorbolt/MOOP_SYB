@@ -18,7 +18,6 @@ class ATM:
     def __init__(self, address, bank):
         assert type(address) is str, "Address must be a string!"
         assert type(bank) is Bank, "You must give a Bank as the last parameter for creating an ATM!"
-        address = str(address)  # converts address (object) into str
         assert self.checkAddress(address, bank.id) == True, "ATM with such address is already existing! Create an ATM with another address!"
         self.id = con.getLastId("atm") + 1
         self.address = address
@@ -42,8 +41,8 @@ class ATM:
 
     """
     Creates ATM in database
-    :param: self, id, address, bank_id
-    :type: ATM, int, str, int
+    :param: self
+    :type: ATM
     :returns: nothing
     """
     def createAtm(self):

@@ -27,9 +27,6 @@ class Account:
         assert type(status) is str, "Status must be a string!"
         assert type(user) is User, "You must give User as a parameter for an account class!"
         assert type(bank) is Bank, "You must give Bank as a parameter for an account class!"
-        name = str(name)          # converts name (object) into str
-        surname = str(surname)    # converts surname (object) into str
-        status = str(status)      # converts status (object) into str
         assert self.validName(name) == True, "Name is invalid! Enter the valid one"
         assert self.validSurname(surname) == True, "Surname is invalid! Enter the valid one"
         assert self.validStatus(status) == True, "Stauts is invalid! Enter the valid one"
@@ -44,8 +41,8 @@ class Account:
 
     """
     Creates Account in database
-    :param: self, id, login, password
-    :type: Account, int, str, str 
+    :param: self
+    :type: Account 
     :returns: nothing
     """
     def createAccount(self):
