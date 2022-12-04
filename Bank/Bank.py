@@ -62,10 +62,20 @@ class Bank:
     """
     def changeName(self, newName):
         assert type(newName) is str, "newName must be a string!"
+        assert self.checkName(newName) == True, "Bank with this name is already existing!"
         newName = str(newName)  # converts newName (object) into str
         assert newName != self.name, "You have entered same bank name!"
         assert newName.__len__() >= 1, "You can't change the name of the bank on a new one with length < 1!"
         self.name = newName
+        self.updateName()
+
+    """
+    This method updates name of the Bank in database
+    :param: self
+    :type: Bank
+    :returns: nothing
+    """
+    def updateName(self):
         query = "UPDATE bank SET name = %s WHERE id = %s;"
         val = (self.name, self.id)
         con.executeWithVal(query, val)
@@ -82,6 +92,15 @@ class Bank:
         assert newHeadquarters != self.headquarters, "You have entered same bank headquarters!"
         assert newHeadquarters.__len__() >= 1, "You can't change the headquarters of the bank on a new one with length < 1!"
         self.headquarters = newHeadquarters
+        self.updateHeadquarters()
+
+    """
+    This method updates headquarters of the Bank in database
+    :param: self
+    :type: Bank
+    :returns: nothing
+    """
+    def updateHeadquarters(self):
         query = "UPDATE bank SET headquarters = %s WHERE id = %s;"
         val = (self.headquarters, self.id)
         con.executeWithVal(query, val)
@@ -98,6 +117,15 @@ class Bank:
         assert newBranch != self.name, "You have entered same branch of the bank!"
         assert newBranch.__len__() >= 1, "You can't change the branch of the bank on a new one with length < 1!"
         self.branch = newBranch
+        self.updateBranch()
+
+    """
+    This method updates branch of the Bank in database
+    :param: self
+    :type: Bank
+    :returns: nothing
+    """
+    def updateBranch(self):
         query = "UPDATE bank SET branch = %s WHERE id = %s;"
         val = (self.branch, self.id)
         con.executeWithVal(query, val)

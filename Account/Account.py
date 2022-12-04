@@ -95,6 +95,15 @@ class Account:
         assert newName != self.name, "You have entered same user name!"
         assert newName.__len__() >= 1, "You can't change the name of the user on a new one with length < 1!"
         self.name = newName
+        self.updateName()
+
+    """
+    This method updates name of the Account in the database
+    :param: self
+    :type: Account
+    :returns: nothing
+    """
+    def updateName(self):
         query = "UPDATE account SET name = %s WHERE id = %s;"
         val = (self.name, self.id)
         con.executeWithVal(query, val)
@@ -112,9 +121,19 @@ class Account:
         assert newSurname != self.surname, "You have entered same user surname!"
         assert newSurname.__len__() >= 1, "You can't change the surname of the user on a new one with length < 1!"
         self.surname = newSurname
+        self.updateSurname()
+
+    """
+    This method updates surname of the Account in the database
+    :param: self
+    :type: Account
+    :returns: nothing
+    """
+    def updateSurname(self):
         query = "UPDATE account SET surname = %s WHERE id = %s;"
         val = (self.surname, self.id)
         con.executeWithVal(query, val)
+
 
     """
     This method changes status of the user in his Account 
@@ -128,6 +147,15 @@ class Account:
         assert self.validStatus(newStatus) == True, "Status you've entered is wrong!"
         assert newStatus != self.status, "You have entered same user status!"
         self.status = newStatus
+        self.updateStatus()
+
+    """
+    This method updates status of the Account in the database
+    :param: self
+    :type: Account
+    :returns: nothing
+    """
+    def updateStatus(self):
         query = "UPDATE account SET status = %s WHERE id = %s;"
         val = (self.status, self.id)
         con.executeWithVal(query, val)

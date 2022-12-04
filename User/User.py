@@ -7,6 +7,7 @@ class User:
     id = int(1)
     login = str("default")
     password = str("default")
+    money = float (0)
 
     """
     Constructor 
@@ -15,7 +16,7 @@ class User:
     :returns: all the records in specific table in database
     :rtype: tuple
     """
-    def __init__(self, login, password):
+    def __init__(self, login, password, money):
         assert type(login) is str, "Login must be a string!"
         assert type(password) is str, "Password must be a string!"
         assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
@@ -65,6 +66,15 @@ class User:
         if newPassword.__len__() < 8:
             raise Exception("You can't change the password on a new one with length < 8!")
         self.password = newPassword
+        self.updatePassword()
+
+    """
+    Update the password of the User in database
+    :param: self
+    :type: User
+    :returns: nothing
+    """
+    def updatePassword(self):
         query = "UPDATE user SET password = %s WHERE id = %s;"
         val = (self.password, self.id)
         con.executeWithVal(query, val)
