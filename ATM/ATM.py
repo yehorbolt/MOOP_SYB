@@ -2,9 +2,9 @@ from MOOP_SYB.Bank import Bank
 
 # class that is responsible for ATMs
 class ATM:
-    id = 0
-    adress = "default"
-    bank_id = 0
+    id = int (0)
+    adress = str ("default")
+    bank_id = int (0)
 
     def __init__(self, id, adress):
         self.id = id

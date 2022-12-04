@@ -1,12 +1,12 @@
 # this class is responsible for user's account in the bank, 1 -> 1 (1 user has 1 account)
 class Account:
-    id = 0
-    name = "default"
-    surname = "default"
-    number = 0
-    status = "default"
-    user_id = 0
-    bank_id = 0
+    id = int (0)
+    name = str ("default")
+    surname = str ("default")
+    number = int (0)
+    status = str ("default")
+    user_id = int (0)
+    bank_id = int (0)
 
     def __init__(self, name, surname, status):
         # check exception here
