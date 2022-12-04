@@ -6,6 +6,7 @@ It is a small game that represents the interaction between user and atm.
 Technologies used:
 1. Python
 2. MySQL
+3. Git
 
 Entities:
 1. User
