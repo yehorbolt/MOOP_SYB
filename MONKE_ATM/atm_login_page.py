@@ -23,18 +23,18 @@ class ATMLoginPage(Frame):
         master.login_sign = PhotoImage(file='../images/ATM/login_sign_in.png')
         Label(self, text="", bg='#f7f0c6', image=master.login_sign).pack()
 
-        master.login_reg = PhotoImage(file='../images/ATM/reg_enter_login.png')
+        master.login_reg = PhotoImage(file='../images/ATM/RegMenu/reg_enter_login.png')
         Label(self, text="", bg='#f7f0c6', image=master.login_reg).pack()
 
         login_entry = Entry(self, font=("arial", 12), textvariable=self.login)
         login_entry.config(fg='black')
         login_entry.pack(pady=(0, 10))
 
-        master.pass_reg = PhotoImage(file='../images/ATM/reg_enter_pass.png')
+        master.pass_reg = PhotoImage(file='../images/ATM/RegMenu/reg_enter_pass.png')
         Label(self, text="", bg='#f7f0c6', image=master.pass_reg).pack()
 
         password_entry = Entry(self, font=("arial", 12), textvariable=self.password)
-        password_entry.config(fg='black', show='●')
+        password_entry.config(fg='black', show='*')
         password_entry.pack(pady=(0, 10))
 
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
@@ -54,7 +54,7 @@ class ATMLoginPage(Frame):
 
     def check(self):
         if len(self.login.get()) < 3:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/login_incorrect.png')
+            self.incorrect_dt = PhotoImage(file='../images/ATM/Login/login_incorrect.png')
             self.check_data.config(image=self.incorrect_dt)
         else:
             self.check_data.config(image="")

@@ -6,13 +6,25 @@ from atm_main_menu_page import ATMMainMenuPage
 from atm_start_page import StartPage
 from atm_login_page import ATMLoginPage
 from atm_registration_page import ATMRegistrationPage
+from atm_card import ATMCardPage
+from atm_card_pin import ATMCardPin
+from atm_card_list import ATMCardListPage
+from atm_change_acc_pass import ATMChangePassword
+from atm_create_card import ATMCreateCard
+from atm_delete_user import ATMDeleteAccount
 
 pages = {
     "StartPage": StartPage,
     "ATMLoginPage": ATMLoginPage,
     "ATMRegistrationPage": ATMRegistrationPage,
     "ATMMainMenuPage": ATMMainMenuPage,
-    "ATMTicTacToePage": TicTacToe
+    "ATMTicTacToePage": TicTacToe,
+    "ATMCardPage": ATMCardPage,
+    "ATMCardPin": ATMCardPin,
+    "ATMCardListPage": ATMCardListPage,
+    "ATMChangePassword": ATMChangePassword,
+    "ATMCreateCard": ATMCreateCard,
+    "ATMDeleteAccount": ATMDeleteAccount
 }
 
 
