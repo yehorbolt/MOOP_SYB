@@ -20,7 +20,7 @@ class StartPage(Frame):
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.login_btn,
                width=170, height=50, command=lambda: master.switch_frame("ATMLoginPage")).pack(pady=(0, 5))
 
-        master.reg_btn = PhotoImage(file='../images/ATM/reg_btn.png')
+        master.reg_btn = PhotoImage(file='../images/ATM/RegMenu/reg_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.reg_btn,
                width=170, height=50, command=lambda: master.switch_frame("ATMRegistrationPage")).pack(pady=(0, 5))
 

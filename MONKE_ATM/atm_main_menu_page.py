@@ -22,11 +22,11 @@ class ATMMainMenuPage(Frame):
 
         master.card_menu = PhotoImage(file='../images/ATM/menu_cards_menu.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.card_menu,
-               width=170, height=50, command=lambda: master.switch_frame("ATMLoginPage")).pack(pady=(0, 5))
+               width=170, height=50, command=lambda: master.switch_frame("ATMCardListPage")).pack(pady=(0, 5))
 
         master.change_pass = PhotoImage(file='../images/ATM/menu_change_pass.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.change_pass,
-               width=170, height=50, command=lambda: master.switch_frame("ATMTicTacToePage")).pack(pady=(0, 5))
+               width=170, height=50, command=lambda: master.switch_frame("ATMChangePassword")).pack(pady=(0, 5))
 
         master.tick_tack_toe = PhotoImage(file='../images/ATM/atm_tic_tac_toe.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.tick_tack_toe,

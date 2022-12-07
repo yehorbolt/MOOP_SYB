@@ -8,9 +8,9 @@ class TicTacToe(Frame):
     def __init__(self, master):
 
         Frame.__init__(self, master)
-        self.empty_box = PhotoImage(file='../images/ATM/ttt_empty.png')
-        self.ttt_x = PhotoImage(file='../images/ATM/ttt_x.png')
-        self.ttt_o = PhotoImage(file='../images/ATM/ttt_o.png')
+        self.empty_box = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
+        self.ttt_x = PhotoImage(file='../images/ATM/TicTacToe/ttt_x.png')
+        self.ttt_o = PhotoImage(file='../images/ATM/TicTacToe/ttt_o.png')
         self.turn = 'X'
         self.winOrLose = ""
         print(self.master.amount)
@@ -23,53 +23,53 @@ class TicTacToe(Frame):
 
         Label(self, text="", bg='#f7f0c6').grid(column=0, row=2)
 
-        master.ttt_info = PhotoImage(file='../images/ATM/ttt_info.png')
+        master.ttt_info = PhotoImage(file='../images/ATM/TicTacToe/ttt_info.png')
         Label(self, text="", bg='#f7f0c6', image=master.ttt_info).grid(columnspan=9, row=3)
 
         Label(self, text="", bg='#f7f0c6', width=40).grid(column=0, row=4)
         Label(self, text="", bg='#f7f0c6', width=40).grid(column=8, row=4)
 
-        master.btn1_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn1_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn1 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn1_i, width=120, height=120, command=lambda: self.onclick(1))
         self.btn1.grid(column=3, row=4)
 
-        master.btn2_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn2_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn2 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn2_i, width=120, height=120, command=lambda: self.onclick(2))
         self.btn2.grid(column=4, row=4)
 
-        master.btn3_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn3_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn3 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn3_i, width=120, height=120, command=lambda: self.onclick(3))
         self.btn3.grid(column=5, row=4)
 
-        master.btn4_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn4_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn4 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn4_i, width=120, height=120, command=lambda: self.onclick(4))
         self.btn4.grid(column=3, row=5)
 
-        master.btn5_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn5_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn5 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn5_i, width=120, height=120, command=lambda: self.onclick(5))
         self.btn5.grid(column=4, row=5)
 
-        master.btn6_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn6_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn6 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn6_i, width=120, height=120, command=lambda: self.onclick(6))
         self.btn6.grid(column=5, row=5)
 
-        master.btn7_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn7_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn7 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn7_i, width=120, height=120, command=lambda: self.onclick(7))
         self.btn7.grid(column=3, row=6)
 
-        master.btn8_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn8_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn8 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn8_i, width=120, height=120, command=lambda: self.onclick(8))
         self.btn8.grid(column=4, row=6)
 
-        master.btn9_i = PhotoImage(file='../images/ATM/ttt_empty.png')
+        master.btn9_i = PhotoImage(file='../images/ATM/TicTacToe/ttt_empty.png')
         self.btn9 = Button(self, bg='#f7f0c6', activebackground='#f7f0c6', text='', relief=FLAT,
                            image=master.btn9_i, width=120, height=120, command=lambda: self.onclick(9))
         self.btn9.grid(column=5, row=6)
@@ -186,88 +186,88 @@ class TicTacToe(Frame):
         def add_points():
             if check1:
                 if 'O' in [self.btn1['text'], self.btn2['text'], self.btn3['text']]:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
                     self.erase_after()
             elif check2:
                 if 'O' in [self.btn4['text'], self.btn5['text'], self.btn6['text']]:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
                     self.erase_after()
             elif check3:
                 if 'O' in [self.btn7['text'], self.btn8['text'], self.btn9['text']]:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
                     self.erase_after()
             elif check4:
                 if 'O' in [self.btn1['text'], self.btn4['text'], self.btn7['text']]:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
                     self.erase_after()
             elif check5:
                 if 'O' in [self.btn2['text'], self.btn5['text'], self.btn8['text']]:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
                     self.erase_after()
             elif check6:
                 if 'O' in [self.btn3['text'], self.btn6['text'], self.btn9['text']]:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
                     self.erase_after()
             elif check7:
                 if 'O' in [self.btn1['text'], self.btn5['text'], self.btn9['text']]:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
                     self.erase_after()
             elif check8:
                 if 'O' in [self.btn3['text'], self.btn5['text'], self.btn7['text']]:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_lose.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.erase_after()
                 else:
-                    self.winOrLose = PhotoImage(file='../images/ATM/ttt_won.png')
+                    self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
                     self.master.amount += 100
                     print(self.master.amount)
@@ -293,7 +293,7 @@ class TicTacToe(Frame):
     def tie_checker(self, check):
         if self.is_won:
             if ('X' in check) and ('O' in check) and ('' not in check):
-                self.winOrLose = PhotoImage(file='../images/ATM/ttt_tie.png')
+                self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_tie.png')
                 self.check_data.configure(image=self.winOrLose)
                 self.erase_after()
 
