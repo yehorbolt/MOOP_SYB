@@ -28,6 +28,10 @@ class ATMMainMenuPage(Frame):
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.change_pass,
                width=170, height=50, command=lambda: master.switch_frame("ATMChangePassword")).pack(pady=(0, 5))
 
+        master.delete_user = PhotoImage(file='../images/ATM/menu_delete_acc.png')
+        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.delete_user,
+               width=170, height=50, command=lambda: master.switch_frame("ATMDeleteAccount")).pack(pady=(0, 5))
+
         master.tick_tack_toe = PhotoImage(file='../images/ATM/atm_tic_tac_toe.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.tick_tack_toe,
                width=170, height=50, command=lambda: master.switch_frame("ATMTicTacToePage")).pack(pady=(0, 5))

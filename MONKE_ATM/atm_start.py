@@ -11,6 +11,7 @@ from atm_card_pin import ATMCardPin
 from atm_card_list import ATMCardListPage
 from atm_change_acc_pass import ATMChangePassword
 from atm_create_card import ATMCreateCard
+from atm_delete_user import ATMDeleteAccount
 
 pages = {
     "StartPage": StartPage,
@@ -22,7 +23,8 @@ pages = {
     "ATMCardPin": ATMCardPin,
     "ATMCardListPage": ATMCardListPage,
     "ATMChangePassword": ATMChangePassword,
-    "ATMCreateCard": ATMCreateCard
+    "ATMCreateCard": ATMCreateCard,
+    "ATMDeleteAccount": ATMDeleteAccount
 }
 
 
