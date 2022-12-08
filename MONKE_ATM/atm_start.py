@@ -1,17 +1,17 @@
 from tkinter import *
 import time
 
-from atm_tick_tack_toe import TicTacToe
+from MOOP_SYB.MONKE_ATM.Menu.atm_tick_tack_toe import TicTacToe
 from atm_main_menu_page import ATMMainMenuPage
 from atm_start_page import StartPage
 from atm_login_page import ATMLoginPage
 from atm_registration_page import ATMRegistrationPage
-from atm_card import ATMCardPage
-from atm_card_pin import ATMCardPin
-from atm_card_list import ATMCardListPage
-from atm_change_acc_pass import ATMChangePassword
-from atm_create_card import ATMCreateCard
-from atm_delete_user import ATMDeleteAccount
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.atm_card import ATMCardPage
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.atm_card_pin import ATMCardPin
+from MOOP_SYB.MONKE_ATM.Menu.atm_card_list import ATMCardListPage
+from MOOP_SYB.MONKE_ATM.Menu.atm_change_acc_pass import ATMChangePassword
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.atm_create_card import ATMCreateCard
+from MOOP_SYB.MONKE_ATM.Menu.atm_delete_acc import ATMDeleteAccount
 
 pages = {
     "StartPage": StartPage,
@@ -43,6 +43,7 @@ class SampleApp(Tk):
         self.configure(bg='#f7f0c6')
         self._frame = None
         self.amount = 1000
+        self.pseudo_card_list = [[1, "4149898947631523", True], [2, "5789478963214586", False]]
         self.switch_frame("StartPage")
 
     def switch_frame(self, page_name):
