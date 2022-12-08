@@ -8,7 +8,7 @@ class ATMCardListPage(Frame):
 
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
-        Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(10, 15))
+        Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(20, 15))
 
         master.select_card_btn = PhotoImage(file='../images/ATM/CardList/cl_select.png')
 

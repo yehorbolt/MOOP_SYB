@@ -8,7 +8,7 @@ class ATMDeleteAccount(Frame):
 
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
-        Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(10, 0))
+        Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(20, 0))
 
         # add banana logo
         master.logo = PhotoImage(file='../images/ATM/mp_logo.png')
@@ -18,12 +18,15 @@ class ATMDeleteAccount(Frame):
         self.incorrect_dt = ""
         self.password = StringVar()
 
-        master.pass_reg = PhotoImage(file='../images/ATM/ChangePass/ch_enter_pass.png')
-        Label(self, text="", bg='#f7f0c6', image=master.pass_reg).pack()
+        master.del_acc = PhotoImage(file='../images/ATM/ChangePass/del_acc_1')
+        Label(self, text="", bg='#f7f0c6', image=master.del_acc).pack()
 
-        password_entry = Entry(self, font=("arial", 12), textvariable=self.password)
-        password_entry.config(fg='black', show='●')
-        password_entry.pack(pady=(0, 10))
+        master.pass_del_acc = PhotoImage(file='../images/ATM/ChangePass/ch_enter_pass.png')
+        Label(self, text="", bg='#f7f0c6', image=master.pass_del_acc).pack()
+
+        password_entry_del_acc = Entry(self, font=("arial", 12), textvariable=self.password)
+        password_entry_del_acc.config(fg='black', show='●')
+        password_entry_del_acc.pack(pady=(0, 10))
 
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
         self.check_data.pack(pady=(10, 10))

@@ -12,6 +12,14 @@ from MOOP_SYB.MONKE_ATM.Menu.atm_card_list import ATMCardListPage
 from MOOP_SYB.MONKE_ATM.Menu.atm_change_acc_pass import ATMChangePassword
 from MOOP_SYB.MONKE_ATM.Menu.CardMenu.atm_create_card import ATMCreateCard
 from MOOP_SYB.MONKE_ATM.Menu.atm_delete_acc import ATMDeleteAccount
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_delete_card import ATMDeleteCard
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_active import ATMActiveMenu
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_credit import ATMCreditMenu
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_daemon import ATMDaemonMenu
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_deposit import ATMDepositMenu
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_put_on import ATMPutOnMenu
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_transfer import ATMTransferMenu
+from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_withdraw import ATMWithdrawMenu
 
 pages = {
     "StartPage": StartPage,
@@ -24,7 +32,15 @@ pages = {
     "ATMCardListPage": ATMCardListPage,
     "ATMChangePassword": ATMChangePassword,
     "ATMCreateCard": ATMCreateCard,
-    "ATMDeleteAccount": ATMDeleteAccount
+    "ATMDeleteAccount": ATMDeleteAccount,
+    "ATMDeleteCard": ATMDeleteCard,
+    "ATMActiveMenu": ATMActiveMenu,
+    "ATMCreditMenu": ATMCreditMenu,
+    "ATMDaemonMenu": ATMDaemonMenu,
+    "ATMDepositMenu": ATMDepositMenu,
+    "ATMPutOnMenu": ATMPutOnMenu,
+    "ATMTransferMenu": ATMTransferMenu,
+    "ATMWithdrawMenu": ATMWithdrawMenu
 }
 
 
