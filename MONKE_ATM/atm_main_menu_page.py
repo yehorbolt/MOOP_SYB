@@ -18,7 +18,7 @@ class ATMMainMenuPage(Frame):
         self.name = "Brittanie"
 
         self.master.welcome_name = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Welcome " + self.name)
-        self.master.welcome_name.place(x=15, y=50)
+        self.master.welcome_name.place(x=15, y=60)
 
         master.card_menu = PhotoImage(file='../images/ATM/menu_cards_menu.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.card_menu,

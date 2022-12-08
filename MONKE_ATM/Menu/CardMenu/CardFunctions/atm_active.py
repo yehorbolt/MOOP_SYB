@@ -33,8 +33,8 @@ class ATMActiveMenu(Frame):
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.status)
         self.check_data.pack(pady=(2, 2))
 
-        master.reg_btn = PhotoImage(file='../images/ATM/ActiveMenu/active_change.png')
-        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.reg_btn,
+        master.change_btn = PhotoImage(file='../images/ATM/ActiveMenu/active_change.png')
+        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.change_btn,
                width=170, height=50, command=lambda: self.check()).pack(pady=(0, 5))
 
         master.menu_btn = PhotoImage(file='../images/ATM/menu_btn.png')
