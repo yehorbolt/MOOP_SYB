@@ -20,8 +20,8 @@ class ATMActiveMenu(Frame):
         panel = Label(self, image=master.logo, bg='#f7f0c6')
         panel.pack()
 
-        master.active_card = PhotoImage(file='../images/ATM/RegMenu/active_deact.png')
-        master.deactive_card = PhotoImage(file='../images/ATM/ActiveMenu/active_act.png')
+        master.active_card = PhotoImage(file='../images/ATM/ActiveMenu/active_act.png')
+        master.deactive_card = PhotoImage(file='../images/ATM/ActiveMenu/active_deact.png')
         r_1 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.activated,
                           value=True, image=master.active_card)
         r_2 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.activated,
@@ -46,9 +46,9 @@ class ATMActiveMenu(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
-        if self.activated:
+        if self.activated.get():
             self.status = PhotoImage(file='../images/ATM/ActiveMenu/active_activated.png')
             self.check_data.config(image=self.status)
-        else:
+        elif not self.activated.get():
             self.status = PhotoImage(file='../images/ATM/ActiveMenu/active_deactivated.png')
             self.check_data.config(image=self.status)
