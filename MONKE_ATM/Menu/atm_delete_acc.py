@@ -16,28 +16,20 @@ class ATMDeleteAccount(Frame):
         panel.pack()
 
         self.incorrect_dt = ""
-        self.new_password = StringVar()
-        self.conf_password = StringVar()
+        self.password = StringVar()
 
         master.pass_reg = PhotoImage(file='../images/ATM/ChangePass/ch_enter_pass.png')
         Label(self, text="", bg='#f7f0c6', image=master.pass_reg).pack()
 
-        password_entry = Entry(self, font=("arial", 12), textvariable=self.new_password)
+        password_entry = Entry(self, font=("arial", 12), textvariable=self.password)
         password_entry.config(fg='black', show='●')
         password_entry.pack(pady=(0, 10))
-
-        master.conf_reg = PhotoImage(file='../images/ATM/ChangePass/ch_confirm_pass.png')
-        Label(self, text="", bg='#f7f0c6', image=master.conf_reg).pack()
-
-        conf_password_entry = Entry(self, font=("arial", 12), textvariable=self.conf_password)
-        conf_password_entry.config(fg='black', show='●')
-        conf_password_entry.pack(pady=(0, 10))
 
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
         self.check_data.pack(pady=(10, 10))
 
-        master.conf_btn = PhotoImage(file='../images/ATM/ChangePass/ch_change.png')
-        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.conf_btn,
+        master.delete_btn = PhotoImage(file='../images/ATM/delete.png')
+        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.delete_btn,
                width=170, height=50, command=lambda: self.check()).pack(pady=(0, 5))
 
         master.menu_btn = PhotoImage(file='../images/ATM/menu_btn.png')
@@ -49,14 +41,10 @@ class ATMDeleteAccount(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
-        if len(self.new_password.get()) < 8:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_invalid_pass.png')
-            self.check_data.config(image=self.incorrect_dt)
-        elif self.new_password.get() != self.conf_password.get():
-            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_invalid_pass.png')
+        if len(self.password.get()) < 8:
+            self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteAccount/incorrect_pass.png')
             self.check_data.config(image=self.incorrect_dt)
         else:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_success.png')
+            self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteAccount/delete_acc.png')
             self.check_data.config(image=self.incorrect_dt)
-            self.new_password.set("")
-            self.conf_password.set("")
+            self.master.switch_frame("ATMLoginPage")
