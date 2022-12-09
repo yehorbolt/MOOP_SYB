@@ -39,6 +39,31 @@ class Account:
         self.bank_id = bank.id
         self.createAccount()
 
+
+    """
+    Constructor for restoring Account
+    :param: self, id, name, surname, status, user_id, bank_id
+    :type: Account, str, str, str
+    :returns: nothing
+    """
+    def re(self, name, surname, status, user, bank):
+        assert type(name) is str, "Name must be a string!"
+        assert type(surname) is str, "Surname must be a string!"
+        assert type(status) is str, "Status must be a string!"
+        assert type(user) is User, "You must give User as a parameter for an account class!"
+        assert type(bank) is Bank, "You must give Bank as a parameter for an account class!"
+        assert self.validName(name) == True, "Name is invalid! Enter the valid one"
+        assert self.validSurname(surname) == True, "Surname is invalid! Enter the valid one"
+        assert self.validStatus(status) == True, "Stauts is invalid! Enter the valid one"
+        self.id = con.getLastId("account") + 1
+        self.name = name
+        self.surname = surname
+        self.number = self.generateNumber()
+        self.status = status
+        self.user_id = user.id
+        self.bank_id = bank.id
+        self.createAccount()
+
     """
     Creates Account in database
     :param: self
