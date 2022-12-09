@@ -1,15 +1,19 @@
 from Card import Card
+from ConnectToDB import ConnectToDb as con
 
-#class that is responsible for checking card
+"""
+    This class is responsible for Credit (Card) entity
+"""
 class Credit(Card):
-    id = 0
-    number = ""
-    password = ""
-    type = "credit"
-    balance = 0
-    gold = 0
-    limit = 0
-    bankInterest = 0
+    id = int (0)
+    number = int (0)
+    password = int (0)
+    type = str ("credit")
+    balance = float (0)
+    limit = float (0)
+    valid = bool (0)
+    account_id = int (0)
+    bankInterest = float (0)
 
     #take money from the card
     def makeTransaction(self, amount):

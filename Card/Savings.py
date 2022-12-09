@@ -1,15 +1,19 @@
 from Card import Card
+from ConnectToDB import ConnectToDb as con
 
-
-# class that is responsible for checking card
+"""
+    This class is responsible for Savings (Card) entity
+"""
 class Savings(Card):
-    id = 0
-    number = ""
-    password = ""
-    type = "savings"
-    balance = 0
-    gold = 0
-    userInterest = 0
+    id = int (0)
+    number = int (0)
+    password = int (0)
+    type = str ("savings")
+    balance = float (0)
+    limit = float (0)
+    valid = bool (0)
+    account_id = int (0)
+    userInterest = float (0)
 
     # take money from the card
     def withdraw(self, amount):
