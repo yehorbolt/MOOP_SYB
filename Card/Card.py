@@ -10,7 +10,6 @@ class Card:
     number = int (0)
     password = int (0)
     type = str ("default")
-    gold = bool (0)
     balance = float (0)
     limit = float (0)
     valid = bool (0)
@@ -22,11 +21,10 @@ class Card:
     :type: Card
     :returns: nothing
     """
-    def __init__(self, password, cardType, gold, balance, limit, valid, account):
+    def __init__(self, password, cardType, balance, limit, valid, account):
         assert type(password) is int, "Card password must be an int!"
         assert self.validPassword(password) == True, "Password must be be 4 numbers from 0 to 9!"
         assert self.validType(cardType) == True, "You've entered invalid Card type!"
-        assert type(gold) is bool, "Gold must be a boolean!"
         assert type(balance) is float or type(balance) is int, "Balance must be a float or an int!"
         assert type(limit) is float or type(balance) is int, "Limit must be a float or an int!"
         assert balance >= 0, "Balance must be 0 or more!"
@@ -38,7 +36,6 @@ class Card:
         self.password = password
         self.type = cardType
         self.balance = balance
-        self.gold = gold
         self.valid = valid
         self.limit = limit
         self.account_id = account.id
@@ -52,7 +49,7 @@ class Card:
     """
     def createCard(self):
         query = 'INSERT INTO card (id, number, password, type, balance, gold, valid, "limit", account_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);'
-        val = (self.id, self.number, self.password, self.type, self.balance, int (self.gold), int (self.valid), self.limit, self.account_id)
+        val = (self.id, self.number, self.password, self.type, self.balance, int (self.valid), self.limit, self.account_id)
         con.executeWithVal(query, val)
 
     """

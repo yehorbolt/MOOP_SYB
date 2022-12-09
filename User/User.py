@@ -11,10 +11,9 @@ class User:
 
     """
     Constructor 
-    :param timestamp: query
-    :type timestamp: str 
-    :returns: all the records in specific table in database
-    :rtype: tuple
+    :param: self, login, password, money
+    :type: User, str, str, int
+    :returns: nothing
     """
     def __init__(self, login, password, money):
         assert type(login) is str, "Login must be a string!"
@@ -26,6 +25,17 @@ class User:
         self.login = login
         self.password = password
         self.createUser()
+
+    """
+    Constructor for restoring the user from the database
+    :param: self, userId, login, password, money
+    :type: User, int, str, str, int
+    :returns: nothing
+    """
+    def restoreUser(self, userId, login, password, money):
+        self.id = userId
+        self.login = login
+        self.password = password
 
     """
     Checks if User with login given is already in a database
@@ -100,7 +110,7 @@ class User:
     :type: User
     :returns: nothing
     """
-    def updatePassword(self):
+    def updateMoney(self):
         query = "UPDATE user SET money = %s WHERE id = %s;"
         val = (self.money, self.id)
         con.executeWithVal(query, val)

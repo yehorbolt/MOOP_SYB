@@ -1,5 +1,4 @@
 from MOOP_SYB.Transfer import Transfer
-import CreditSystem
 
 class Credit(Transfer):
     id = int (0)

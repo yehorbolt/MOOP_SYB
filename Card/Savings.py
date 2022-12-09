@@ -9,7 +9,6 @@ class Savings(Card):
     number = int (0)
     password = int (0)
     type = str ("savings")
-    gold = bool (0)
     balance = float (0)
     limit = float (0)
     valid = bool (0)
