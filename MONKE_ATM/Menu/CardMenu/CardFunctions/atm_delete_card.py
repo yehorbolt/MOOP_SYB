@@ -40,7 +40,7 @@ class ATMDeleteCard(Frame):
 
         master.menu_btn = PhotoImage(file='../images/ATM/menu_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.menu_btn,
-               width=170, height=50, command=lambda: master.switch_frame("ATMMainMenuPage")).pack(pady=(0, 5))
+               width=170, height=50, command=lambda: master.switch_frame("ATMCardPage")).pack(pady=(0, 5))
 
         master.exit_btn = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,

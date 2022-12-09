@@ -13,6 +13,8 @@ class ATMRegistrationPage(Frame):
         self.card_type = StringVar()
         self.card_type.set("Credit")
         self.pin = StringVar()
+        self.status = BooleanVar()
+        self.status = False
 
         self.incorrect_dt = ""
 
@@ -66,7 +68,20 @@ class ATMRegistrationPage(Frame):
 
         conf_pin_entry = Entry(self, font=("arial", 12), textvariable=self.pin)
         conf_pin_entry.config(fg='black', show='●')
-        conf_pin_entry.pack(pady=(0, 10))
+        conf_pin_entry.pack(pady=(0, 15))
+
+        master.choose_status = PhotoImage(file='../images/ATM/RegMenu/reg_stat.png')
+        Label(self, text="", bg='#f7f0c6', image=master.choose_status).pack()
+
+        master.stat_has = PhotoImage(file='../images/ATM/RegMenu/reg_has_job.png')
+        master.stat_not = PhotoImage(file='../images/ATM/RegMenu/reg_workless.png')
+        s_1 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.status,
+                          value=True, image=master.stat_has)
+        s_2 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.status,
+                          value=False, image=master.stat_not)
+
+        s_1.pack()
+        s_2.pack(pady=(0, 15))
 
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
         self.check_data.pack(pady=(2, 2))
