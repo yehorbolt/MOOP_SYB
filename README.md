@@ -50,5 +50,10 @@ User can withdraw money from: savings and checking cards.
 User can put on all cards his money.
 User can make a transfer only from: credit and checking cards.
 
+## How to install a project?
+In your IDE, clone the project and use the command:
+pip install -r requirements.txt
+And you can start the project!
+
 ## That's all!
 Clone the project & enjoy it!
