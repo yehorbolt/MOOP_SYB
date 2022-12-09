@@ -1,25 +1,25 @@
 from tkinter import *
 import time
 
-from MOOP_SYB.MONKE_ATM.Menu.atm_tick_tack_toe import TicTacToe
+from Menu.atm_tick_tack_toe import TicTacToe
 from atm_main_menu_page import ATMMainMenuPage
 from atm_start_page import StartPage
 from atm_login_page import ATMLoginPage
 from atm_registration_page import ATMRegistrationPage
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.atm_card import ATMCardPage
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.atm_card_pin import ATMCardPin
-from MOOP_SYB.MONKE_ATM.Menu.atm_card_list import ATMCardListPage
-from MOOP_SYB.MONKE_ATM.Menu.atm_change_acc_pass import ATMChangePassword
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.atm_create_card import ATMCreateCard
-from MOOP_SYB.MONKE_ATM.Menu.atm_delete_acc import ATMDeleteAccount
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_delete_card import ATMDeleteCard
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_active import ATMActiveMenu
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_credit import ATMCreditMenu
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_daemon import ATMDaemonMenu
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_deposit import ATMDepositMenu
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_put_on import ATMPutOnMenu
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_transfer import ATMTransferMenu
-from MOOP_SYB.MONKE_ATM.Menu.CardMenu.CardFunctions.atm_withdraw import ATMWithdrawMenu
+from Menu.CardMenu.atm_card import ATMCardPage
+from Menu.CardMenu.atm_card_pin import ATMCardPin
+from Menu.atm_card_list import ATMCardListPage
+from Menu.atm_change_acc_pass import ATMChangePassword
+from Menu.CardMenu.atm_create_card import ATMCreateCard
+from Menu.atm_delete_acc import ATMDeleteAccount
+from Menu.CardMenu.CardFunctions.atm_delete_card import ATMDeleteCard
+from Menu.CardMenu.CardFunctions.atm_active import ATMActiveMenu
+from Menu.CardMenu.CardFunctions.atm_credit import ATMCreditMenu
+from Menu.CardMenu.CardFunctions.atm_daemon import ATMDaemonMenu
+from Menu.CardMenu.CardFunctions.atm_deposit import ATMDepositMenu
+from Menu.CardMenu.CardFunctions.atm_put_on import ATMPutOnMenu
+from Menu.CardMenu.CardFunctions.atm_transfer import ATMTransferMenu
+from Menu.CardMenu.CardFunctions.atm_withdraw import ATMWithdrawMenu
 
 pages = {
     "StartPage": StartPage,
@@ -98,8 +98,3 @@ class SampleApp(Tk):
         y = self.winfo_screenheight() // 2 - win_height // 2
         self.geometry('{}x{}+{}+{}'.format(width, height, x, y))
         self.deiconify()
-
-
-if __name__ == "__main__":
-    app = SampleApp()
-    app.mainloop()
