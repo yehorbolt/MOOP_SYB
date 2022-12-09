@@ -12,7 +12,7 @@ Its' usage can be widened, because there are lot of other abilities except for w
 ## Used Python libraries and modules:
 1. mysql
 2. mysql-connector
-3. ..........
+3. tkinter
 
 ## Entities:
 1. User
