@@ -1,4 +1,3 @@
-from Bank.Bank import Bank
 from ConnectToDB import ConnectToDb as con
 
 """
@@ -15,13 +14,13 @@ class ATM:
     :type: ATM, str, Bank
     :returns: nothing
     """
-    def __init__(self, address, bank):
+    def __init__(self, address, bank_id):
         assert type(address) is str, "Address must be a string!"
-        assert type(bank) is Bank, "You must give a Bank as the last parameter for creating an ATM!"
-        assert self.checkAddress(address, bank.id) == True, "ATM with such address is already existing! Create an ATM with another address!"
+        assert type(bank_id) is int, "You must give an int that is bank_id!"
+        assert self.checkAddress(address, bank_id) == True, "ATM with such address is already existing! Create an ATM with another address!"
         self.id = con.getLastId("atm") + 1
         self.address = address
-        self.bank_id = bank.id
+        self.bank_id = bank_id
         self.createAtm()
 
     """
