@@ -1,7 +1,7 @@
 from tkinter import *
 
 
-class ATMDeleteAccount(Frame):
+class ATMDeleteCard(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)
@@ -18,15 +18,18 @@ class ATMDeleteAccount(Frame):
         self.incorrect_dt = ""
         self.password = StringVar()
 
-        master.del_acc = PhotoImage(file='../images/ATM/ChangePass/del_acc_1')
-        Label(self, text="", bg='#f7f0c6', image=master.del_acc).pack()
+        master.del_card_1 = PhotoImage(file='../images/ATM/DeleteCard/del_card_1.png')
+        Label(self, text="", bg='#f7f0c6', image=master.del_card_1).pack()
 
-        master.pass_del_acc = PhotoImage(file='../images/ATM/ChangePass/ch_enter_pass.png')
-        Label(self, text="", bg='#f7f0c6', image=master.pass_del_acc).pack()
+        master.del_card_2 = PhotoImage(file='../images/ATM/DeleteCard/del_card_2.png')
+        Label(self, text="", bg='#f7f0c6', image=master.del_card_2).pack()
 
-        password_entry_del_acc = Entry(self, font=("arial", 12), textvariable=self.password)
-        password_entry_del_acc.config(fg='black', show='●')
-        password_entry_del_acc.pack(pady=(0, 10))
+        master.pass_reg = PhotoImage(file='../images/ATM/ChangePass/ch_enter_pass.png')
+        Label(self, text="", bg='#f7f0c6', image=master.pass_reg).pack(pady=(0, 5))
+
+        password_entry = Entry(self, font=("arial", 12), textvariable=self.password)
+        password_entry.config(fg='black', show='●')
+        password_entry.pack(pady=(0, 0))
 
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
         self.check_data.pack(pady=(10, 10))
@@ -50,4 +53,4 @@ class ATMDeleteAccount(Frame):
         else:
             self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteAccount/delete_acc.png')
             self.check_data.config(image=self.incorrect_dt)
-            self.master.switch_frame("ATMLoginPage")
+            self.master.switch_frame("ATMMainMenuPage")

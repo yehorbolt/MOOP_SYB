@@ -8,7 +8,7 @@ class ATMMainMenuPage(Frame):
 
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
-        Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(10, 0))
+        Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(20, 0))
 
         # add banana logo
         master.logo = PhotoImage(file='../images/ATM/mp_logo.png')
@@ -17,8 +17,8 @@ class ATMMainMenuPage(Frame):
 
         self.name = "Brittanie"
 
-        self.master.welcome_name = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Welcome "+self.name)
-        self.master.welcome_name.place(x=15, y=50)
+        self.master.welcome_name = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Welcome " + self.name)
+        self.master.welcome_name.place(x=15, y=60)
 
         master.card_menu = PhotoImage(file='../images/ATM/menu_cards_menu.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.card_menu,

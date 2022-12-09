@@ -6,36 +6,22 @@ class ATMRegistrationPage(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        self.name = StringVar()
-        self.surname = StringVar()
         self.login = StringVar()
         self.password = StringVar()
         self.conf_password = StringVar()
-        self.card_type = BooleanVar()
+
+        self.card_type = StringVar()
+        self.card_type.set("Credit")
         self.pin = StringVar()
 
         self.incorrect_dt = ""
 
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
-        Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(10, 0))
+        Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(20, 0))
 
         master.enter_reg = PhotoImage(file='../images/ATM/RegMenu/reg_enter_below.png')
         Label(self, text="", bg='#f7f0c6', image=master.enter_reg).pack()
-
-        master.name_reg = PhotoImage(file='../images/ATM/RegMenu/reg_enter_name.png')
-        Label(self, text="", bg='#f7f0c6', image=master.name_reg).pack()
-
-        name_entry = Entry(self, font=("arial", 12), textvariable=self.name)
-        name_entry.config(fg='black')
-        name_entry.pack(pady=(0, 10))
-
-        master.surname_reg = PhotoImage(file='../images/ATM/RegMenu/reg_enter_surname.png')
-        Label(self, text="", bg='#f7f0c6', image=master.surname_reg).pack()
-
-        surname_entry = Entry(self, font=("arial", 12), textvariable=self.surname)
-        surname_entry.config(fg='black')
-        surname_entry.pack(pady=(0, 10))
 
         master.login_reg = PhotoImage(file='../images/ATM/RegMenu/reg_enter_login.png')
         Label(self, text="", bg='#f7f0c6', image=master.login_reg).pack()
@@ -56,15 +42,24 @@ class ATMRegistrationPage(Frame):
 
         conf_password_entry = Entry(self, font=("arial", 12), textvariable=self.conf_password)
         conf_password_entry.config(fg='black', show='●')
-        conf_password_entry.pack(pady=(0, 10))
+        conf_password_entry.pack(pady=(0, 15))
 
-        master.primary = PhotoImage(file='../images/ATM/RegMenu/reg_primary.png')
-        master.gold = PhotoImage(file='../images/ATM/RegMenu/reg_gold.png')
-        r_1 = Radiobutton(self, text='First', bg='#f7f0c6', variable=self.card_type, value=False, image=master.primary)
-        r_2 = Radiobutton(self, text='Second', bg='#f7f0c6', variable=self.card_type, value=True, image=master.gold)
+        master.choose_card = PhotoImage(file='../images/ATM/RegMenu/reg_card_type.png')
+        Label(self, text="", bg='#f7f0c6', image=master.choose_card).pack()
+
+        master.credit_card = PhotoImage(file='../images/ATM/RegMenu/reg_credit.png')
+        master.checking_card = PhotoImage(file='../images/ATM/RegMenu/reg_checking.png')
+        master.saving_card = PhotoImage(file='../images/ATM/RegMenu/reg_saving.png')
+        r_1 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
+                          value="Credit", image=master.credit_card)
+        r_2 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
+                          value="Checking", image=master.checking_card)
+        r_3 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
+                          value="Saving", image=master.saving_card)
 
         r_1.pack()
         r_2.pack()
+        r_3.pack(pady=(0, 15))
 
         master.pin_reg = PhotoImage(file='../images/ATM/RegMenu/reg_enter_pin.png')
         Label(self, text="", bg='#f7f0c6', image=master.pin_reg).pack()
@@ -89,7 +84,8 @@ class ATMRegistrationPage(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
-        if (len(self.name.get()) < 3) or (len(self.surname.get()) < 3) or (len(self.login.get()) < 3):
+        print(self.card_type.get())
+        if len(self.login.get()) < 3:
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect.png')
             self.check_data.config(image=self.incorrect_dt)
         elif len(self.pin.get()) != 4 or (not self.pin.get().isdigit()):
@@ -104,4 +100,3 @@ class ATMRegistrationPage(Frame):
         else:
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_success.png')
             self.check_data.config(image=self.incorrect_dt)
-
