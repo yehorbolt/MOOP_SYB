@@ -1,5 +1,3 @@
-from User.User import User
-from Bank.Bank import Bank
 from ConnectToDB import ConnectToDb as con
 import random
 
@@ -17,16 +15,16 @@ class Account:
 
     """
     Constructor 
-    :param: self, name, surname, status
-    :type: Account, str, str, str
+    :param: self, name, surname, status, user_id, bank_id
+    :type: Account, str, str, str, int, int
     :returns: nothing
     """
-    def __init__(self, name, surname, status, user, bank):
+    def __init__(self, name, surname, status, user_id, bank_id):
         assert type(name) is str, "Name must be a string!"
         assert type(surname) is str, "Surname must be a string!"
         assert type(status) is str, "Status must be a string!"
-        assert type(user) is User, "You must give User as a parameter for an account class!"
-        assert type(bank) is Bank, "You must give Bank as a parameter for an account class!"
+        assert type(user_id) is int, "You must give int that is user_id!"
+        assert type(bank_id) is int, "You must give int that is bank_id!"
         assert self.validName(name) == True, "Name is invalid! Enter the valid one"
         assert self.validSurname(surname) == True, "Surname is invalid! Enter the valid one"
         assert self.validStatus(status) == True, "Stauts is invalid! Enter the valid one"
@@ -35,33 +33,25 @@ class Account:
         self.surname = surname
         self.number = self.generateNumber()
         self.status = status
-        self.user_id = user.id
-        self.bank_id = bank.id
+        self.user_id = int (user_id)
+        self.bank_id = int (bank_id)
         self.createAccount()
 
 
     """
     Constructor for restoring Account
     :param: self, id, name, surname, status, user_id, bank_id
-    :type: Account, str, str, str
+    :type: Account, str, str, str, int, int
     :returns: nothing
     """
-    def re(self, name, surname, status, user, bank):
-        assert type(name) is str, "Name must be a string!"
-        assert type(surname) is str, "Surname must be a string!"
-        assert type(status) is str, "Status must be a string!"
-        assert type(user) is User, "You must give User as a parameter for an account class!"
-        assert type(bank) is Bank, "You must give Bank as a parameter for an account class!"
-        assert self.validName(name) == True, "Name is invalid! Enter the valid one"
-        assert self.validSurname(surname) == True, "Surname is invalid! Enter the valid one"
-        assert self.validStatus(status) == True, "Stauts is invalid! Enter the valid one"
+    def re(self, name, surname, status, user_id, bank_id):
         self.id = con.getLastId("account") + 1
         self.name = name
         self.surname = surname
         self.number = self.generateNumber()
         self.status = status
-        self.user_id = user.id
-        self.bank_id = bank.id
+        self.user_id = user_id
+        self.bank_id = bank_id
         self.createAccount()
 
     """

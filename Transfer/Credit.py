@@ -18,4 +18,4 @@ class Credit(Transfer):
 
     #use CreditSystem to check if the bank can give for a user a credit
     def checkIfValid(self):
-        return CreditSystem(self.fromCard, self.toCard, self.amount, self.bankInterest)
+
