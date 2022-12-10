@@ -22,16 +22,6 @@ class ATM:
         self.createAtm()
 
     """
-    Constructor for restoring ATM
-    :param: self, address, bank
-    :type: ATM, str, Bank
-    :returns: nothing
-    """
-    def restoreAtm(self, atmId, address, ):
-        self.id = atmId
-        self.address = address
-
-    """
     Checks if ATM with address and bank_id given is already in a database
     :param: self, address, bank_id
     :type: ATM, str, int
