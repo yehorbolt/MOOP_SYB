@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 from User.User import User
-from Account.Account import Account
+from Account.Account import *
 from Card.Card import *
 
 """
@@ -171,7 +171,7 @@ This method restores data about the User
 :type: self, str
 :returns: User
 """
-def restoreUser(self, login):
+def restoreUser(login):
     try:
         connection_config_dict = {
             'user': 'severhin1',
@@ -203,7 +203,7 @@ This method restores data about the Account
 :param: self
 :returns: Account
 """
-def restoreAccount(self, user_id):
+def restoreAccount(user_id):
     try:
         connection_config_dict = {
             'user': 'severhin1',
@@ -236,7 +236,7 @@ This method restores data about the cards
 :returns: cards 
 :rtype: tuple
 """
-def restoreCards(self, account_id):
+def restoreCards(account_id):
     try:
         connection_config_dict = {
             'user': 'severhin1',

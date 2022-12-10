@@ -1,4 +1,4 @@
-from Card import Card
+from Card.Card import Card
 from Transfer.Credit import Credit as cred
 from Transfer.Transaction import Transaction
 from ConnectToDB import ConnectToDb as con

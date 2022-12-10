@@ -1,4 +1,4 @@
-from Card import *
+from Card.Card import *
 from Transfer.Transaction import Transaction
 
 """

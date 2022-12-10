@@ -1,4 +1,4 @@
-from Card import Card
+from Card.Card import Card
 from Transfer.Transaction import Transaction
 from Transfer.Daemon import Daemon
 

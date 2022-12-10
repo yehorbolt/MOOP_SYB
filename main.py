@@ -1,7 +1,7 @@
 from Account.Account import *
 from ATM.ATM import *
 from Bank.Bank import *
-from Card.Checking import *
+from Card.Checking import Checking
 from Card.Credit import *
 from Card.Savings import *
 from Transfer.Transaction import *
@@ -21,9 +21,9 @@ def createBasicData(self):
 
 """ Main file that start everything """
 if __name__ == '__main__':
-    createBasicData() # it should be called only once, before running the program for the first time!
-    banks = tuple (con.restoreBanks()) # it restores data about Banks
-    atms = tuple (con.restoreAtms()) # it restores data about ATMs
-    user = con.restoreUser() # it restores data about the User
+    user1 = User("newlogin", "1234567890", 3000,10000)
+    hs = Account("Hryhoriy", "Skovoroda", "has job", user1, bank)
+    db1_user = con.restoreUser("newlogin") # it restores data about the User
+    print(db1_user)
     account = con.restoreAccount() # it restores data about the Account of the User
     cards = tuple(con.restoreCards()) # it restores data about the Cards of the User

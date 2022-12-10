@@ -1,4 +1,4 @@
-from Transfer import Transfer
+from Transfer.Transfer import Transfer
 from multiprocessing import Process
 from datetime import datetime, timedelta
 

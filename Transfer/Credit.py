@@ -1,4 +1,4 @@
-from Transfer import Transfer
+from Transfer.Transfer import Transfer
 from ConnectToDB import ConnectToDb as con
 
 """
