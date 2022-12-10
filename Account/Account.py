@@ -11,7 +11,7 @@ class Account:
     number = int (0)
     status = str ("default")
     user_id = int (0)
-    bank_id = int (0)
+    bank_id = int (1)
 
     """
     Constructor 
@@ -19,12 +19,11 @@ class Account:
     :type: Account, str, str, str, int, int
     :returns: nothing
     """
-    def __init__(self, name, surname, status, user_id, bank_id):
+    def __init__(self, name, surname, status, user_id):
         assert type(name) is str, "Name must be a string!"
         assert type(surname) is str, "Surname must be a string!"
         assert type(status) is str, "Status must be a string!"
         assert type(user_id) is int, "You must give int that is user_id!"
-        assert type(bank_id) is int, "You must give int that is bank_id!"
         assert self.validName(name) == True, "Name is invalid! Enter the valid one"
         assert self.validSurname(surname) == True, "Surname is invalid! Enter the valid one"
         assert self.validStatus(status) == True, "Stauts is invalid! Enter the valid one"
@@ -34,9 +33,7 @@ class Account:
         self.number = self.generateNumber()
         self.status = status
         self.user_id = int (user_id)
-        self.bank_id = int (bank_id)
         self.createAccount()
-
 
     """
     Constructor for restoring Account
@@ -44,14 +41,13 @@ class Account:
     :type: Account, str, str, str, int, int
     :returns: nothing
     """
-    def re(self, name, surname, status, user_id, bank_id):
+    def re(self, name, surname, status, user_id):
         self.id = con.getLastId("account") + 1
         self.name = name
         self.surname = surname
         self.number = self.generateNumber()
         self.status = status
         self.user_id = user_id
-        self.bank_id = bank_id
         self.createAccount()
 
     """
@@ -92,7 +88,7 @@ class Account:
     :returns: nothing
     """
     def validStatus(self, status):
-        if status == "has job" or status == "workless":
+        if status == "has a job" or status == "workless":
             return True
         else:
             return False

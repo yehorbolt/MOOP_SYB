@@ -1,4 +1,3 @@
-from Account.Account import Account
 from ConnectToDB import ConnectToDb as con
 import random
 
@@ -13,6 +12,7 @@ class Card:
     balance = float (0)
     limit = float (0)
     valid = bool (0)
+    leftToPay = int (0)           # left to pay for the credit
     account_id = int (0)
 
     """
@@ -21,24 +21,19 @@ class Card:
     :type: Card
     :returns: nothing
     """
-    def __init__(self, password, cardType, balance, limit, valid, account):
+    def __init__(self, password, cardType, account_id):
         assert type(password) is int, "Card password must be an int!"
         assert self.validPassword(password) == True, "Password must be be 4 numbers from 0 to 9!"
         assert self.validType(cardType) == True, "You've entered invalid Card type!"
-        assert type(balance) is float or type(balance) is int, "Balance must be a float or an int!"
-        assert type(limit) is float or type(balance) is int, "Limit must be a float or an int!"
-        assert balance >= 0, "Balance must be 0 or more!"
-        assert limit >= 0, "Limit must be 0 or more!"
-        assert type(valid) is bool, "Valid must be a bool!"
-        assert type(account) is Account, "You must give Account as the last parameter to a constructor!"
+        assert type(account_id) is int, "You must give an int (account_id) as the last parameter!"
         self.id = con.getLastId("card") + 1
         self.number = self.generateNumber()
         self.password = password
         self.type = cardType
-        self.balance = balance
-        self.valid = valid
-        self.limit = limit
-        self.account_id = account.id
+        self.balance = float (0)
+        self.valid = True
+        self.limit = float (0)
+        self.account_id = account_id
         self.createCard()
 
     """
@@ -153,40 +148,46 @@ class Card:
         self.balance = newBalance
         self.updateBalance()
 
-    """
-    This method updates the Card balance in the database
-    :param: self
-    :type: Card
-    :returns: nothing
-    """
-    def updateBalance(self):
-        query = "UPDATE card SET balance = %s WHERE id = %s;"
-        val = (self.balance, self.id)
-        con.executeWithVal(query, val)
 
     """
-    This method changes the Card gold status
-    :param: self, gold
-    :type: Card, bool
-    :returns: nothing
-    """
-    def changeGold(self, gold):
-        assert type(gold) is bool, "gold must be a bool!"
-        if gold == self.gold:
-            raise Exception("You have entered same gold status for a Card!")
-        self.gold = gold
-        self.updateGold()
-
-    """
-    This method updates the Card gold status in the database
+    This method gets the card balance from the database
     :param: self
     :type: Card
-    :returns: nothing
+    :returns: balance
+    :rtype: float/int
     """
-    def updateGold(self):
-        query = "UPDATE card SET gold = %s WHERE id = %s;"
-        val = (self.gold, self.id)
-        con.executeWithVal(query, val)
+    def getBalance(self):
+        query = "SELECT balance FROM card WHERE id = '" + str (self.id) + "';"
+        records = con.executeReturn(query)
+        return records.__getitem__(0)[0]
+
+    """
+    This method checks if the Card given Exists in the database
+    :param: self, card
+    :type: Checking or Savings or Credit
+    :returns: True or False
+    :rtype: bool
+    """
+    def cardExists(self, card):
+        assert type(card) == int, "You must enter the number of the Card!"
+        query = "SELECT * FROM card WHERE number = " + str (card) + ";"
+        res = con.executeReturn(query)
+        if res.__len__() == 0:
+            return False
+        else:
+            return True
+
+    """
+    This method returns amount of money user has with him
+    :param: self, user_id
+    :type: Card, int
+    :returns: money 
+    :rtype: float/int
+    """
+    def checkUserMoney(self, user_id):
+        query = "SELECT money FROM user WHERE id = '" + str (user_id) + "';"
+        records = con.executeReturn(query)
+        return records.__getitem__(0)[0]
 
     """
     This method changes the Card valid status and deletes the Card if Card becomes invalid 

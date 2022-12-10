@@ -1,5 +1,4 @@
 from Transfer import Transfer
-from ConnectToDB import ConnectToDb as con
 
 """
     This class is responsible for a Transaction entity 
@@ -23,9 +22,14 @@ class Transaction(Transfer):
     :type: Transaction, int, int, float/int, date, str, int, int, int, int
     :returns: nothing
     """
-    def __init__(self, fromCard, toCard, amount, card_id, card_account_id):
+    def __init__(self, fromCard, toCard, amount, card_id, type, card_account_id):
         super(Transfer, self).__init__(fromCard, toCard, amount, self.type, 0, 0, card_id, card_account_id, self.atm_id, self.atm_bank_id)
-        self.moneyChange(fromCard, toCard, amount)
+        if type == "transaction":
+            self.transaction(fromCard, toCard, amount)
+        if type == "withdraw":
+            self.withdraw(fromCard, amount)
+        if type == "putMoney":
+            self.putMoney(toCard, amount)
 
     """
     This method changes in database amount of money on the cards
@@ -33,7 +37,27 @@ class Transaction(Transfer):
     :type: Transfer, int, int, float/int
     :returns: nothing
     """
-    def moneyChange(self, fromCard, toCard, amount):
+    def transaction(self, fromCard, toCard, amount):
         self.changeBalance(fromCard, amount, False)
+        self.changeBalance(toCard, amount, True)
+        self.inactive()
+
+        """
+    This method changes in database amount of money on the cards
+    :param: self, fromCard, toCard, amount
+    :type: Transfer, int, int, float/int
+    :returns: nothing
+    """
+    def withdraw(self, fromCard, amount):
+        self.changeBalance(fromCard, amount, False)
+        self.inactive()
+
+        """
+    This method changes in database amount of money on the cards
+    :param: self, fromCard, toCard, amount
+    :type: Transfer, int, int, float/int
+    :returns: nothing
+    """
+    def putMoney(self, toCard, amount):
         self.changeBalance(toCard, amount, True)
         self.inactive()

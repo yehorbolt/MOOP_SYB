@@ -13,7 +13,6 @@ class Transfer:
     date = str ("default")
     type = str ("default")
     active = bool (0)
-    leftToPay = int (0)
     frequency = int (0)
     card_id = int (0)             # from which card (id) is transfer
     card_account_id = int (0)     # id of the account that has a card from which transfer takes place
@@ -94,7 +93,7 @@ class Transfer:
     def enoughMoney(self, fromCard, amount):
         query = "SELECT balance FROM card WHERE number = " + str (fromCard) + ";"
         records = con.executeReturn(query)
-        return records.__getitem__(-1)[-1] >= amount
+        return records.__getitem__(0) >= amount
 
     """
     This method checks if the type given is valid (transaction, daemon or credit)  
@@ -120,7 +119,31 @@ class Transfer:
     def getBalance(self, card):
         query = "SELECT balance FROM card WHERE number = " + str (card) + ";"
         records = con.executeReturn(query)
-        return records.__getitem__(-1)[-1]
+        return records.__getitem__(0)
+
+    """
+    This method returns type of the card given
+    :param: self, card
+    :type: Transaction, int
+    :returns: type
+    :rtype: str
+    """
+    def getCardType(self, card):
+        query = "SELECT type FROM card WHERE number = " + str (card) + ";"
+        records = con.executeReturn(query)
+        return records.__getitem__(0)
+
+    """
+    This method returns leftToPay of the card given
+    :param: self, card
+    :type: Transaction, int
+    :returns: type
+    :rtype: str
+    """
+    def getLeftToPay(self, card):
+        query = "SELECT leftToPay FROM card WHERE number = " + str (card) + ";"
+        records = con.executeReturn(query)
+        return records.__getitem__(0)
 
     """
     This method changes balance
@@ -129,16 +152,36 @@ class Transfer:
     :returns: nothing
     """
     def changeBalance(self, card, amount, add):
-        if self.cardExists(card) == True:
-            if add == True:
+        if self.getCardType(card) == "credit" and add == True:
+            leftToPay = self.getLeftToPay(card)
+            if  leftToPay > 0 and leftToPay < amount:
+                query = "UPDATE card SET leftToPay = %s WHERE id = %s;"
+                values = (0, card)
+                con.executeWithVal(query, values)
+                newBalance = self.getBalance(card) + amount - leftToPay
+                query = "UPDATE card SET balance = %s WHERE id = %s;"
+                values = (newBalance, card)
+                con.executeWithVal(query, values)
+            if  leftToPay > amount:
+                query = "UPDATE card SET leftToPay = %s WHERE id = %s;"
+                values = (leftToPay-amount, card)
+                con.executeWithVal(query, values)
+            if  leftToPay == 0:
                 newBalance = self.getBalance(card) + amount
                 query = "UPDATE card SET balance = %s WHERE id = %s;"
                 values = (newBalance, card)
                 con.executeWithVal(query, values)
-            else:
-                newBalance = self.getBalance(card) - amount
-                query = "UPDATE card SET balance = %s WHERE id = %s;"
-                values = (newBalance, card)
-                con.executeWithVal(query, values)
         else:
-            raise Exception("This Card doesn't exist!")
+            if self.cardExists(card) == True:
+                if add == True:
+                    newBalance = self.getBalance(card) + amount
+                    query = "UPDATE card SET balance = %s WHERE id = %s;"
+                    values = (newBalance, card)
+                    con.executeWithVal(query, values)
+                else:
+                    newBalance = self.getBalance(card) - amount
+                    query = "UPDATE card SET balance = %s WHERE id = %s;"
+                    values = (newBalance, card)
+                    con.executeWithVal(query, values)
+            else:
+                raise Exception("This Card doesn't exist!")
