@@ -21,7 +21,7 @@ class Card:
     :type: Card
     :returns: nothing
     """
-    def __init__(self, id, number, password, cardType, account_id, restore):
+    def __init__(self, number, password, cardType, account_id, restore):
         assert type(password) is int, "Card password must be an int!"
         assert self.validPassword(password) == True, "Password must be be 4 numbers from 0 to 9!"
         assert self.validType(cardType) == True, "You've entered invalid Card type!"
@@ -37,7 +37,55 @@ class Card:
             self.account_id = account_id
             self.createCard()
         else:
-            self.restoreCard(self, id, number, password, cardType, account_id)
+            id = self.findCardId(number)
+            balance = self.findCardBalance(number)
+            limit = self.findCardLimit(number)
+            leftToPay = self.findLeftToPay(number)
+            self.restoreCard(self, id, number, password, cardType, balance, limit, leftToPay, account_id)
+
+    """
+    This method finds a card id
+    :param: self, number
+    :type: Card, int
+    :returns: id
+    :rtype: int
+    """
+    def findCardId(self, number):
+        query = "SELECT id FROM card WHERE number = '" + str (number) + "';"
+        return tuple (con.executeReturn(query)).__getitem__(0)[0]
+
+    """
+    This method finds a card balance
+    :param: self, number
+    :type: Card, int
+    :returns: balance
+    :rtype: float/int
+    """
+    def findCardId(self, number):
+        query = "SELECT balance FROM card WHERE number = '" + str (number) + "';"
+        return tuple (con.executeReturn(query)).__getitem__(0)[0]
+
+    """
+    This method finds a card limit
+    :param: self, number
+    :type: Card, int
+    :returns: limit
+    :rtype: float/int
+    """
+    def findCardLimit(self, number):
+        query = "SELECT limit FROM card WHERE number = '" + str (number) + "';"
+        return tuple (con.executeReturn(query)).__getitem__(0)[0]
+
+    """
+    This method finds a card leftToPay
+    :param: self, number
+    :type: Card, int
+    :returns: id
+    :rtype: int
+    """
+    def findLeftToPay(self, number):
+        query = "SELECT leftToPay FROM card WHERE number = '" + str (number) + "';"
+        return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
     Constructor for restoring Card
@@ -45,11 +93,13 @@ class Card:
     :type: Card, int, str, str, str, int
     :returns: nothing
     """
-    def restoreCard(self, id, number, password, cardType, account_id):
+    def restoreCard(self, id, number, password, cardType, balance, limit, leftToPay, account_id):
         self.id = id
         self.number = number
         self.password = password
         self.type = cardType
+
+        self.valid = True
         self.account_id = account_id
 
     """
