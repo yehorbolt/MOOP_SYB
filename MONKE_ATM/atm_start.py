@@ -20,6 +20,7 @@ from Menu.CardMenu.CardFunctions.atm_deposit import ATMDepositMenu
 from Menu.CardMenu.CardFunctions.atm_put_on import ATMPutOnMenu
 from Menu.CardMenu.CardFunctions.atm_transfer import ATMTransferMenu
 from Menu.CardMenu.CardFunctions.atm_withdraw import ATMWithdrawMenu
+from Menu.CardMenu.CardFunctions.atm_limit import ATMLimitMenu
 
 pages = {
     "StartPage": StartPage,
@@ -40,7 +41,8 @@ pages = {
     "ATMDepositMenu": ATMDepositMenu,
     "ATMPutOnMenu": ATMPutOnMenu,
     "ATMTransferMenu": ATMTransferMenu,
-    "ATMWithdrawMenu": ATMWithdrawMenu
+    "ATMWithdrawMenu": ATMWithdrawMenu,
+    "ATMLimitMenu": ATMLimitMenu
 }
 
 
