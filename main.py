@@ -21,7 +21,7 @@ def createBasicData(self):
 
 """ Main file that start everything """
 if __name__ == '__main__':
-    user1 = User("newlogin", "1234567890", 3000,10000)
+    user1 = User("newlogin", "1234567890", 3000, False)
     hs = Account("Hryhoriy", "Skovoroda", "has job", user1, bank)
     db1_user = con.restoreUser("newlogin") # it restores data about the User
     print(db1_user)
