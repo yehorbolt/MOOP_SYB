@@ -32,7 +32,7 @@ Its' usage can be widened, because there are lot of other abilities except for w
 All the classes are the representations of objects in database and in real life.
 ## So, how the program works?
 A user creates his account when registrating. After that he creates cards in the bank and puts some money on it. 
-That's all! After card creation he can use them according to the bank policy (it's lwoer in the README).
+That's all! After card creation he can use them according to the bank policy (it's lower in the README).
 
 ## User has various things to do:
 1. Withdraw money.
@@ -49,6 +49,9 @@ That's all! After card creation he can use them according to the bank policy (it
 User can withdraw money from: savings and checking cards.
 User can put on all cards his money.
 User can make a transfer only from: credit and checking cards.
+If user has a job, he can take credit that is equal or more than 1/4 of all money he has on the cards.
+if user is workless, he can take creit that is equal or more than 1/2 of all money he has on the cards.
+user can have only one credit!
 
 ## How to install a project?
 In your IDE, clone the project and use the command:
