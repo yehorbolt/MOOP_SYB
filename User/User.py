@@ -4,7 +4,7 @@ from ConnectToDB import ConnectToDb as con
     This class is responsible for an user entity
 """
 class User:
-    id = int(1)
+    id = int(0)
     login = str("default")
     password = str("default")
     money = float (0)
@@ -15,27 +15,32 @@ class User:
     :type: User, str, str, int
     :returns: nothing
     """
-    def __init__(self, login, password, money):
+    def __init__(self, id, login, password, money, restore):
         assert type(login) is str, "Login must be a string!"
         assert type(password) is str, "Password must be a string!"
         assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
         assert password.__len__() >= 8, "Password must be longer than 7 symbols!"
         assert type(money) is float or type(money) is int, "Money must be a float or an int!"
-        self.id = con.getLastId("user") + 1
-        self.login = login
-        self.password = password
-        self.createUser()
+        if restore == False:
+            self.id = con.getLastId("user") + 1
+            self.login = login
+            self.password = password
+            self.createUser()
+        else:
+            self.restoreData(self, id, login, password, money)
+
 
     """
-    Constructor for restoring the user from the database
-    :param: self, userId, login, password, money
+    This method restored data about the user from the database
+    :param: self, id, login, password, money
     :type: User, int, str, str, int
     :returns: nothing
     """
-    def restoreUser(self, userId, login, password, money):
-        self.id = userId
-        self.login = login
-        self.password = password
+    def restoreUser(self, id, login, password, money):
+            self.id = id
+            self.login = login
+            self.password = password
+            self.createUser()
 
     """
     Checks if User with login given is already in a database

@@ -21,20 +21,36 @@ class Card:
     :type: Card
     :returns: nothing
     """
-    def __init__(self, password, cardType, account_id):
+    def __init__(self, id, number, password, cardType, account_id, restore):
         assert type(password) is int, "Card password must be an int!"
         assert self.validPassword(password) == True, "Password must be be 4 numbers from 0 to 9!"
         assert self.validType(cardType) == True, "You've entered invalid Card type!"
         assert type(account_id) is int, "You must give an int (account_id) as the last parameter!"
-        self.id = con.getLastId("card") + 1
-        self.number = self.generateNumber()
+        if restore == False:
+            self.id = con.getLastId("card") + 1
+            self.number = self.generateNumber()
+            self.password = password
+            self.type = cardType
+            self.balance = float (0)
+            self.valid = True
+            self.limit = float (0)
+            self.account_id = account_id
+            self.createCard()
+        else:
+            self.restoreCard(self, id, number, password, cardType, account_id)
+
+    """
+    Constructor for restoring Card
+    :param: self, id, number, password, cardType, account_id
+    :type: Card, int, str, str, str, int
+    :returns: nothing
+    """
+    def restoreCard(self, id, number, password, cardType, account_id):
+        self.id = id
+        self.number = number
         self.password = password
         self.type = cardType
-        self.balance = float (0)
-        self.valid = True
-        self.limit = float (0)
         self.account_id = account_id
-        self.createCard()
 
     """
     This method creates Card in the database

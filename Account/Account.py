@@ -19,7 +19,7 @@ class Account:
     :type: Account, str, str, str, int, int
     :returns: nothing
     """
-    def __init__(self, name, surname, status, user_id):
+    def __init__(self, id, name, surname, status, user_id, restore):
         assert type(name) is str, "Name must be a string!"
         assert type(surname) is str, "Surname must be a string!"
         assert type(status) is str, "Status must be a string!"
@@ -27,28 +27,30 @@ class Account:
         assert self.validName(name) == True, "Name is invalid! Enter the valid one"
         assert self.validSurname(surname) == True, "Surname is invalid! Enter the valid one"
         assert self.validStatus(status) == True, "Stauts is invalid! Enter the valid one"
-        self.id = con.getLastId("account") + 1
-        self.name = name
-        self.surname = surname
-        self.number = self.generateNumber()
-        self.status = status
-        self.user_id = int (user_id)
-        self.createAccount()
+        if restore == False:
+            self.id = con.getLastId("account") + 1
+            self.name = name
+            self.surname = surname
+            self.number = self.generateNumber()
+            self.status = status
+            self.user_id = int (user_id)
+            self.createAccount()
+        else:
+            self.restoreAccount(self, id, name, surname, status, user_id)
 
     """
     Constructor for restoring Account
     :param: self, id, name, surname, status, user_id, bank_id
-    :type: Account, str, str, str, int, int
+    :type: Account, int, str, str, str, int, int
     :returns: nothing
     """
-    def re(self, name, surname, status, user_id):
-        self.id = con.getLastId("account") + 1
+    def restoreAccount(self, id, name, surname, status, user_id):
+        self.id = id
         self.name = name
         self.surname = surname
         self.number = self.generateNumber()
         self.status = status
         self.user_id = user_id
-        self.createAccount()
 
     """
     Creates Account in database
