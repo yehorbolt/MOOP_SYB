@@ -10,15 +10,6 @@ class Bank:
     branch = str ("default")
 
     """
-    An empty constructor for restoring the data
-    :param: self, name
-    :type: Bank
-    :returns: nothing
-    """
-    def __init__(self):
-        pass
-
-    """
     Constructor
     :param: self, name, headquarters, branch
     :type: Bank, str, str, str
@@ -34,18 +25,6 @@ class Bank:
         self.headquarters = headquarters
         self.branch = branch
         self.createBank()
-
-    """
-    Constructor for restoring the bank from database
-    :param: self, name, headquarters, branch
-    :type: Bank, str, str, str
-    :returns: nothing
-    """
-    def restoreBank(self, id, name, headquarters, branch):
-        self.id = id
-        self.name = name
-        self.headquarters = headquarters
-        self.branch = branch
 
     """
     Checks if User with login given is already in a database
