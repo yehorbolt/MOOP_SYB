@@ -1,6 +1,6 @@
-from Card.Card import *
-from ATM.ATM import *
 from ConnectToDB import ConnectToDb as con
+from datetime import datetime
+from pytz import timezone
 
 """
     This class is responsible for a Transfer entity 
@@ -12,31 +12,62 @@ class Transfer:
     amount = float (0)
     date = str ("default")
     type = str ("default")
+    active = bool (0)
+    leftToPay = int (0)
+    frequency = int (0)
     card_id = int (0)             # from which card (id) is transfer
     card_account_id = int (0)     # id of the account that has a card from which transfer takes place
-    atm_id = int (0)              # id of the atm where transaction is taken
-    atm_bank_id = int (0)         # bank id that has an atm
+    atm_id = int (1)              # id of the atm where transaction is taken
+    atm_bank_id = int (1)         # bank id that has an atm
 
     """
     Constructor
-    :param: self
-    :type: Card
+    :param: self, fromCard, toCard, amount, date, transferType, card_id, card_account_id, atm_id, atm_bank_id
+    :type: Transfer, int, int, float/int, date, str, int, int, int, int
     :returns: nothing
     """
-    def __init__(self, fromCard, toCard, amount, date, transferType, atm):
+    def __init__(self, fromCard, toCard, amount, transferType, leftToPay, frequency, card_id, card_account_id):
         assert self.cardExists(fromCard) == True, "Card from which you want to make a transfer doesn't exist!"
         assert self.cardExists(toCard) == True, "Card on which you want to make a transfer doesn't exist!"
         assert amount > 0, "You can't make a Transaction with amount less than 1!"
+        assert self.enoughMoney(fromCard, amount) == True, "You can't transfer more money than you have on the Card!"
         assert self.validType(transferType) == True, "You can't make a transfer with type different from Transaction, Daemon or Credit"
-        assert type(atm) == ATM.ATM, "You can't make a transfer on something that isn't an ATM"
+        assert type(leftToPay) == float or int, "You can't use other type than float or int for initialising leftToPay!"
+        assert type(frequency) == float or int, "You can't set frequency for a daemon using other type than float or int!"
         self.id = con.getLastId("transfer") + 1
         self.fromCard = fromCard.id
         self.toCard = toCard.id
         self.amount = amount
-        self.date
+        self.date = self.getTime()
         self.type = type
-        self.card_id = fromCard.id
-        self.card_account_id = fromCard.
+        self.active = bool (1)
+        self.leftToPay = float (leftToPay)
+        self.frequency = float (frequency)
+        self.card_id = card_id
+        self.card_account_id = card_account_id
+
+
+    """
+    This method returns date for a transfer
+    :param: self
+    :type: Transfer
+    :returns: nothing
+    """
+    def getTime(self):
+        ukraine_time = timezone('Europe/Kiev')
+        ua_time = datetime.now(ukraine_time).strftime("%Y-%m-%d %H:%M:%S")
+        return ua_time
+
+    """
+    This method changes activeness of transaction 
+    :param: self
+    :type: Transfer
+    :returns: nothing
+    """
+    def inactive(self):
+        self.active = bool (0)
+        query = "UPDATE transfer SET active = 0 WHERE id = '" + str (self.id) + "';"
+        con.execute(query)
 
     """
     This method checks if the Card given Exists in the database
@@ -46,13 +77,24 @@ class Transfer:
     :rtype: bool
     """
     def cardExists(self, card):
-        assert type(card) == Card.Checking or Card.Savings or Card.Credit, "You must make transfer on the Card!"
         query = "SELECT * FROM card WHERE id = " + str (card.id) + ";"
         res = con.executeReturn(query)
         if res.__len__() == 0:
             return False
         else:
             return True
+
+    """
+    This method checks if money of amount given can be transferred from a card
+    :param: self, fromCard, amount
+    :type: Transfer, int, float/int
+    :returns: True or False
+    :rtype: bool
+    """
+    def enoughMoney(self, fromCard, amount):
+        query = "SELECT balance FROM card WHERE number = " + str (fromCard) + ";"
+        records = con.executeReturn(query)
+        return records.__getitem__(-1)[-1] >= amount
 
     """
     This method checks if the type given is valid (transaction, daemon or credit)  
@@ -67,3 +109,36 @@ class Transfer:
             return False
         else:
             return True
+
+    """
+    This method returns balance of the card given
+    :param: self, card
+    :type: Transaction, int
+    :returns: balance
+    :rtype: float/int
+    """
+    def getBalance(self, card):
+        query = "SELECT balance FROM card WHERE number = " + str (card) + ";"
+        records = con.executeReturn(query)
+        return records.__getitem__(-1)[-1]
+
+    """
+    This method changes balance
+    :param: self, card, amount, add
+    :type: Transaction, int, float/int, bool
+    :returns: nothing
+    """
+    def changeBalance(self, card, amount, add):
+        if self.cardExists(card) == True:
+            if add == True:
+                newBalance = self.getBalance(card) + amount
+                query = "UPDATE card SET balance = %s WHERE id = %s;"
+                values = (newBalance, card)
+                con.executeWithVal(query, values)
+            else:
+                newBalance = self.getBalance(card) - amount
+                query = "UPDATE card SET balance = %s WHERE id = %s;"
+                values = (newBalance, card)
+                con.executeWithVal(query, values)
+        else:
+            raise Exception("This Card doesn't exist!")
