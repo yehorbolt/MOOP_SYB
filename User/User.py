@@ -15,7 +15,7 @@ class User:
     :type: User, str, str, int
     :returns: nothing
     """
-    def __init__(self, id, login, password, money, restore):
+    def __init__(self, login, password, money, restore):
         assert type(login) is str, "Login must be a string!"
         assert type(password) is str, "Password must be a string!"
         assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
@@ -27,6 +27,7 @@ class User:
             self.password = password
             self.createUser()
         else:
+            id = int (self.findUserId(self, login))
             self.restoreData(self, id, login, password, money)
 
 
@@ -41,6 +42,17 @@ class User:
             self.login = login
             self.password = password
             self.createUser()
+
+    """
+    This method finds a user id
+    :param: self, login
+    :type: User, str
+    :returns: id
+    :rtype: int
+    """
+    def findUserId(self, login):
+        query = "SELECT id FROM user WHERE login = '" + str (login) + "';"
+        return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
     Checks if User with login given is already in a database

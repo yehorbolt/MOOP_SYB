@@ -19,7 +19,7 @@ class Account:
     :type: Account, str, str, str, int, int
     :returns: nothing
     """
-    def __init__(self, id, name, surname, status, user_id, restore):
+    def __init__(self, name, surname, status, user_id, restore):
         assert type(name) is str, "Name must be a string!"
         assert type(surname) is str, "Surname must be a string!"
         assert type(status) is str, "Status must be a string!"
@@ -36,7 +36,31 @@ class Account:
             self.user_id = int (user_id)
             self.createAccount()
         else:
-            self.restoreAccount(self, id, name, surname, status, user_id)
+            id = self.findAccountId(user_id)
+            number = self.findAccountNumber(user_id)
+            self.restoreAccount(self, id, name, surname, number, status, user_id)
+
+    """
+    This method finds an account id
+    :param: self, user_id
+    :type: Account, int
+    :returns: id
+    :rtype: int
+    """
+    def findAccountId(self, user_id):
+        query = "SELECT id FROM account WHERE user_id = '" + str (user_id) + "';"
+        return tuple (con.executeReturn(query)).__getitem__(0)[0]
+
+    """
+    This method finds an account number
+    :param: self, user_id
+    :type: Account, int
+    :returns: id
+    :rtype: int
+    """
+    def findAccountId(self, user_id):
+        query = "SELECT number FROM account WHERE user_id = '" + str (user_id) + "';"
+        return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
     Constructor for restoring Account
