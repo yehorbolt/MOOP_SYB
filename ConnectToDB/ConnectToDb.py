@@ -1,10 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
-
-from ATM.ATM import ATM
-from Bank.Bank import Bank
 from User.User import User
-from ATM.ATM import ATM
+from Account.Account import Account
+from Card.Card import *
 
 """
 Get the last id inserted in the database.
@@ -168,11 +166,12 @@ def executePrint(query):
             connection.close()
 
 """
-This method restores data about user
-:param: nothing
-:returns: nothing
+This method restores data about the User
+:param: self, login
+:type: self, str
+:returns: User
 """
-def restoreBanks(self):
+def restoreUser(self, login):
     try:
         connection_config_dict = {
             'user': 'severhin1',
@@ -185,85 +184,10 @@ def restoreBanks(self):
 
         if connection.is_connected():
             cursor = connection.cursor()
-            record1 = tuple()
-            record2 = tuple()
-            for i in range(2):
-                query = "SELECT * FROM bank WHERE id = " + str (i) + ";"
-                cursor.execute(query)
-                if i == 0:
-                    record1 = tuple (cursor.fetchall())
-                if i == 1:
-                    record2 = tuple (cursor.fetchall())
-            bank1 = Bank.restoreBank(record1[0][0], record1[0][1], record1[0][2], record1[0][3])
-            bank2 = Bank.restoreBank(record2[0][0], record2[0][1], record2[0][2], record2[0][3])
-            banks = tuple (bank1, bank2)
-
-    except Error as e:
-        print("Error while connecting to MySQL", e)
-    finally:
-        if connection.is_connected():
-            connection.commit()
-            cursor.close()
-            connection.close()
-            return banks
-
-"""
-This method restores data about the Banks
-:param: nothing
-:returns: nothing
-"""
-def restoreBank(self):
-    try:
-        connection_config_dict = {
-            'user': 'severhin1',
-            'password': 'AVNS_6rTR6l_ji_IFCMJbuSj',
-            'host': 'db-mysql-lon1-41175-do-user-12692486-0.b.db.ondigitalocean.com',
-            'port': '25060',
-            'database': 'defaultdb',
-        }
-        connection = mysql.connector.connect(**connection_config_dict)
-
-        if connection.is_connected():
-            cursor = connection.cursor()
-            record1 = tuple()
-            query = "SELECT * FROM bank WHERE id = 1;"
-            cursor.execute(query)
-            record1 = tuple (cursor.fetchall())
-            bank1 = Bank.restoreBank(record1[0][0], record1[0][1], record1[0][2], record1[0][3])
-            banks = tuple (bank1)
-
-    except Error as e:
-        print("Error while connecting to MySQL", e)
-    finally:
-        if connection.is_connected():
-            connection.commit()
-            cursor.close()
-            connection.close()
-            return banks
-
-"""
-This method restores data about the Atms
-:param: nothing
-:returns: nothing
-"""
-def restoreAtm(self):
-    try:
-        connection_config_dict = {
-            'user': 'severhin1',
-            'password': 'AVNS_6rTR6l_ji_IFCMJbuSj',
-            'host': 'db-mysql-lon1-41175-do-user-12692486-0.b.db.ondigitalocean.com',
-            'port': '25060',
-            'database': 'defaultdb',
-        }
-        connection = mysql.connector.connect(**connection_config_dict)
-
-        if connection.is_connected():
-            cursor = connection.cursor()
-            record = tuple()
-            query = "SELECT * FROM atm WHERE id = 1;"
+            query = "SELECT * FROM user WHERE login = '" + str (login) + "';"
             cursor.execute(query)
             record = tuple (cursor.fetchall())
-            atm = ATM.restoreAtm(record[0][0], record[0][1], record[0][2])
+            user = User(record.__getitem__(0)[0], record.__getitem__(0)[1], record.__getitem__(0)[2], record.__getitem__(0)[3], True)
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -272,4 +196,70 @@ def restoreAtm(self):
             connection.commit()
             cursor.close()
             connection.close()
-            return atm
+            return user
+
+"""
+This method restores data about the Account
+:param: self
+:returns: Account
+"""
+def restoreAccount(self, user_id):
+    try:
+        connection_config_dict = {
+            'user': 'severhin1',
+            'password': 'AVNS_6rTR6l_ji_IFCMJbuSj',
+            'host': 'db-mysql-lon1-41175-do-user-12692486-0.b.db.ondigitalocean.com',
+            'port': '25060',
+            'database': 'defaultdb',
+        }
+        connection = mysql.connector.connect(**connection_config_dict)
+
+        if connection.is_connected():
+            cursor = connection.cursor()
+            query = "SELECT * FROM account WHERE user_id = '" + str (user_id) + "';"
+            cursor.execute(query)
+            record = tuple (cursor.fetchall())
+            account = Account(record.__getitem__(0)[0], record.__getitem__(0)[1], record.__getitem__(0)[2], record.__getitem__(0)[3], user_id, True)
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            connection.commit()
+            cursor.close()
+            connection.close()
+            return account
+
+"""
+This method restores data about the cards 
+:param: nothing
+:returns: cards 
+:rtype: tuple
+"""
+def restoreCards(self, account_id):
+    try:
+        connection_config_dict = {
+            'user': 'severhin1',
+            'password': 'AVNS_6rTR6l_ji_IFCMJbuSj',
+            'host': 'db-mysql-lon1-41175-do-user-12692486-0.b.db.ondigitalocean.com',
+            'port': '25060',
+            'database': 'defaultdb',
+        }
+        connection = mysql.connector.connect(**connection_config_dict)
+
+        if connection.is_connected():
+            cursor = connection.cursor()
+            query = "SELECT * FROM card WHERE account_id = '" + str (account_id) + "';"
+            cursor.execute(query)
+            record = tuple (cursor.fetchall())
+            for i in record:
+                cards = Card(record.__getitem__(i)[0], record.__getitem__(i)[1], record.__getitem__(i)[2], record.__getitem__(i)[3], record.__getitem__(i)[4],  True,)
+
+    except Error as e:
+        print("Error while connecting to MySQL", e)
+    finally:
+        if connection.is_connected():
+            connection.commit()
+            cursor.close()
+            connection.close()
+            return tuple (cards)
