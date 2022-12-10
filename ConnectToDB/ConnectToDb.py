@@ -226,17 +226,11 @@ def restoreBank(self):
         if connection.is_connected():
             cursor = connection.cursor()
             record1 = tuple()
-            record2 = tuple()
-            for i in range(2):
-                query = "SELECT * FROM bank WHERE id = " + str (i) + ";"
-                cursor.execute(query)
-                if i == 0:
-                    record1 = tuple (cursor.fetchall())
-                if i == 1:
-                    record2 = tuple (cursor.fetchall())
+            query = "SELECT * FROM bank WHERE id = 1;"
+            cursor.execute(query)
+            record1 = tuple (cursor.fetchall())
             bank1 = Bank.restoreBank(record1[0][0], record1[0][1], record1[0][2], record1[0][3])
-            bank2 = Bank.restoreBank(record2[0][0], record2[0][1], record2[0][2], record2[0][3])
-            banks = tuple (bank1, bank2)
+            banks = tuple (bank1)
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -266,9 +260,9 @@ def restoreAtm(self):
         if connection.is_connected():
             cursor = connection.cursor()
             record = tuple()
-            query = "SELECT * FROM atm WHERE id = " + str (i) + ";"
+            query = "SELECT * FROM atm WHERE id = 1;"
             cursor.execute(query)
-            record1 = tuple (cursor.fetchall())
+            record = tuple (cursor.fetchall())
             atm = ATM.restoreAtm(record[0][0], record[0][1], record[0][2])
 
     except Error as e:

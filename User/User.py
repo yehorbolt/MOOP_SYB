@@ -116,6 +116,17 @@ class User:
         con.executeWithVal(query, val)
 
     """
+    This method updates user balance
+    :param: self
+    :type: User
+    :returns: nothing
+    """
+    def getMoneyDb(self):
+        query = "SELECT money FROM user WHERE id = '" + str (self.id) + "';"
+        records = con.executeReturn(query)
+        self.money = records.__getitem__(0)
+
+    """
     Deletes the User from the database
     :param: self
     :type: User 

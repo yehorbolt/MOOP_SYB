@@ -12,8 +12,7 @@ class Credit(Transfer):
     date = str ("default")
     type = str ("credit")
     active = bool (0)
-    leftToPay = int (0)           # left to pay for the credit
-    bankInterest = int (10)        # bank interest
+    bankInterest = int (10)       # bank interest
     card_id = int (0)             # from which card (id) is transfer
     card_account_id = int (0)     # id of the account that has a card from which transfer takes place
     atm_id = int (1)              # id of the atm where transaction is taken
@@ -27,7 +26,7 @@ class Credit(Transfer):
     """
     def __init__(self, fromCard, toCard, amount, card_id, card_account_id):
         try:
-            self.checkIfValid()
+            self.checkIfValid(toCard, amount)
         except Exception as e:
             raise AssertionError(e)
 
@@ -74,7 +73,7 @@ class Credit(Transfer):
     """
     def mayPay(self, card, amount):
         account_id = self.getAccountId(card)
-        overallBalance = 0
+        overallBalance = self.countMoneyOnCards()
         query = "SELECT balance FROM card WHERE number = " + str (card) + " AND account_id = '" + str (account_id) + "';"
         records = con.executeReturn(query)
         if records.__len__() == 0:
@@ -95,6 +94,16 @@ class Credit(Transfer):
             else:
                 return False
 
+    """
+    This method counts all money user have on his cards
+    :param: self, account_id
+    :type: Credit, int
+    :returns: money
+    :rtype: float/int
+    """
+    def countMoneyOnCards(self, user_id):
+        query = "SELECT COUNT(balance) FROM card where user_id = '" + str (user_id) + "' AND WHERE type <> 'credit';"
+        return float (con.executeReturn(query).__getitem__(0))
 
     """
     This method gets accountid from the database by the card number given
@@ -106,7 +115,7 @@ class Credit(Transfer):
     def getAccountId(self, card):
         query = "SELECT account_id FROM card WHERE number = " + str (card) + ";"
         records = con.executeReturn(query)
-        return records.__getitem__(-1)[-1]
+        return records.__getitem__(0)
 
 
 

@@ -15,7 +15,8 @@ class Daemon(Transfer):
     frequency = int (0)
     nextDate = str (0)
     process = 0
-    active = bool (0)
+    increase = bool (0)
+    active = bool (1)
     card_id = int (0)             # from which card (id) is transfer
     card_account_id = int (0)     # id of the account that has a card from which transfer takes place
     atm_id = int (1)              # id of the atm where transaction is taken
@@ -27,11 +28,18 @@ class Daemon(Transfer):
     :type: Credit, int, int, float/int, date, str, int, int, int, int
     :returns: nothing
     """
-    def __init__(self, fromCard, toCard, amount, frequency, card_id, card_account_id):
+    def __init__(self, fromCard, toCard, amount, frequency, increaseMoney,card_id, card_account_id):
         super(Transfer, self).__init__(fromCard, toCard, amount, "daemon",  amount, frequency, card_id, card_account_id)
-        self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
-        self.process = Process(target=self.transferMoney(), daemon=True)
-        self.process.start()
+        assert type(increaseMoney) == bool, "You must give a bool as one of the parameters that will be responsible for increasing or decreasing card balance!"
+        self.increase = increaseMoney
+        if self.increase == False: # for checking card
+            self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
+            self.process = Process(target=self.transferMoney(), daemon=True)
+            self.process.start()
+        if self.increase == True: # for savings card
+            self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
+            self.process = Process(target=self.getMoney(), daemon=True)
+            self.process.start()
 
     """
     This is the task that will be runned by Daemon process
@@ -43,11 +51,41 @@ class Daemon(Transfer):
         date = self.getTime()
         if date == self.nextDate:
             if self.enoughMoney(self.fromCard, self.amount):
-                self.changeBalance(self.fromCard, self.toCard, self.amount, False)
+                self.changeBalance(self.fromCard, self.amount, False)
+                self.changeBalance(self.toCard, self.amount, True)
                 self.nextDate = datetime.strptime(date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
             else:
                 self.process.daemon = False
                 self.process.terminate()
+
+
+    """
+    This is the task that will be runned by Daemon process
+    :param:self, nextDate
+    :type: Daemon, date
+    :returns: nothing
+    """
+    def getMoney(self):
+        date = self.getTime()
+        if date == self.nextDate:
+            self.amount = self.amount * 1.08
+            self.changeBalance(self.fromCard, self.amount, True)
+            self.nextDate = datetime.strptime(date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
+
+
+#        self.amount *= 1.08
+
+    """
+    This is the task that will be runned by Daemon process
+    :param:self, nextDate
+    :type: Daemon, date
+    :returns: nothing
+    """
+    def increaseBalance(self):
+        date = self.getTime()
+        if date == self.nextDate:
+            self.changeBalance(self.fromCard, self.toCard, self.amount, True)
+            self.nextDate = datetime.strptime(date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
 
     """
     This method changes Frequency of the daemon

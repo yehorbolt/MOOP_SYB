@@ -6,7 +6,7 @@ from ConnectToDB import ConnectToDb as con
 class ATM:
     id = int(0)
     address = str("default")
-    bank_id = int(0)
+    bank_id = int(1)
 
     """
     Constructor
@@ -14,13 +14,11 @@ class ATM:
     :type: ATM, str, Bank
     :returns: nothing
     """
-    def __init__(self, address, bank_id):
+    def __init__(self, address):
         assert type(address) is str, "Address must be a string!"
-        assert type(bank_id) is int, "You must give an int that is bank_id!"
-        assert self.checkAddress(address, bank_id) == True, "ATM with such address is already existing! Create an ATM with another address!"
+        assert self.checkAddress(address, self.bank_id) == True, "ATM with such address is already existing! Create an ATM with another address!"
         self.id = con.getLastId("atm") + 1
         self.address = address
-        self.bank_id = bank_id
         self.createAtm()
 
     """
@@ -29,10 +27,9 @@ class ATM:
     :type: ATM, str, Bank
     :returns: nothing
     """
-    def restoreAtm(self, atmId, address, bank_id):
+    def restoreAtm(self, atmId, address, ):
         self.id = atmId
         self.address = address
-        self.bank_id = bank_id
 
     """
     Checks if ATM with address and bank_id given is already in a database
