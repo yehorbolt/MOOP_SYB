@@ -25,7 +25,16 @@ class Credit(Card):
     :returns: nothing
     """
     def __init__(self, password, cardType, account_id, restore):
-        super(Credit, self).__init__(password, "credit", account_id)
+        if restore == False:
+            super(Credit, self).__init__(password, "credit", account_id, restore)
+        if restore == True:
+            id = self.findCardId(account_id)
+            number = self.findCardNumber(account_id)
+            balance = self.findCardBalance(account_id)
+            self.valid = True
+            limit = self.findCardLimit(account_id)
+            leftToPay = self.findLeftToPay(account_id)
+            self.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
 
     """
     Constructor for restoring Card

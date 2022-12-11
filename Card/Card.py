@@ -38,22 +38,7 @@ class Card:
             self.account_id = account_id
             self.createCard()
         else:
-            id = self.findCardId(account_id)
-            number = self.findCardNumber(account_id)
-            balance = self.findCardBalance(account_id)
-            self.valid = True
-            limit = self.findCardLimit(account_id)
-            leftToPay = self.findLeftToPay(account_id)
-            self.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
-            #if cardType == "checking":
-            #    from Card.Checking import Checking
-            #    Checking.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
-            #if cardType == "credit":
-            #    from Card.Credit import Credit
-            #    Credit.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
-            #if cardType == "savings":
-            #    from Card.Savings import Savings
-            #    Savings.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
+            pass
 
     """
     This method checks if the account already has the card of this type

@@ -256,6 +256,7 @@ def restoreCards(account_id):
             cursor.execute(query)
             record = tuple (cursor.fetchall())
             cards = list()
+            c = 0
             for i in record:
                 password = i[2]
                 type = i[3]
