@@ -171,11 +171,25 @@ class User:
         con.execute(query)
 
     """
-    Returns string representation of the User 
-    :param: self
-    :type: User 
-    :returns: string representation
-    :rtype: str
-    """
+        Returns string representation of the User 
+        :param: self
+        :type: User 
+        :returns: string representation
+        :rtype: str
+        """
+
     def __str__(self):
         return f"id: {self.id}, login: {self.login}, password: {self.password}, money: {self.money}"
+
+    """
+        Returns array representation of the User 
+        :param: self
+        :type: User 
+        :returns: array representation
+        :rtype: arat
+        """
+
+    def getArrayUser(self):
+        return [self.id, self.login, self.password, self.money]
+
+
