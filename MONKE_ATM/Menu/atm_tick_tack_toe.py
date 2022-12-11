@@ -2,6 +2,7 @@ from tkinter import *
 from User.User import User
 from ConnectToDB import ConnectToDb as con
 
+
 class TicTacToe(Frame):
     is_won = True
     value = []
@@ -14,7 +15,6 @@ class TicTacToe(Frame):
         self.ttt_o = PhotoImage(file='../images/ATM/TicTacToe/ttt_o.png')
         self.turn = 'X'
         self.winOrLose = ""
-        print(self.master.amount)
 
         Label(self, bg="#f7f0c6").grid(columnspan=9, row=0)
 
@@ -91,9 +91,11 @@ class TicTacToe(Frame):
                width=170, height=50, command=quit).grid(columnspan=9, row=11)
 
     def win(self):
-        User.updateMoneyByAmount(self, self.master.user_id, 100)
-        self.master.account_data = con.restoreAccount(self.master.user_id)
-        print(self.master.account_data)
+        self.master.user_data.money += 100
+        self.master.user_data.updateMoney()
+        data = con.restoreUser(self.master.user_data.login)
+        self.master.user_data = User(data[0], data[1], data[2], data[3])
+        print(self.master.user_data)
 
     def erase_after(self):
         self.btn1['text'] = ''
@@ -198,9 +200,8 @@ class TicTacToe(Frame):
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
-                    self.win()
-                    print(self.master.amount)
                     self.erase_after()
+                    self.win()
             elif check2:
                 if 'O' in [self.btn4['text'], self.btn5['text'], self.btn6['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
@@ -209,8 +210,8 @@ class TicTacToe(Frame):
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
-                    self.win()
                     self.erase_after()
+                    self.win()
             elif check3:
                 if 'O' in [self.btn7['text'], self.btn8['text'], self.btn9['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
@@ -219,8 +220,8 @@ class TicTacToe(Frame):
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
-                    self.win()
                     self.erase_after()
+                    self.win()
             elif check4:
                 if 'O' in [self.btn1['text'], self.btn4['text'], self.btn7['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
@@ -229,8 +230,8 @@ class TicTacToe(Frame):
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
-                    self.win()
                     self.erase_after()
+                    self.win()
             elif check5:
                 if 'O' in [self.btn2['text'], self.btn5['text'], self.btn8['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
@@ -239,8 +240,8 @@ class TicTacToe(Frame):
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
-                    self.win()
                     self.erase_after()
+                    self.win()
             elif check6:
                 if 'O' in [self.btn3['text'], self.btn6['text'], self.btn9['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
@@ -249,8 +250,8 @@ class TicTacToe(Frame):
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
-                    self.win()
                     self.erase_after()
+                    self.win()
             elif check7:
                 if 'O' in [self.btn1['text'], self.btn5['text'], self.btn9['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
@@ -259,8 +260,8 @@ class TicTacToe(Frame):
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
-                    self.win()
                     self.erase_after()
+                    self.win()
             elif check8:
                 if 'O' in [self.btn3['text'], self.btn5['text'], self.btn7['text']]:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_lose.png')
@@ -269,8 +270,8 @@ class TicTacToe(Frame):
                 else:
                     self.winOrLose = PhotoImage(file='../images/ATM/TicTacToe/ttt_won.png')
                     self.check_data.configure(image=self.winOrLose)
-                    self.win()
                     self.erase_after()
+                    self.win()
 
         if self.is_won:
             if check1:

@@ -251,13 +251,3 @@ class Account:
     def __str__(self):
         return f"id: {self.id}, name: {self.name}, surname: {self.surname}, number: {self.number}, status: {self.status}, user_id: {self.user_id}, bank_id: {self.bank_id}"
 
-    """
-        Returns array representation of the Account 
-        :param: self
-        :type: Account
-        :returns: array representation
-        :rtype: array
-        """
-
-    def getArrayAccount(self):
-        return [self.id, self.name, self.surname, self.number, self.status, self.user_id, self.bank_id]

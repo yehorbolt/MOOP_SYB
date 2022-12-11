@@ -1,4 +1,6 @@
 from tkinter import *
+from User.User import User
+from ConnectToDB import ConnectToDb as con
 
 
 class ATMChangePassword(Frame):
@@ -55,8 +57,14 @@ class ATMChangePassword(Frame):
         elif self.new_password.get() != self.conf_password.get():
             self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_invalid_pass.png')
             self.check_data.config(image=self.incorrect_dt)
+        elif self.new_password.get() == self.master.user_data.password:
+            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_invalid_pass.png')
+            self.check_data.config(image=self.incorrect_dt)
         else:
             self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_success.png')
             self.check_data.config(image=self.incorrect_dt)
+            self.master.user_data.changePassword(self.new_password.get())
+            data = con.restoreUser(self.master.user_data.login)
+            self.master.user_data = User(data[0], data[1], data[2], data[3])
             self.new_password.set("")
             self.conf_password.set("")

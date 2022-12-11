@@ -3,13 +3,12 @@ from ConnectToDB import ConnectToDb as con
 """
     This class is responsible for an user entity
 """
-
-
 class User:
     id = int(0)
     login = str("default")
     password = str("default")
-    money = float(0)
+    money = float (0)
+    restore = False
 
     """
     Constructor 
@@ -17,22 +16,22 @@ class User:
     :type: User, str, str, int
     :returns: nothing
     """
-
     def __init__(self, login, password, money, restore):
         assert type(login) is str, "Login must be a string!"
         assert type(password) is str, "Password must be a string!"
         assert type(money) is float or type(money) is int, "Money must be a float or an int!"
         if restore == False:
             assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
-            assert password.__len__() >= 8, "Password must be longer than 7 symbols!"
+            assert password.len() >= 8, "Password must be longer than 7 symbols!"
             self.id = con.getLastId("user") + 1
             self.login = login
             self.password = password
             self.createUser()
         else:
-            u_id = int(self.findUserId(login))
-            print("Check " + str(u_id))
-            self.restoreUser(u_id, login, password, money)
+            id = int (self.findUserId(login))
+            self.restoreUser(id, login, password, money)
+
+
 
     """
     This method restored data about the user from the database
@@ -40,12 +39,11 @@ class User:
     :type: User, int, str, str, int
     :returns: nothing
     """
-
-    def restoreUser(self, u_id, login, password, money):
-        self.id = u_id
-        self.login = login
-        self.password = password
-        self.money = money
+    def restoreUser(self, id, login, password, money):
+            self.id = id
+            self.login = login
+            self.password = password
+            self.money = money
 
     """
     This method finds a user id
@@ -54,7 +52,6 @@ class User:
     :returns: id
     :rtype: int
     """
-
     def findUserId(self, login):
         query = "SELECT id FROM user WHERE login = '" + str(login) + "';"
         return tuple(con.executeReturn(query)).__getitem__(0)[0]
@@ -66,7 +63,6 @@ class User:
     :returns: True or False 
     :rtype: bool
     """
-
     def checkLogin(self, login):
         query = "SELECT * FROM user WHERE login = '" + login + "';"
         res = con.executeReturn(query)
@@ -82,11 +78,10 @@ class User:
     :returns: True/False
     :rtype: bool
     """
-
     def checkPassword(self, password, id):
-        query = "SELECT password FROM user WHERE id = '" + str(id) + "';"
+        query = "SELECT password FROM user WHERE id = '" + str (id) + "';"
         res = con.executeReturn(query)
-        if res.__getitem__(0)[0] == password:
+        if res.getitem(0)[0] == password:
             return True
         return False
 
@@ -96,7 +91,6 @@ class User:
     :type: User
     :returns: nothing
     """
-
     def createUser(self):
         query = "INSERT INTO user (id, login, password) VALUES (%s, %s, %s);"
         val = (self.id, self.login, self.password)
@@ -108,14 +102,13 @@ class User:
     :type: User, str 
     :returns: nothing
     """
-
     def changePassword(self, newPassword):
         assert type(newPassword) is str, "newPassword must be a string!"
         newPassword = str(newPassword)  # converts newPassword (object) into str
         if newPassword == self.password:
             raise Exception("You have entered same password!")
-        if newPassword.__len__() < 8:
-            raise Exception("You can't change the password on a new one with length < 8!")
+        if len(newPassword) <= 8:
+            raise Exception("You can't change the password on a new one with length <= 8!")
         self.password = newPassword
         self.updatePassword()
 
@@ -125,7 +118,6 @@ class User:
     :type: User
     :returns: nothing
     """
-
     def updatePassword(self):
         query = "UPDATE user SET password = %s WHERE id = %s;"
         val = (self.password, self.id)
@@ -137,7 +129,6 @@ class User:
     :type: User, float/int
     :returns: nothing
     """
-
     def changeMoney(self, newMoney):
         assert type(newMoney) is float or type(newMoney) is int, "newMoney must be a float or an int!"
         assert newMoney >= 0, "newMoney must be more than -1"
@@ -147,27 +138,14 @@ class User:
         self.updateMoney()
 
     """
-        Update amount of the money the User has in database
-        :param: self
-        :type: User
-        :returns: nothing
-        """
-
+    Update amount of the money the User has in database
+    :param: self
+    :type: User
+    :returns: nothing
+    """
     def updateMoney(self):
         query = "UPDATE user SET money = %s WHERE id = %s;"
         val = (self.money, self.id)
-        con.executeWithVal(query, val)
-
-    """
-        Update amount of the money the User has in database
-        :param: self
-        :type: User
-        :returns: nothing
-        """
-
-    def updateMoneyByAmount(self, u_id, amount):
-        query = "UPDATE user SET money = %s WHERE id = %s;"
-        val = (amount, u_id)
         con.executeWithVal(query, val)
 
     """
@@ -176,11 +154,10 @@ class User:
     :type: User, int
     :returns: nothing
     """
-
     def getMoneyDb(self, user_id):
-        query = "SELECT money FROM user WHERE id = '" + str(user_id) + "';"
+        query = "SELECT money FROM user WHERE id = '" + str (user_id) + "';"
         records = con.executeReturn(query)
-        self.money = records.__getitem__(0)
+        self.money = records.getitem(0)
 
     """
     Deletes the User from the database
@@ -188,29 +165,16 @@ class User:
     :type: User 
     :returns: nothing
     """
-
     def deleteUser(self):
-        query = "DELETE FROM user WHERE id = " + str(self.id) + ";"
+        query = "DELETE FROM user WHERE id = " + str (self.id) + ";"
         con.execute(query)
 
     """
-        Returns string representation of the User 
-        :param: self
-        :type: User 
-        :returns: string representation
-        :rtype: str
-        """
-
+    Returns string representation of the User 
+    :param: self
+    :type: User 
+    :returns: string representation
+    :rtype: str
+    """
     def __str__(self):
         return f"id: {self.id}, login: {self.login}, password: {self.password}, money: {self.money}"
-
-    """
-        Returns array representation of the User 
-        :param: self
-        :type: User 
-        :returns: array representation
-        :rtype: arat
-        """
-
-    def getArrayUser(self):
-        return [self.id, self.login, self.password, self.money]
