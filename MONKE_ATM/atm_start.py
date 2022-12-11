@@ -62,10 +62,9 @@ class SampleApp(Tk):
         self._frame = None
         self.user_data = ""
         self.account_data = ""
+        self.card_list = ""
         self.user_id = 0
-        self.pseudo_card_list = [[1, "4149898947631523", "Credit", True], [2, "5789478963214586", "Savings", False],
-                                 [3, "4789458963548749", "Checking", False]]
-        self.selected_card = {}
+        self.selected_card = ""
         self.switch_frame("StartPage")
 
     def switch_frame(self, page_name):

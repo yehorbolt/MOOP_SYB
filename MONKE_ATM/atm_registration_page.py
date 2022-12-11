@@ -1,4 +1,11 @@
 from tkinter import *
+from ConnectToDB import ConnectToDb as con
+from Account.Account import *
+from User.User import User
+from Card.Card import *
+from Card.Credit import Credit
+from Card.Checking import Checking
+from Card.Savings import Savings
 
 
 class ATMRegistrationPage(Frame):
@@ -66,11 +73,11 @@ class ATMRegistrationPage(Frame):
         master.checking_card = PhotoImage(file='../images/ATM/RegMenu/reg_checking.png')
         master.saving_card = PhotoImage(file='../images/ATM/RegMenu/reg_saving.png')
         r_1 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
-                          value="Credit", image=master.credit_card)
+                          value="credit", image=master.credit_card)
         r_2 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
-                          value="Checking", image=master.checking_card)
+                          value="checking", image=master.checking_card)
         r_3 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
-                          value="Saving", image=master.saving_card)
+                          value="savings", image=master.saving_card)
 
         r_1.pack()
         r_2.pack()
@@ -112,8 +119,7 @@ class ATMRegistrationPage(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
-        print(self.card_type.get())
-        if len(self.login.get()) < 3:
+        if (len(self.login.get()) < 3) or (len(self.name.get()) < 3) or (len(self.surname.get()) < 3):
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect.png')
             self.check_data.config(image=self.incorrect_dt)
         elif len(self.pin.get()) != 4 or (not self.pin.get().isdigit()):
@@ -126,5 +132,48 @@ class ATMRegistrationPage(Frame):
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect_conf.png')
             self.check_data.config(image=self.incorrect_dt)
         else:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_success.png')
-            self.check_data.config(image=self.incorrect_dt)
+            try:
+                ch_login = str(self.login.get())
+                ch_pass = self.password.get()
+                ch_money = 0
+                if User.checkLogin(self, ch_login):
+                    new_user = User(ch_login, ch_pass, ch_money, False)
+
+                    print(new_user)
+                    ch_name = self.name.get()
+                    ch_surname = self.surname.get()
+                    ch_status = self.status.get()
+                    new_account = Account(ch_name, ch_surname, ch_status, new_user.id, False)
+
+                    print(new_account)
+
+                    new_card = ""
+                    ch_pin = int(self.pin.get())
+                    ch_acc_id = new_account.id
+                    if self.card_type.get() == "credit":
+                        new_card = Credit(ch_pin, "credit", ch_acc_id, False)
+                    elif self.card_type.get() == "savings":
+                        new_card = Savings(ch_pin, "savings", ch_acc_id, False)
+                    elif self.card_type.get() == "checking":
+                        new_card = Checking(ch_pin, "checking", ch_acc_id, False)
+
+                    print(new_card)
+                    self.name.set("")
+                    self.surname.set("")
+                    self.login.set("")
+                    self.password.set("")
+                    self.conf_password.set("")
+                    self.card_type.set("Credit")
+                    self.pin.set("")
+                    self.status.set("workless")
+                    self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_success.png')
+                    self.check_data.config(image=self.incorrect_dt)
+            except Exception as e:
+                print(e)
+                self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect_conf.png')
+                self.check_data.config(image=self.incorrect_dt)
+
+
+
+
+
