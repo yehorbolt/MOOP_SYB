@@ -1,4 +1,7 @@
 from tkinter import *
+from ConnectToDB import ConnectToDb as con
+from Account.Account import *
+from User.User import User
 
 
 class ATMLoginPage(Frame):
@@ -53,9 +56,24 @@ class ATMLoginPage(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
-        if len(self.login.get()) < 3:
+        u = str(self.login.get())
+        p = str(self.password.get())
+        try:
+            if not User.checkLogin(self, u):
+                self.incorrect_dt = ""
+                self.check_data.config(image=self.incorrect_dt)
+                user_id = User.findUserId(self, u)
+                if User.checkPassword(self, p, user_id):
+                    print("normLogin and pass")
+                else:
+                    raise Exception()
+        except:
             self.incorrect_dt = PhotoImage(file='../images/ATM/Login/login_incorrect.png')
             self.check_data.config(image=self.incorrect_dt)
-        else:
-            self.check_data.config(image="")
-            self.master.switch_frame("ATMMainMenuPage")
+
+        #
+        # if User.checkLogin(self, u) == True:
+        #     user_data = con.restoreUser(u)
+        #     print(user_data)
+        #     self.check_data.config(image="")
+        #     self.master.switch_frame("ATMMainMenuPage")
