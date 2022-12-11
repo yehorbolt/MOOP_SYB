@@ -20,8 +20,8 @@ class Checking(Card):
     :type: Checking, int, str, float/int, float/int, int
     :returns: nothing
     """
-    def __init__(self, password, cardType, account_id):
-        super(Checking, self).__init__(password, "checking", account_id)
+    def __init__(self, password, cardType, account_id, restore):
+        super(Checking, self).__init__(password, "checking", account_id, restore)
 
     """
     Constructor for restoring Card

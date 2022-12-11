@@ -25,11 +25,6 @@ if __name__ == '__main__':
     print(ac)
     print("-------------------------------------")
     c = con.restoreCards(ac.id)
-    print(c[0])
-
-    #user1 = User("newlogin", "1234567890", 3000, False)
-    #hs = Account("Hryhoriy", "Skovoroda", "has job", user1, bank)
-    #db1_user = con.restoreUser("newlogin") # it restores data about the User
-    #print(db1_user)
-    #account = con.restoreAccount() # it restores data about the Account of the User
-    #cards = tuple(con.restoreCards()) # it restores data about the Cards of the User
+    checking = Checking (c[0], "checking", 1)
+    print(checking)
+    print(checking.__class__)
