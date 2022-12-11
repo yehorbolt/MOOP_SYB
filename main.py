@@ -18,7 +18,7 @@ def createBasicData(self):
 
 """ Main file that start everything """
 if __name__ == '__main__':
-    u = con.restoreUser("login")
+    u = con.restoreUser("newlogin")
     print(u)
     print("-------------------------------------")
     ac = con.restoreAccount(u.id)

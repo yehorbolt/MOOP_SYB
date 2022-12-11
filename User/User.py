@@ -31,7 +31,7 @@ class User:
             self.createUser()
         else:
             u_id = int(self.findUserId(login))
-            print("Gay"+u_id)
+            print("Check " + str(u_id))
             self.restoreUser(u_id, login, password, money)
 
     """
