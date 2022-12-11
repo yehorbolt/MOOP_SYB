@@ -21,7 +21,7 @@ class Card:
     :type: Card
     :returns: nothing
     """
-    def __init__(self, number, password, cardType, account_id, restore):
+    def __init__(self, password, cardType, account_id, restore):
         assert type(password) is int, "Card password must be an int!"
         assert self.validPassword(password) == True, "Password must be be 4 numbers from 0 to 9!"
         assert self.validType(cardType) == True, "You've entered invalid Card type!"
@@ -37,54 +37,67 @@ class Card:
             self.account_id = account_id
             self.createCard()
         else:
-            id = self.findCardId(number)
-            balance = self.findCardBalance(number)
-            limit = self.findCardLimit(number)
-            leftToPay = self.findLeftToPay(number)
-            self.restoreCard(self, id, number, password, cardType, balance, limit, leftToPay, account_id)
+            id = self.findCardId(account_id)
+            number = self.findCardNumber(account_id)
+            balance = self.findCardBalance(account_id)
+            self.valid = True
+            limit = self.findCardLimit(account_id)
+            leftToPay = self.findLeftToPay(account_id)
+            self.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
 
     """
     This method finds a card id
-    :param: self, number
+    :param: self, account_id
     :type: Card, int
     :returns: id
     :rtype: int
     """
-    def findCardId(self, number):
-        query = "SELECT id FROM card WHERE number = '" + str (number) + "';"
+    def findCardId(self, account_id):
+        query = "SELECT id FROM card WHERE account_id = '" + str (account_id) + "';"
+        return tuple (con.executeReturn(query)).__getitem__(0)[0]
+
+    """
+    This method finds a card number
+    :param: self, account_id
+    :type: Card, int
+    :returns: id
+    :rtype: int
+    """
+    def findCardNumber(self, account_id):
+        query = "SELECT number FROM card WHERE account_id = '" + str (account_id) + "';"
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
     This method finds a card balance
-    :param: self, number
+    :param: self, account_id
     :type: Card, int
     :returns: balance
     :rtype: float/int
     """
-    def findCardId(self, number):
-        query = "SELECT balance FROM card WHERE number = '" + str (number) + "';"
+    def findCardBalance(self, account_id):
+        query = "SELECT balance FROM card WHERE account_id = '" + str (account_id) + "';"
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
     This method finds a card limit
-    :param: self, number
+    :param: self, account_id
     :type: Card, int
     :returns: limit
     :rtype: float/int
     """
-    def findCardLimit(self, number):
-        query = "SELECT limit FROM card WHERE number = '" + str (number) + "';"
+    def findCardLimit(self, account_id):
+        query = 'SELECT "limit" FROM card WHERE account_id = \'' + str (account_id) + '\';'
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
     This method finds a card leftToPay
-    :param: self, number
+    :param: self, account_id
     :type: Card, int
     :returns: id
     :rtype: int
     """
-    def findLeftToPay(self, number):
-        query = "SELECT leftToPay FROM card WHERE number = '" + str (number) + "';"
+    def findLeftToPay(self, account_id):
+        query = "SELECT leftToPay FROM card WHERE account_id = '" + str (account_id) + "';"
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
@@ -98,8 +111,10 @@ class Card:
         self.number = number
         self.password = password
         self.type = cardType
-
+        self.balance = balance
         self.valid = True
+        self.limit = limit
+        self.leftToPay = leftToPay
         self.account_id = account_id
 
     """
@@ -109,8 +124,8 @@ class Card:
     :returns: nothing
     """
     def createCard(self):
-        query = 'INSERT INTO card (id, number, password, type, balance, gold, valid, "limit", account_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);'
-        val = (self.id, self.number, self.password, self.type, self.balance, int (self.valid), self.limit, self.account_id)
+        query = 'INSERT INTO card (id, number, password, type, balance, valid, "limit", leftToPay, account_id) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);'
+        val = (self.id, self.number, self.password, self.type, self.balance, int (self.valid), self.limit, self.leftToPay, self.account_id)
         con.executeWithVal(query, val)
 
     """
@@ -123,11 +138,11 @@ class Card:
     def generateNumber(self):
         number = str (random.randint(0,9))
         for i in range(8):
-           number + str (random.randint(0,9))
+           number += str (random.randint(0,9))
         while self.numberExists(number) == True:
             newNumber = str (random.randint(0,9))
             for i in range(6):
-                newNumber + str (random.randint(0,9))
+                newNumber += str (random.randint(0,9))
             number = newNumber
         return number
 
@@ -169,7 +184,7 @@ class Card:
     """
     def validType(self, type):
         type = str (type)
-        if type != "savings" or type != "credit" or type != "checking":
+        if type != "savings" and type != "credit" and type != "checking":
             return False
         else:
             return True
@@ -325,5 +340,5 @@ class Card:
     """
     def __str__(self):
         return f"id: {self.id}, number: {self.number}, password: {self.password}, " \
-               f"type: {self.type}, balance: {self.balance}, gold: {self.gold}, " \
-               f"valid: {self.valid}, limit: {self.limit}, account_id: {self.account_id}"
+               f"type: {self.type}, balance: {self.balance}, valid: {self.valid}, " \
+               f"limit: {self.limit}, leftToPay: {self.leftToPay}, account_id: {self.account_id}"
