@@ -28,7 +28,7 @@ class User:
             self.createUser()
         else:
             id = int (self.findUserId(login))
-            if self.checkPassword(password, id) == True:
+            if self.checkPassword(password, id):
                 self.restoreUser(id, login, password, money)
             else:
                 raise Exception("Password is wrong!")
@@ -151,12 +151,12 @@ class User:
 
     """
     This method updates user balance
-    :param: self
-    :type: User
+    :param: self, user_id
+    :type: User, int
     :returns: nothing
     """
-    def getMoneyDb(self):
-        query = "SELECT money FROM user WHERE id = '" + str (self.id) + "';"
+    def getMoneyDb(self, user_id):
+        query = "SELECT money FROM user WHERE id = '" + str (user_id) + "';"
         records = con.executeReturn(query)
         self.money = records.__getitem__(0)
 
