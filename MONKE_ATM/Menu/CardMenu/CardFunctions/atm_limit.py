@@ -10,11 +10,33 @@ class ATMLimitMenu(Frame):
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
         Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(20, 0))
 
+        self.new_lim = StringVar()
+
         # my limit
-        # lim info
+        # lim info left
+
+        # add banana logo
+        master.logo = PhotoImage(file='../images/ATM/mp_logo.png')
+        panel = Label(self, image=master.logo, bg='#f7f0c6')
+        panel.pack()
 
         master.lim_info = PhotoImage(file='../images/ATM/Limit/lim_info.png')
-        Label(self, bg="#f7f0c6", width=960, image=master.lim_info).pack(pady=(20, 0))
+        Label(self, bg="#f7f0c6", width=960, image=master.lim_info).pack(pady=(20, 10))
+
+        master.lim_enter_img = PhotoImage(file='../images/ATM/Limit/enter_new_lim.png')
+        Label(self, bg="#f7f0c6", width=960, image=master.lim_enter_img).pack(pady=(10, 0))
+
+        self.lim_entry = Entry(self, font=("orbitron", 14), textvariable=self.new_lim)
+        self.lim_entry.config(fg='black')
+        self.lim_entry.pack(pady=(10, 0))
+
+        self.stat = ""
+        self.check_data = Label(self, text="", bg='#f7f0c6', image=self.stat)
+        self.check_data.pack(pady=(15, 15))
+
+        master.change_lim_btn = PhotoImage(file='../images/ATM/ActiveMenu/active_change.png')
+        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.change_lim_btn,
+               width=170, height=50, command=lambda: self.upd_limit()).pack(pady=(0, 5))
 
         master.menu_btn = PhotoImage(file='../images/ATM/menu_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.menu_btn,
@@ -23,3 +45,12 @@ class ATMLimitMenu(Frame):
         master.exit_btn = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
                width=170, height=50, command=quit).pack(pady=(0, 5))
+
+
+    def upd_limit(self):
+        if not self.new_lim.get().isdigit():
+            self.stat = PhotoImage(file='../images/ATM/Limit/lim_error.png')
+            self.check_data.configure(image=self.stat)
+        else:
+            self.stat = PhotoImage(file='../images/ATM/Limit/lim_upd.png')
+            self.check_data.configure(image=self.stat)

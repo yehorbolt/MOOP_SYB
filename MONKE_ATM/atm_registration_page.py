@@ -15,8 +15,8 @@ class ATMRegistrationPage(Frame):
         self.card_type = StringVar()
         self.card_type.set("Credit")
         self.pin = StringVar()
-        self.status = BooleanVar()
-        self.status.set(False)
+        self.status = StringVar()
+        self.status.set("workless")
 
         self.incorrect_dt = ""
 
@@ -89,9 +89,9 @@ class ATMRegistrationPage(Frame):
         master.stat_has = PhotoImage(file='../images/ATM/RegMenu/reg_has_job.png')
         master.stat_not = PhotoImage(file='../images/ATM/RegMenu/reg_workless.png')
         s_1 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.status,
-                          value=True, image=master.stat_has)
+                          value="working", image=master.stat_has)
         s_2 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.status,
-                          value=False, image=master.stat_not)
+                          value="workless", image=master.stat_not)
 
         s_1.pack()
         s_2.pack(pady=(0, 10))
