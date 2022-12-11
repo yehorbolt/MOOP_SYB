@@ -230,7 +230,7 @@ def restoreAccount(user_id):
             connection.commit()
             cursor.close()
             connection.close()
-            return account.getArayAccount()
+            return account.getArrayAccount()
 
 """
 This method restores data about the cards 

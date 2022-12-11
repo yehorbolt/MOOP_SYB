@@ -80,7 +80,7 @@ class ATMLoginPage(Frame):
             check_lp = False
 
         if check_lp:
-            self.master.account_data = con.restoreAccount(user_id)
+            self.master.account_data = con.restoreAccount(self.master.user_id)
             print(self.master.user_data)
             print(self.master.account_data)
             print(self.master.user_id)
