@@ -62,7 +62,7 @@ class Credit(Card):
     :type: Credit, float/int
     :returns: nothing
     """
-    def takeCredit(self, amount, user_id):
+    def takeCredit(self, amount):
         try:
             cred(self.number, self.number, amount, self.id, self.account_id)
             self.leftToPay = amount
@@ -83,7 +83,7 @@ class Credit(Card):
         assert amount < self.balance, "You can't make Transaction with more money than you have on your card!"
         Transaction(self.number, toCard, amount, self.id, "transaction", self.account_id)
         self.balance = self.getBalance()
-
+        self.leftToPay = self.getLeftToPay()
 
     """
     Withdraws the money from the Checking Card
@@ -113,3 +113,4 @@ class Credit(Card):
         assert amount < self.checkUserMoney(user_id), "User can't put on the Card more money that he has!"
         Transaction(self.number, self.number, amount, self.id, "putMoney", self.account_id)
         self.balance = self.getBalance()
+        self.leftToPay = self.getLeftToPay()
