@@ -28,9 +28,9 @@ class Daemon(Transfer):
     :type: Credit, int, int, float/int, date, str, int, int, int, int
     :returns: nothing
     """
-    def __init__(self, fromCard, toCard, amount, frequency, increaseMoney,card_id, card_account_id):
-        super(Transfer, self).__init__(fromCard, toCard, amount, "daemon",  0, frequency, card_id, card_account_id)
+    def __init__(self, fromCard, toCard, amount, frequency, increaseMoney, card_id, card_account_id):
         assert type(increaseMoney) == bool, "You must give a bool as one of the parameters that will be responsible for increasing or decreasing card balance!"
+        super(Transfer, self).__init__(fromCard, toCard, amount, "daemon",  0, frequency, card_id, card_account_id, self.atm_id, self.atm_bank_id)
         self.increase = increaseMoney
         if self.increase == False: # for checking card
             self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
