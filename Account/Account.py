@@ -241,11 +241,13 @@ class Account:
         con.execute(query)
 
     """
-    Returns string representation of the Account 
-    :param: self
-    :type: Account
-    :returns: string representation
-    :rtype: str
-    """
+        Returns string representation of the Account 
+        :param: self
+        :type: Account
+        :returns: string representation
+        :rtype: str
+        """
+
     def __str__(self):
         return f"id: {self.id}, name: {self.name}, surname: {self.surname}, number: {self.number}, status: {self.status}, user_id: {self.user_id}, bank_id: {self.bank_id}"
+

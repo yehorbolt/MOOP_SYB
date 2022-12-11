@@ -1,10 +1,17 @@
 from tkinter import *
+from ConnectToDB import ConnectToDb as con
+from Account.Account import *
+from User.User import User
 
 
 class ATMLoginPage(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)
+
+        self.master.user_id = 0
+        self.master.user_data = ""
+        self.master.account_data = ""
 
         self.password = StringVar()
         self.login = StringVar()
@@ -34,7 +41,7 @@ class ATMLoginPage(Frame):
         Label(self, text="", bg='#f7f0c6', image=master.pass_reg).pack()
 
         password_entry = Entry(self, font=("arial", 12), textvariable=self.password)
-        password_entry.config(fg='black', show='*')
+        password_entry.config(fg='black', show='●')
         password_entry.pack(pady=(0, 10))
 
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
@@ -53,9 +60,32 @@ class ATMLoginPage(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
-        if len(self.login.get()) < 3:
+        u = str(self.login.get())
+        p = str(self.password.get())
+        check_lp = False
+        try:
+            if not User.checkLogin(self, u):
+                u_id = User.findUserId(self, u)
+                self.master.user_id = u_id
+                data = con.restoreUser(u)
+                self.master.user_data = User(data[0], data[1], data[2], data[3])
+                if self.master.user_data.password == p:
+                    self.incorrect_dt = ""
+                    self.check_data.config(image=self.incorrect_dt)
+                    check_lp = True
+                else:
+                    raise Exception
+            else:
+                raise Exception
+        except Exception as e:
+            print(e)
             self.incorrect_dt = PhotoImage(file='../images/ATM/Login/login_incorrect.png')
             self.check_data.config(image=self.incorrect_dt)
-        else:
-            self.check_data.config(image="")
+            check_lp = False
+
+        if check_lp:
+            self.master.account_data = con.restoreAccount(self.master.user_id)
+            print(self.master.user_data)
+            print(self.master.account_data)
+            print(self.master.user_id)
             self.master.switch_frame("ATMMainMenuPage")

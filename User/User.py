@@ -8,6 +8,7 @@ class User:
     login = str("default")
     password = str("default")
     money = float (0)
+    restore = False
 
     """
     Constructor 
@@ -21,17 +22,15 @@ class User:
         assert type(money) is float or type(money) is int, "Money must be a float or an int!"
         if restore == False:
             assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
-            assert password.__len__() >= 8, "Password must be longer than 7 symbols!"
+            assert password.len() >= 8, "Password must be longer than 7 symbols!"
             self.id = con.getLastId("user") + 1
             self.login = login
             self.password = password
             self.createUser()
         else:
             id = int (self.findUserId(login))
-            if self.checkPassword(password, id):
-                self.restoreUser(id, login, password, money)
-            else:
-                raise Exception("Password is wrong!")
+            self.restoreUser(id, login, password, money)
+
 
 
     """
@@ -54,8 +53,8 @@ class User:
     :rtype: int
     """
     def findUserId(self, login):
-        query = "SELECT id FROM user WHERE login = '" + str (login) + "';"
-        return tuple (con.executeReturn(query)).__getitem__(0)[0]
+        query = "SELECT id FROM user WHERE login = '" + str(login) + "';"
+        return tuple(con.executeReturn(query)).__getitem__(0)[0]
 
     """
     Checks if User with login given is already in a database
@@ -82,7 +81,7 @@ class User:
     def checkPassword(self, password, id):
         query = "SELECT password FROM user WHERE id = '" + str (id) + "';"
         res = con.executeReturn(query)
-        if res.__getitem__(0)[0] == password:
+        if res.getitem(0)[0] == password:
             return True
         return False
 
@@ -108,8 +107,8 @@ class User:
         newPassword = str(newPassword)  # converts newPassword (object) into str
         if newPassword == self.password:
             raise Exception("You have entered same password!")
-        if newPassword.__len__() < 8:
-            raise Exception("You can't change the password on a new one with length < 8!")
+        if len(newPassword) <= 8:
+            raise Exception("You can't change the password on a new one with length <= 8!")
         self.password = newPassword
         self.updatePassword()
 
@@ -158,7 +157,7 @@ class User:
     def getMoneyDb(self, user_id):
         query = "SELECT money FROM user WHERE id = '" + str (user_id) + "';"
         records = con.executeReturn(query)
-        self.money = records.__getitem__(0)
+        self.money = records.getitem(0)
 
     """
     Deletes the User from the database

@@ -7,6 +7,10 @@ class StartPage(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
+        self.master.user_id = 0
+        self.master.user_data = ""
+        self.master.account_data = ""
+
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
         Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(20, 0))

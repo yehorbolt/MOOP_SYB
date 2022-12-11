@@ -1,4 +1,5 @@
 from ConnectToDB import ConnectToDb as con
+from User.User import *
 from Account.Account import *
 from ATM.ATM import *
 from Bank.Bank import *
@@ -8,7 +9,7 @@ from Card.Savings import *
 from Transfer.Transaction import *
 from Transfer.Credit import *
 from Transfer.Daemon import *
-from User.User import *
+
 
 def createBasicData(self):
     pass
@@ -18,13 +19,13 @@ def createBasicData(self):
 
 """ Main file that start everything """
 if __name__ == '__main__':
+    ac = con.restoreAccount(1)
+    print(ac)
+    print("-------------------------------------")
     u = con.restoreUser("login")
     print(u)
     print("-------------------------------------")
-    ac = con.restoreAccount(u.id)
-    print(ac)
-    print("-------------------------------------")
-    c = con.restoreCards(ac.id)
-    checking = Checking (c[0], "checking", 1)
-    print(checking)
-    print(checking.__class__)
+    # c = con.restoreCards(ac.id)
+    # checking = Checking (c[0], "checking", 1)
+    # print(checking)
+    # print(checking.__class__)

@@ -23,11 +23,12 @@ Its' usage can be widened, because there are lot of other abilities except for w
 6. Bank
 
 ## Database realtions:
-1. 1 User has 1 Account
-2. 1 Account has N Cards
-3. 1 Card has N Transactions
-4. 1 ATM has N Transactios
-5. 1 Bank has N ATMs
+1. 1 User     has 1   Account
+2. 1 Account  has N   Cards
+3. 1 Card     has N   Transactions
+4. 1 ATM      has N   Transactios
+5. 1 Bank     has N   ATMs
+6. 1 Bank     has N   Accounts
 
 All the classes are the representations of objects in database and in real life.
 ## So, how the program works?

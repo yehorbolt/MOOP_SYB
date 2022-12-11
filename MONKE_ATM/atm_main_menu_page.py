@@ -15,10 +15,19 @@ class ATMMainMenuPage(Frame):
         panel = Label(self, image=master.logo, bg='#f7f0c6')
         panel.pack()
 
-        self.name = "Brittanie"
+        self.welcome_name = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Welcome " +
+                                                                                str(self.master.account_data.name)
+                                                                                        + " " +
+                                                                                str(self.master.account_data.surname))
+        self.welcome_name.place(x=15, y=60)
 
-        self.master.welcome_name = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Welcome " + self.name)
-        self.master.welcome_name.place(x=15, y=60)
+        self.acc_id = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Account number:  " +
+                                                                                  str(self.master.account_data.number))
+        self.acc_id.place(x=15, y=90)
+
+        self.user_money = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Amount money on hand:  " +
+                                                                                    str(self.master.user_data.money))
+        self.user_money.place(x=15, y=120)
 
         master.card_menu = PhotoImage(file='../images/ATM/menu_cards_menu.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.card_menu,
