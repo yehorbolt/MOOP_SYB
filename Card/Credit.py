@@ -24,7 +24,7 @@ class Credit(Card):
     :type: Checking, int, str, float/int, float/int, int
     :returns: nothing
     """
-    def __init__(self, password, cardType, account_id):
+    def __init__(self, password, cardType, account_id, restore):
         super(Credit, self).__init__(password, "credit", account_id)
 
     """

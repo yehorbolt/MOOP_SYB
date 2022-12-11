@@ -22,7 +22,7 @@ class Savings(Card):
     :type: Savings, int, str, float/int, float/int, int
     :returns: nothing
     """
-    def __init__(self, password, cardType, account_id):
+    def __init__(self, password, cardType, account_id, restore):
         super(Savings, self).__init__(password, "savings", account_id)
         Daemon(self.number, self.number, self.balance, 5, True, self.id, self.account_id)
 
