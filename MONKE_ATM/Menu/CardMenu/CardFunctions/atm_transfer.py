@@ -75,7 +75,7 @@ class ATMTransferMenu(Frame):
         self.receipt_entry.grid(row=5, column=2, rowspan=4, sticky=E + W + S + N)
 
     def transfer(self):
-        if (not self.card_num.get().isdigit()) or (len(self.card_num.get()) != 16):
+        if (not self.card_num.get().isdigit()) or (len(self.card_num.get()) != 9):
             self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/tr_error.png')
             self.check_transfer.config(image=self.stat_transfer)
         elif not self.amount_num.get().isdigit():
