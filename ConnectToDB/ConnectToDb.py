@@ -256,10 +256,19 @@ def restoreCards(account_id):
             cursor.execute(query)
             record = tuple (cursor.fetchall())
             cards = list()
+            c = 0
             for i in record:
                 password = i[2]
                 type = i[3]
-                c = Card(password, type, account_id,  True)
+                if type == "checking":
+                    from Card.Checking import Checking
+                    c = Checking(password, type, account_id,  True)
+                if type == "credit":
+                    from Card.Credit import Credit
+                    c = Credit(password, type, account_id,  True)
+                if type == "savings":
+                    from Card.Savings import Savings
+                    c = Savings(password, type, account_id,  True)
                 cards.append(c)
 
     except Error as e:
