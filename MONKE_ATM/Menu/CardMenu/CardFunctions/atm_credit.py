@@ -11,6 +11,8 @@ class ATMCreditMenu(Frame):
         Label(self, bg="#bed2dd", width=960, image=master.mp_name).pack(pady=(20, 0))
 
         # my credit
+        # credit info
+
         master.cr_info = PhotoImage(file='../images/ATM/Credit/credit_info.png')
         Label(self, bg="#f7f0c6", width=960, image=master.cr_info).pack(pady=(20, 0))
 
