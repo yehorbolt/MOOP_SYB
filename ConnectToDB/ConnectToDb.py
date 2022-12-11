@@ -1,8 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
 from Account.Account import *
-from Card.Card import Card
 from User.User import *
+from Card.Card import Card
 
 """
 Get the last id inserted in the database.
@@ -172,7 +172,7 @@ This method restores data about the User
 :returns: User
 """
 def restoreUser(login):
-    user = []
+    user = ""
     try:
         connection_config_dict = {
             'user': 'severhin1',

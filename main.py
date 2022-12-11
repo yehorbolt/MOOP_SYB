@@ -18,13 +18,13 @@ def createBasicData(self):
 
 """ Main file that start everything """
 if __name__ == '__main__':
-    u = con.restoreUser("login")
+    u = con.restoreUser("newlogin")
     print(u)
     print("-------------------------------------")
     ac = con.restoreAccount(u.id)
     print(ac)
     print("-------------------------------------")
-    c = con.restoreCards(ac.id)
-    checking = Checking (c[0], "checking", 1)
-    print(checking)
-    print(checking.__class__)
+    # c = con.restoreCards(ac.id)
+    # checking = Checking (c[0], "checking", 1)
+    # print(checking)
+    # print(checking.__class__)
