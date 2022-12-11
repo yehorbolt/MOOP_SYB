@@ -29,7 +29,7 @@ class Daemon(Transfer):
     :returns: nothing
     """
     def __init__(self, fromCard, toCard, amount, frequency, increaseMoney,card_id, card_account_id):
-        super(Transfer, self).__init__(fromCard, toCard, amount, "daemon",  amount, frequency, card_id, card_account_id)
+        super(Transfer, self).__init__(fromCard, toCard, amount, "daemon",  0, frequency, card_id, card_account_id)
         assert type(increaseMoney) == bool, "You must give a bool as one of the parameters that will be responsible for increasing or decreasing card balance!"
         self.increase = increaseMoney
         if self.increase == False: # for checking card
@@ -71,9 +71,6 @@ class Daemon(Transfer):
             self.amount = self.amount * 1.08
             self.changeBalance(self.fromCard, self.amount, True)
             self.nextDate = datetime.strptime(date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
-
-
-#        self.amount *= 1.08
 
     """
     This is the task that will be runned by Daemon process

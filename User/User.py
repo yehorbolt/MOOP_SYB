@@ -18,17 +18,17 @@ class User:
     def __init__(self, login, password, money, restore):
         assert type(login) is str, "Login must be a string!"
         assert type(password) is str, "Password must be a string!"
-        assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
-        assert password.__len__() >= 8, "Password must be longer than 7 symbols!"
         assert type(money) is float or type(money) is int, "Money must be a float or an int!"
         if restore == False:
+            assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
+            assert password.__len__() >= 8, "Password must be longer than 7 symbols!"
             self.id = con.getLastId("user") + 1
             self.login = login
             self.password = password
             self.createUser()
         else:
-            id = int (self.findUserId(self, login))
-            self.restoreData(self, id, login, password, money)
+            id = int (self.findUserId(login))
+            self.restoreUser(id, login, password, money)
 
 
     """
@@ -41,7 +41,7 @@ class User:
             self.id = id
             self.login = login
             self.password = password
-            self.createUser()
+            self.money = money
 
     """
     This method finds a user id
@@ -161,4 +161,4 @@ class User:
     :rtype: str
     """
     def __str__(self):
-        return f"id: {self.id}, login: {self.login}, password: {self.password}"
+        return f"id: {self.id}, login: {self.login}, password: {self.password}, money: {self.money}"

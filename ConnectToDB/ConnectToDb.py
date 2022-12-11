@@ -1,8 +1,8 @@
 import mysql.connector
 from mysql.connector import Error
-from User.User import User
 from Account.Account import *
 from Card.Card import *
+from User.User import *
 
 """
 Get the last id inserted in the database.
@@ -187,7 +187,7 @@ def restoreUser(login):
             query = "SELECT * FROM user WHERE login = '" + str (login) + "';"
             cursor.execute(query)
             record = tuple (cursor.fetchall())
-            user = User(record.__getitem__(0)[0], record.__getitem__(0)[1], record.__getitem__(0)[2], record.__getitem__(0)[3], True)
+            user = User(record.__getitem__(0)[1], record.__getitem__(0)[2], record.__getitem__(0)[3], True)
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -219,7 +219,7 @@ def restoreAccount(user_id):
             query = "SELECT * FROM account WHERE user_id = '" + str (user_id) + "';"
             cursor.execute(query)
             record = tuple (cursor.fetchall())
-            account = Account(record.__getitem__(0)[0], record.__getitem__(0)[1], record.__getitem__(0)[2], record.__getitem__(0)[3], user_id, True)
+            account = Account(record.__getitem__(0)[1], record.__getitem__(0)[2], record.__getitem__(0)[4], user_id, True)
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -252,8 +252,12 @@ def restoreCards(account_id):
             query = "SELECT * FROM card WHERE account_id = '" + str (account_id) + "';"
             cursor.execute(query)
             record = tuple (cursor.fetchall())
+            cards = list()
             for i in record:
-                cards = Card(record.__getitem__(i)[0], record.__getitem__(i)[1], record.__getitem__(i)[2], record.__getitem__(i)[3], record.__getitem__(i)[4],  True,)
+                password = i[2]
+                type = i[3]
+                c = Card(password, type, account_id,  True)
+                cards.append(c)
 
     except Error as e:
         print("Error while connecting to MySQL", e)

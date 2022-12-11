@@ -38,7 +38,7 @@ class Account:
         else:
             id = self.findAccountId(user_id)
             number = self.findAccountNumber(user_id)
-            self.restoreAccount(self, id, name, surname, number, status, user_id)
+            self.restoreAccount(id, name, surname, number, status, user_id)
 
     """
     This method finds an account id
@@ -58,7 +58,7 @@ class Account:
     :returns: id
     :rtype: int
     """
-    def findAccountId(self, user_id):
+    def findAccountNumber(self, user_id):
         query = "SELECT number FROM account WHERE user_id = '" + str (user_id) + "';"
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
@@ -68,11 +68,11 @@ class Account:
     :type: Account, int, str, str, str, int, int
     :returns: nothing
     """
-    def restoreAccount(self, id, name, surname, status, user_id):
+    def restoreAccount(self, id, name, surname, number, status, user_id):
         self.id = id
         self.name = name
         self.surname = surname
-        self.number = self.generateNumber()
+        self.number = number
         self.status = status
         self.user_id = user_id
 
@@ -114,7 +114,7 @@ class Account:
     :returns: nothing
     """
     def validStatus(self, status):
-        if status == "has a job" or status == "workless":
+        if status == "working" or status == "workless":
             return True
         else:
             return False
@@ -207,11 +207,11 @@ class Account:
     def generateNumber(self):
         number = str (random.randint(0,9))
         for i in range(6):
-           number + str (random.randint(0,9))
+           number += str (random.randint(0,9))
         while self.numberExists(number) == True:
             newNumber = str (random.randint(0,9))
             for i in range(6):
-                newNumber + str (random.randint(0,9))
+                newNumber += str (random.randint(0,9))
             number = newNumber
         return number
 
