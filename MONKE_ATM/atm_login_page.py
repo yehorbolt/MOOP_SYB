@@ -85,7 +85,9 @@ class ATMLoginPage(Frame):
 
         if check_lp:
             self.master.account_data = con.restoreAccount(self.master.user_id)
+            self.master.card_list = con.restoreCards(self.master.account_data.id)
+            for i in range(len(self.master.card_list)):
+                print(self.master.card_list[i])
             print(self.master.user_data)
             print(self.master.account_data)
-            print(self.master.user_id)
             self.master.switch_frame("ATMMainMenuPage")

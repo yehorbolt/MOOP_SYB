@@ -75,31 +75,40 @@ class ATMTransferMenu(Frame):
         self.receipt_entry.grid(row=5, column=2, rowspan=4, sticky=E + W + S + N)
 
     def transfer(self):
+
+        self.receipt_entry.config(state=NORMAL)
+        self.receipt_entry.delete("1.0", "end")
+        self.receipt_entry.config(state=DISABLED)
+        self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/transferred.png')
+        self.check_transfer.config(image=self.stat_transfer)
+
         if (not self.card_num.get().isdigit()) or (len(self.card_num.get()) != 9):
             self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/tr_error.png')
             self.check_transfer.config(image=self.stat_transfer)
-        elif not self.amount_num.get().isdigit():
-            self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/tr_error.png')
-            self.check_transfer.config(image=self.stat_transfer)
         else:
-            if self.print.get():
-                self.receipt_entry.config(state=NORMAL)
-                self.receipt_entry.delete("1.0", "end")
-                now = datetime.datetime.now()
-                self.receipt_entry.insert(END, "-------------MonkePaY TAX SYSTEM-------------\n")
-                self.receipt_entry.insert(END, "| Transferred from: " + str(self.my_card) + "\n")
-                self.receipt_entry.insert(END, "| Transferred to:   " + str(self.card_num.get()) + "\n")
-                self.receipt_entry.insert(END, "| In quantity:      " + str(self.amount_num.get()) + "\n")
-                self.receipt_entry.insert(END, "| Current balance:  " + str(1000) + "\n")
-                self.receipt_entry.insert(END, "--------------------------------------------------------------\n")
-                self.receipt_entry.insert(END, "| Printed at:       " + str(now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
-                self.receipt_entry.insert(END, "--------------------------------------------------------------\n")
-                self.receipt_entry.config(state=DISABLED)
-                self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/transferred.png')
+            try:
+                float(self.amount_num.get())
+                if self.print.get():
+                    self.receipt_entry.config(state=NORMAL)
+                    self.receipt_entry.delete("1.0", "end")
+                    now = datetime.datetime.now()
+                    self.receipt_entry.insert(END, "-------------MonkePaY TAX SYSTEM-------------\n")
+                    self.receipt_entry.insert(END, "| Transferred from: " + str(self.my_card) + "\n")
+                    self.receipt_entry.insert(END, "| Transferred to:   " + str(self.card_num.get()) + "\n")
+                    self.receipt_entry.insert(END, "| In quantity:      " + str(self.amount_num.get()) + "\n")
+                    self.receipt_entry.insert(END, "| Current balance:  " + str(1000) + "\n")
+                    self.receipt_entry.insert(END,
+                                              "--------------------------------------------------------------\n")
+                    self.receipt_entry.insert(END, "| Printed at:       " + str(
+                        now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
+                    self.receipt_entry.insert(END,
+                                              "--------------------------------------------------------------\n")
+                    self.receipt_entry.config(state=DISABLED)
+                    self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/transferred.png')
+                    self.check_transfer.config(image=self.stat_transfer)
+            except ValueError:
+                self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/tr_error.png')
                 self.check_transfer.config(image=self.stat_transfer)
-            else:
-                self.receipt_entry.config(state=NORMAL)
-                self.receipt_entry.delete("1.0", "end")
-                self.receipt_entry.config(state=DISABLED)
-                self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/transferred.png')
-                self.check_transfer.config(image=self.stat_transfer)
+
+
+

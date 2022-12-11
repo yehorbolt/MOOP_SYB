@@ -22,7 +22,7 @@ class User:
         assert type(money) is float or type(money) is int, "Money must be a float or an int!"
         if restore == False:
             assert self.checkLogin(login) == True, "This login is already used! Sign in or use another login!"
-            assert password.len() >= 8, "Password must be longer than 7 symbols!"
+            assert len(password) >= 8, "Password must be longer than 7 symbols!"
             self.id = con.getLastId("user") + 1
             self.login = login
             self.password = password

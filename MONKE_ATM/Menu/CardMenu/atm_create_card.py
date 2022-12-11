@@ -1,5 +1,11 @@
 from tkinter import *
-
+from ConnectToDB import ConnectToDb as con
+from Account.Account import *
+from User.User import User
+from Card.Card import *
+from Card.Credit import Credit
+from Card.Checking import Checking
+from Card.Savings import Savings
 
 class ATMCreateCard(Frame):
 
@@ -17,7 +23,25 @@ class ATMCreateCard(Frame):
         panel.pack()
 
         self.incorrect_image = ""
+
         self.pin = StringVar()
+
+        self.card_type = StringVar()
+        self.card_type.set("credit")
+
+        master.credit_card = PhotoImage(file='../images/ATM/RegMenu/reg_credit.png')
+        master.checking_card = PhotoImage(file='../images/ATM/RegMenu/reg_checking.png')
+        master.saving_card = PhotoImage(file='../images/ATM/RegMenu/reg_saving.png')
+        r_1 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
+                          value="credit", image=master.credit_card)
+        r_2 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
+                          value="checking", image=master.checking_card)
+        r_3 = Radiobutton(self, text='', bg='#f7f0c6', variable=self.card_type,
+                          value="savings", image=master.saving_card)
+
+        r_1.pack()
+        r_2.pack()
+        r_3.pack(pady=(0, 10))
 
         master.pin_reg = PhotoImage(file='../images/ATM/RegMenu/reg_enter_pin.png')
         Label(self, text="", bg='#f7f0c6', image=master.pin_reg).pack()
@@ -43,11 +67,29 @@ class ATMCreateCard(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
+        sel_type = self.card_type.get()
         pin_code = self.pin.get()
-        if len(pin_code) != 4:
+
+        check_type = True
+        for i in range(len(self.master.card_list)):
+            if self.master.card_list[i].type == sel_type:
+                check_type = False
+
+        if (len(pin_code) != 4) or (not self.pin.get().isdigit):
             self.incorrect_image = PhotoImage(file='../images/ATM/CardPin/atm_invalid_pass.png')
             self.check_data.config(image=self.incorrect_image)
         else:
-            self.incorrect_image = PhotoImage(file='../images/ATM/CreateCard/create_card_success.png')
-            self.check_data.config(image=self.incorrect_image)
-            self.pin.set("")
+            if check_type:
+                if sel_type == "credit":
+                    new_card = Credit(int(pin_code), "credit", self.master.account_data.id, False)
+                elif sel_type == "savings":
+                    new_card = Savings(int(pin_code), "savings", self.master.account_data.id, False)
+                elif sel_type == "checking":
+                    new_card = Checking(int(pin_code), "checking", self.master.account_data.id, False)
+                self.master.card_list = con.restoreCards(self.master.account_data.id)
+                self.incorrect_image = PhotoImage(file='../images/ATM/CreateCard/create_card_success.png')
+                self.check_data.config(image=self.incorrect_image)
+                self.pin.set("")
+            else:
+                self.incorrect_image = PhotoImage(file='../images/ATM/bad_type.png')
+                self.check_data.config(image=self.incorrect_image)
