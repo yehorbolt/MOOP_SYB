@@ -63,7 +63,6 @@ class SampleApp(Tk):
         self.user_data = ""
         self.account_data = ""
         self.user_id = 0
-        self.amount = 1000
         self.pseudo_card_list = [[1, "4149898947631523", "Credit", True], [2, "5789478963214586", "Savings", False],
                                  [3, "4789458963548749", "Checking", False]]
         self.selected_card = {}

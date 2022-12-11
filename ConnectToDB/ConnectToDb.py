@@ -1,8 +1,9 @@
 import mysql.connector
 from mysql.connector import Error
-from Account.Account import *
 from User.User import *
-from Card.Card import Card
+from Account.Account import *
+from Card.Card import *
+
 
 """
 Get the last id inserted in the database.
@@ -172,7 +173,7 @@ This method restores data about the User
 :returns: User
 """
 def restoreUser(login):
-    user = ""
+    data = ""
     try:
         connection_config_dict = {
             'user': 'severhin1',
@@ -188,7 +189,7 @@ def restoreUser(login):
             query = "SELECT * FROM user WHERE login = '" + str (login) + "';"
             cursor.execute(query)
             record = tuple (cursor.fetchall())
-            user = User(record.__getitem__(0)[1], record.__getitem__(0)[2], record.__getitem__(0)[3], True)
+            data = [record.__getitem__(0)[1], record.__getitem__(0)[2], record.__getitem__(0)[3], True]
 
     except Error as e:
         print("Error while connecting to MySQL", e)
@@ -197,7 +198,7 @@ def restoreUser(login):
             connection.commit()
             cursor.close()
             connection.close()
-            return user.getArrayUser()
+            return data
 
 """
 This method restores data about the Account
@@ -205,7 +206,7 @@ This method restores data about the Account
 :returns: Account
 """
 def restoreAccount(user_id):
-    account = []
+    account = ""
     try:
         connection_config_dict = {
             'user': 'severhin1',
@@ -230,7 +231,7 @@ def restoreAccount(user_id):
             connection.commit()
             cursor.close()
             connection.close()
-            return account.getArrayAccount()
+            return account
 
 """
 This method restores data about the cards 

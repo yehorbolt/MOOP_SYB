@@ -65,15 +65,18 @@ class ATMLoginPage(Frame):
         check_lp = False
         try:
             if not User.checkLogin(self, u):
-                print("clown login")
                 u_id = User.findUserId(self, u)
                 self.master.user_id = u_id
-                self.master.user_data = con.restoreUser(u)
-                print(self.master.user_data)
-                if self.master.user_data[2] == p:
+                data = con.restoreUser(u)
+                self.master.user_data = User(data[0], data[1], data[2], data[3])
+                if self.master.user_data.password == p:
                     self.incorrect_dt = ""
                     self.check_data.config(image=self.incorrect_dt)
                     check_lp = True
+                else:
+                    raise Exception
+            else:
+                raise Exception
         except Exception as e:
             print(e)
             self.incorrect_dt = PhotoImage(file='../images/ATM/Login/login_incorrect.png')
