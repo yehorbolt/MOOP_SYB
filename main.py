@@ -25,7 +25,7 @@ if __name__ == '__main__':
     u = con.restoreUser("login")
     print(u)
     print("-------------------------------------")
-    # c = con.restoreCards(ac.id)
-    # checking = Checking (c[0], "checking", 1)
-    # print(checking)
-    # print(checking.__class__)
+    c = con.restoreCards(ac.id)
+    card = c[0]
+    print(card)
+    print(card.__class__)
