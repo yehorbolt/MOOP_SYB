@@ -29,6 +29,7 @@ class Card:
         assert self.validPassword(password) == True, "Password must be be 4 numbers from 0 to 9!"
         assert self.validType(cardType) == True, "You've entered invalid Card type!"
         assert type(account_id) is int, "You must give an int (account_id) as the last parameter!"
+        assert self.thisCardExists(cardType, account_id) == True, "You can't create the card of type " + str (cardType) + " as you already have one!"
         if restore == False:
             self.id = con.getLastId("card") + 1
             self.number = self.generateNumber()
@@ -52,6 +53,20 @@ class Card:
                 Credit.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
             if cardType == "savings":
                 Savings.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
+
+    """
+    This method checks if the account already has the card of this type
+    :param: self, type account_id
+    :type: Card, str, int
+    :returns: True/False
+    :rtype: bool
+    """
+    def thisCardExists(self, type, account_id):
+        query = "SELECT * FROM card WHERE account_id = '" + str (account_id) + "' AND type = '" + str (type) + "';"
+        recors = tuple (con.executeReturn(query))
+        if recors.__len__() == 0:
+            return True
+        return False
 
     """
     This method finds a card id
