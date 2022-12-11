@@ -28,7 +28,10 @@ class User:
             self.createUser()
         else:
             id = int (self.findUserId(login))
-            self.restoreUser(id, login, password, money)
+            if self.checkPassword(password, id) == True:
+                self.restoreUser(id, login, password, money)
+            else:
+                raise Exception("Password is wrong!")
 
 
     """
@@ -68,6 +71,20 @@ class User:
             return True
         else:
             return False
+
+    """
+    This method checks password when logging in
+    :param: self, password, id
+    :type: User, str, int
+    :returns: True/False
+    :rtype: bool
+    """
+    def checkPassword(self, password, id):
+        query = "SELECT password FROM user WHERE id = '" + str (id) + "';"
+        res = con.executeReturn(query)
+        if res.__getitem__(0)[0] == password:
+            return True
+        return False
 
     """
     Creates user in database
