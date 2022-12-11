@@ -1,3 +1,6 @@
+from Card.Checking import Checking
+from Card.Credit import Credit
+from Card.Savings import Savings
 from ConnectToDB import ConnectToDb as con
 import random
 
@@ -43,7 +46,12 @@ class Card:
             self.valid = True
             limit = self.findCardLimit(account_id)
             leftToPay = self.findLeftToPay(account_id)
-            self.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
+            if cardType == "checking":
+                Checking.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
+            if cardType == "credit":
+                Credit.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
+            if cardType == "savings":
+                Savings.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
 
     """
     This method finds a card id

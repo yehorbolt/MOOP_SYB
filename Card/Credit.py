@@ -28,6 +28,15 @@ class Credit(Card):
         super(Credit, self).__init__(password, "credit", account_id)
 
     """
+    Constructor for restoring Card
+    :param: self, id, number, password, cardType, balance, limit, leftToPay, account_id
+    :type: Credit, int, str, str, str, float/int, float/int, float/int, int 
+    :returns: nothing
+    """
+    def restoreCard(self, id, number, password, cardType, balance, limit, leftToPay, account_id):
+        super(Credit, self).restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
+
+    """
     This method gets the user status
     :param: self, user_id
     :type: Credit, int
@@ -46,7 +55,7 @@ class Credit(Card):
     """
     def takeCredit(self, amount, user_id):
         try:
-            t = cred(self.number, self.number, amount, self.id, self.account_id)
+            cred(self.number, self.number, amount, self.id, self.account_id)
             self.leftToPay = amount
         except Exception as e:
             raise Exception(e)
@@ -63,7 +72,7 @@ class Credit(Card):
         assert self.cardExists(toCard) == True, "You can't make a transaction on the card that doesn't exist!"
         assert type(amount) == float or int, "You must enter amount as a float or an int!"
         assert amount < self.balance, "You can't make Transaction with more money than you have on your card!"
-        t = Transaction(self.number, toCard, amount, self.id, "transaction", self.account_id)
+        Transaction(self.number, toCard, amount, self.id, "transaction", self.account_id)
         self.balance = self.getBalance()
 
 
@@ -78,7 +87,7 @@ class Credit(Card):
         self.balance = self.getBalance() #updates card balance
         assert type(amount) == float or int, "You must enter amount as a float or an int!"
         assert amount < self.balance, "You can't withdraw more money than you have on your card!"
-        t = Transaction(self.number, self.number, amount, self.id, "withdraw", self.account_id)
+        Transaction(self.number, self.number, amount, self.id, "withdraw", self.account_id)
         self.balance = self.getBalance()
 
     """
@@ -93,5 +102,5 @@ class Credit(Card):
         assert type(user_id) == int, "user_id can be only int!"
         assert type(amount) == float or int, "You must enter amount as a float or an int!"
         assert amount < self.checkUserMoney(user_id), "User can't put on the Card more money that he has!"
-        t = Transaction(self.number, self.number, amount, self.id, "putMoney", self.account_id)
+        Transaction(self.number, self.number, amount, self.id, "putMoney", self.account_id)
         self.balance = self.getBalance()
