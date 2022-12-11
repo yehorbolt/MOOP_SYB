@@ -172,7 +172,7 @@ This method restores data about the User
 :returns: User
 """
 def restoreUser(login):
-    user = ""
+    user = []
     try:
         connection_config_dict = {
             'user': 'severhin1',
@@ -205,7 +205,7 @@ This method restores data about the Account
 :returns: Account
 """
 def restoreAccount(user_id):
-    account = ""
+    account = []
     try:
         connection_config_dict = {
             'user': 'severhin1',
