@@ -252,6 +252,18 @@ class Card:
         return records.__getitem__(0)[0]
 
     """
+    This method gets how much money the user 'left to pay' to the bank from the database
+    :param: self
+    :type: Card
+    :returns: leftToPay
+    :rtype: float/int
+    """
+    def getLeftToPay(self):
+        query = "SELECT leftToPay FROM card WHERE id = '" + str (self.id) + "';"
+        records = con.executeReturn(query)
+        return records.__getitem__(0)[0]
+
+    """
     This method checks if the Card given Exists in the database
     :param: self, card
     :type: Checking or Savings or Credit

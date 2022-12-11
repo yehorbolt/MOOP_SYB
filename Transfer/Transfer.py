@@ -155,32 +155,32 @@ class Transfer:
         if self.getCardType(card) == "credit" and add == True:
             leftToPay = self.getLeftToPay(card)
             if  leftToPay > 0 and leftToPay < amount:
-                query = "UPDATE card SET leftToPay = %s WHERE id = %s;"
+                query = "UPDATE card SET leftToPay = %s WHERE number = %s;"
                 values = (0, card)
                 con.executeWithVal(query, values)
                 newBalance = self.getBalance(card) + amount - leftToPay
-                query = "UPDATE card SET balance = %s WHERE id = %s;"
+                query = "UPDATE card SET balance = %s WHERE number = %s;"
                 values = (newBalance, card)
                 con.executeWithVal(query, values)
             if  leftToPay > amount:
-                query = "UPDATE card SET leftToPay = %s WHERE id = %s;"
+                query = "UPDATE card SET leftToPay = %s WHERE number = %s;"
                 values = (leftToPay-amount, card)
                 con.executeWithVal(query, values)
             if  leftToPay == 0:
                 newBalance = self.getBalance(card) + amount
-                query = "UPDATE card SET balance = %s WHERE id = %s;"
+                query = "UPDATE card SET balance = %s WHERE number = %s;"
                 values = (newBalance, card)
                 con.executeWithVal(query, values)
         else:
             if self.cardExists(card) == True:
                 if add == True:
                     newBalance = self.getBalance(card) + amount
-                    query = "UPDATE card SET balance = %s WHERE id = %s;"
+                    query = "UPDATE card SET balance = %s WHERE number = %s;"
                     values = (newBalance, card)
                     con.executeWithVal(query, values)
                 else:
                     newBalance = self.getBalance(card) - amount
-                    query = "UPDATE card SET balance = %s WHERE id = %s;"
+                    query = "UPDATE card SET balance = %s WHERE number = %s;"
                     values = (newBalance, card)
                     con.executeWithVal(query, values)
             else:
