@@ -1,4 +1,4 @@
-from Card.Card import *
+from Card.Card import Card
 from Transfer.Transaction import Transaction
 
 """
@@ -85,3 +85,4 @@ class Checking(Card):
         assert amount < self.checkUserMoney(user_id), "User can't put on the Card more money that he has!"
         Transaction(self.number, self.number, amount, self.id, "putMoney", self.account_id)
         self.balance = self.getBalance()
+

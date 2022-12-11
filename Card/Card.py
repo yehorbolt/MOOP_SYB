@@ -1,3 +1,4 @@
+
 from ConnectToDB import ConnectToDb as con
 import random
 
@@ -26,8 +27,8 @@ class Card:
         assert self.validPassword(password) == True, "Password must be be 4 numbers from 0 to 9!"
         assert self.validType(cardType) == True, "You've entered invalid Card type!"
         assert type(account_id) is int, "You must give an int (account_id) as the last parameter!"
+        assert self.thisCardExists(cardType, account_id) == True, "You can't create the card of type " + str (cardType) + " as you already have one!"
         if restore == False:
-            assert self.thisCardExists(cardType, account_id) == True, "You can't create the card of type " + str (cardType) + " as you already have one!"
             self.id = con.getLastId("card") + 1
             self.number = self.generateNumber()
             self.password = password
