@@ -259,5 +259,5 @@ class Account:
         :rtype: array
         """
 
-    def getArayAccount(self):
+    def getArrayAccount(self):
         return [self.id, self.name, self.surname, self.number, self.status, self.user_id, self.bank_id]
