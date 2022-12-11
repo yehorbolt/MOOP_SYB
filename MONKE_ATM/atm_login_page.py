@@ -69,9 +69,8 @@ class ATMLoginPage(Frame):
                 print("clown login")
                 u_id = User.findUserId(self, u)
                 self.master.user_id = u_id
-                u_data = con.restoreUser(u)
-                print(u_data)
-                if User.checkPassword(self, p, user_id):
+                self.master.user_data = con.restoreUser(u)
+                if self.master.user_data[2] == p:
                     self.incorrect_dt = ""
                     self.check_data.config(image=self.incorrect_dt)
                     check_lp = True
@@ -81,11 +80,7 @@ class ATMLoginPage(Frame):
             check_lp = False
 
         if check_lp:
-            self.master.user_data = con.restoreUser(u)
             self.master.account_data = con.restoreAccount(user_id)
-        #
-        # if User.checkLogin(self, u) == True:
-        #     user_data = con.restoreUser(u)
-        #     print(user_data)
-        #     self.check_data.config(image="")
-        #     self.master.switch_frame("ATMMainMenuPage")
+            print(self.master.user_data)
+            print(self.master.account_data)
+            print(self.master.user_id)
