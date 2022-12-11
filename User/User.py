@@ -107,8 +107,8 @@ class User:
         newPassword = str(newPassword)  # converts newPassword (object) into str
         if newPassword == self.password:
             raise Exception("You have entered same password!")
-        if newPassword.len() < 8:
-            raise Exception("You can't change the password on a new one with length < 8!")
+        if len(newPassword) <= 8:
+            raise Exception("You can't change the password on a new one with length <= 8!")
         self.password = newPassword
         self.updatePassword()
 

@@ -2,6 +2,7 @@ from tkinter import *
 from User.User import User
 from ConnectToDB import ConnectToDb as con
 
+
 class TicTacToe(Frame):
     is_won = True
     value = []

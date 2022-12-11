@@ -41,7 +41,7 @@ class ATMLoginPage(Frame):
         Label(self, text="", bg='#f7f0c6', image=master.pass_reg).pack()
 
         password_entry = Entry(self, font=("arial", 12), textvariable=self.password)
-        password_entry.config(fg='black', show='*')
+        password_entry.config(fg='black', show='●')
         password_entry.pack(pady=(0, 10))
 
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)

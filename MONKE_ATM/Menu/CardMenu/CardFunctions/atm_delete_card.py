@@ -47,10 +47,11 @@ class ATMDeleteCard(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
-        if len(self.password.get()) < 8:
+        if self.password.get() != self.master.user_data.password:
             self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteAccount/incorrect_pass.png')
             self.check_data.config(image=self.incorrect_dt)
         else:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteAccount/delete_acc.png')
+            self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteCard/del_card.png')
             self.check_data.config(image=self.incorrect_dt)
+            # delete card
             self.master.switch_frame("ATMMainMenuPage")
