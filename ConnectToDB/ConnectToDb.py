@@ -1,7 +1,7 @@
 import mysql.connector
 from mysql.connector import Error
 from Account.Account import *
-from Card.Card import *
+from Card.Card import Card
 from User.User import *
 
 """
@@ -172,6 +172,7 @@ This method restores data about the User
 :returns: User
 """
 def restoreUser(login):
+    user = ""
     try:
         connection_config_dict = {
             'user': 'severhin1',
@@ -196,7 +197,7 @@ def restoreUser(login):
             connection.commit()
             cursor.close()
             connection.close()
-            return user
+            return user.getArrayUser()
 
 """
 This method restores data about the Account
@@ -204,6 +205,7 @@ This method restores data about the Account
 :returns: Account
 """
 def restoreAccount(user_id):
+    account = ""
     try:
         connection_config_dict = {
             'user': 'severhin1',
@@ -228,7 +230,7 @@ def restoreAccount(user_id):
             connection.commit()
             cursor.close()
             connection.close()
-            return account
+            return account.getArayAccount()
 
 """
 This method restores data about the cards 
