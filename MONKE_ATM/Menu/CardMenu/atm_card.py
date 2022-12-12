@@ -18,16 +18,18 @@ class ATMCardPage(Frame):
         panel = Label(self, image=master.logo, bg='#f7f0c6')
         panel.grid(columnspan=4, row=2)
 
-        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Number: " + str(self.master.selected_card[1]))\
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Number: " + str(self.master.selected_card.number)) \
             .place(x=15, y=60)
-        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Type: " + str(self.master.selected_card[2]))\
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Type: " + str(self.master.selected_card.type)) \
             .place(x=15, y=90)
-        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Balance: " + str(self.master.selected_card[4])) \
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Balance: " + str(format(float(self.master.selected_card.balance), '.2f'))) \
             .place(x=15, y=120)
-        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Active: " + str(self.master.selected_card[5])) \
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Active: " + str(self.master.selected_card.valid)) \
             .place(x=15, y=150)
 
-        if self.master.selected_card[3] == "checking":
+        if self.master.selected_card.type == "checking":
             master.cp_put = PhotoImage(file='../images/ATM/CardMenu/cm_put_on.png')
             Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_put,
                    width=170, height=50, command=lambda: master.switch_frame("ATMPutOnMenu")) \
@@ -53,7 +55,7 @@ class ATMCardPage(Frame):
                    width=170, height=50, command=lambda: master.switch_frame("ATMLimitMenu")) \
                 .grid(column=1, row=7, pady=(0, 5))
 
-        elif self.master.selected_card[3] == "savings":
+        elif self.master.selected_card.type == "savings":
             master.cp_put = PhotoImage(file='../images/ATM/CardMenu/cm_put_on.png')
             Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_put,
                    width=170, height=50, command=lambda: master.switch_frame("ATMPutOnMenu")) \

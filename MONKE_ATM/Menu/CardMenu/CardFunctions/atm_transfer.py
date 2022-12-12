@@ -6,7 +6,6 @@ class ATMTransferMenu(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
-        self.my_card = self.master.select_card[1]
         self.print = BooleanVar()
         self.print.set(False)
 
@@ -18,6 +17,17 @@ class ATMTransferMenu(Frame):
 
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=0)
 
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Number: " + str(self.master.selected_card.number)) \
+            .place(x=15, y=60)
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Type: " + str(self.master.selected_card.type)) \
+            .place(x=15, y=90)
+        self.card_bal = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+                              text="Balance: " + str(format(float(self.master.selected_card.balance), '.2f')))
+        self.card_bal.place(x=15, y=120)
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Active: " + str(self.master.selected_card.valid)) \
+            .place(x=15, y=150)
+
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
         Label(self, bg="#bed2dd", width=960, image=master.mp_name).grid(columnspan=4, row=1)
@@ -25,7 +35,7 @@ class ATMTransferMenu(Frame):
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=2)
 
         master.transfer_info = PhotoImage(file='../images/ATM/Transfer/tr_menu.png')
-        Label(self, bg="#f7f0c6", width=960, image=master.transfer_info).grid(columnspan=4, row=3, pady=(0, 10))
+        Label(self, bg="#f7f0c6", image=master.transfer_info).grid(columnspan=4, row=3, pady=(0, 10))
 
         master.enter_num = PhotoImage(file='../images/ATM/Transfer/enter_num.png')
         Label(self, bg="#f7f0c6", image=master.enter_num).grid(column=1, row=4, pady=(0, 5))
@@ -85,30 +95,48 @@ class ATMTransferMenu(Frame):
         if (not self.card_num.get().isdigit()) or (len(self.card_num.get()) != 9):
             self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/tr_error.png')
             self.check_transfer.config(image=self.stat_transfer)
+            self.card_num.set("")
         else:
             try:
                 float(self.amount_num.get())
-                if self.print.get():
-                    self.receipt_entry.config(state=NORMAL)
-                    self.receipt_entry.delete("1.0", "end")
-                    now = datetime.datetime.now()
-                    self.receipt_entry.insert(END, "-------------MonkePaY TAX SYSTEM-------------\n")
-                    self.receipt_entry.insert(END, "| Transferred from: " + str(self.my_card) + "\n")
-                    self.receipt_entry.insert(END, "| Transferred to:   " + str(self.card_num.get()) + "\n")
-                    self.receipt_entry.insert(END, "| In quantity:      " + str(self.amount_num.get()) + "\n")
-                    self.receipt_entry.insert(END, "| Current balance:  " + str(1000) + "\n")
-                    self.receipt_entry.insert(END,
-                                              "--------------------------------------------------------------\n")
-                    self.receipt_entry.insert(END, "| Printed at:       " + str(
-                        now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
-                    self.receipt_entry.insert(END,
-                                              "--------------------------------------------------------------\n")
-                    self.receipt_entry.config(state=DISABLED)
-                    self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/transferred.png')
+                bad = False
+                if float(self.amount_num.get()) <= 0:
+                    bad = True
+                try:
+                   self.master.selected_card.makeTransaction(int(self.card_num.get()), float(self.amount_num.get()))
+                except Exception as e:
+                    print(e)
+                    bad = True
+                if not bad:
+                    self.card_bal.config(text="Balance: " + str(format(float(self.master.selected_card.balance), '.2f')))
+                    if self.print.get():
+                        self.receipt_entry.config(state=NORMAL)
+                        self.receipt_entry.delete("1.0", "end")
+                        now = datetime.datetime.now()
+                        self.receipt_entry.insert(END, "-------------MonkePaY TAX SYSTEM-------------\n")
+                        self.receipt_entry.insert(END,
+                                                  "| Transferred from: " + str(self.master.selected_card.number) + "\n")
+                        self.receipt_entry.insert(END, "| Transferred to:    " + str(self.card_num.get()) + "\n")
+                        self.receipt_entry.insert(END, "| In quantity:         " + str(self.amount_num.get()) + "\n")
+                        self.receipt_entry.insert(END, "| Current balance:  " + str(format(float(self.master.selected_card.balance), '.2f')) + "\n")
+                        self.receipt_entry.insert(END,
+                                                  "--------------------------------------------------------------\n")
+                        self.receipt_entry.insert(END, "| Printed at:          " + str(
+                            now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
+                        self.receipt_entry.insert(END,
+                                                  "--------------------------------------------------------------\n")
+                        self.receipt_entry.config(state=DISABLED)
+                        self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/transferred.png')
+                        self.check_transfer.config(image=self.stat_transfer)
+                else:
+                    self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/tr_error.png')
                     self.check_transfer.config(image=self.stat_transfer)
+                self.card_num.set("")
+                self.amount_num.set("")
             except ValueError:
                 self.stat_transfer = PhotoImage(file='../images/ATM/Transfer/tr_error.png')
                 self.check_transfer.config(image=self.stat_transfer)
+                self.amount_num.set("")
 
 
 

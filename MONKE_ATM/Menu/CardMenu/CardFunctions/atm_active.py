@@ -7,7 +7,7 @@ class ATMActiveMenu(Frame):
         Frame.__init__(self, master)
 
         self.activated = BooleanVar()
-        self.activated.set(self.master.select_card[3])
+        self.activated.set(self.master.selected_card.valid)
 
         self.status = ""
 

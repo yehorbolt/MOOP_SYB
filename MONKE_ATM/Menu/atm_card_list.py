@@ -1,5 +1,11 @@
 from tkinter import *
-
+from ConnectToDB import ConnectToDb as con
+from Account.Account import *
+from User.User import User
+from Card.Card import *
+from Card.Credit import Credit
+from Card.Checking import Checking
+from Card.Savings import Savings
 
 class ATMCardListPage(Frame):
 
@@ -38,10 +44,20 @@ class ATMCardListPage(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def function(self, val):
-        self.master.selected_card = [self.master.card_list[val].id, self.master.card_list[val].number,
-                                   self.master.card_list[val].password, self.master.card_list[val].type,
-                                   self.master.card_list[val].balance, self.master.card_list[val].valid,
-                                   self.master.card_list[val].limit, self.master.card_list[val].leftToPay,
-                                   self.master.card_list[val].account_id]
+        # self.master.card_list[val].id, self.master.card_list[val].number,
+        # self.master.card_list[val].password, self.master.card_list[val].type,
+        # self.master.card_list[val].balance, self.master.card_list[val].valid,
+        # self.master.card_list[val].limit, self.master.card_list[val].leftToPay,
+        # self.master.card_list[val].account_id
+
+        if self.master.card_list[val].type == "checking":
+            self.master.selected_card = Checking(self.master.card_list[val].password, "checking",
+                                                 self.master.card_list[val].account_id, True)
+        elif self.master.card_list[val].type == "credit":
+            self.master.selected_card = Credit(self.master.card_list[val].password, "credit",
+                                               self.master.card_list[val].account_id, True)
+        else:
+            self.master.selected_card = Savings(self.master.card_list[val].password, "savings",
+                                                self.master.card_list[val].account_id, True)
         print(self.master.selected_card)
         self.master.switch_frame("ATMCardPin")

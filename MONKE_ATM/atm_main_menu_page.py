@@ -26,7 +26,7 @@ class ATMMainMenuPage(Frame):
         self.acc_id.place(x=15, y=90)
 
         self.user_money = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Amount money on hand:  " +
-                                                                                        str(self.master.user_data.money))
+           str(format(float( self.master.user_data.money),'.2f')))
         self.user_money.place(x=15, y=120)
 
         master.card_menu = PhotoImage(file='../images/ATM/menu_cards_menu.png')
