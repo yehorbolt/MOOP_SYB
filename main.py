@@ -13,7 +13,7 @@ from Transfer.Daemon import *
 def createBasicData(self):
     pass
     #u =
-    #hs = Account("Hryhoriy", "Skovoroda", "working", 1, False)
+    #hs = Account("Hryhorii", "Skovoroda", "working", 1, False)
     #c1 = Card(1111, "checking", 1, False)
 
 """ Main file that start everything """

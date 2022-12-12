@@ -1,4 +1,14 @@
 from tkinter import *
+from User.User import *
+from Account.Account import *
+from ATM.ATM import *
+from Bank.Bank import *
+from Card.Checking import Checking
+from Card.Credit import *
+from Card.Savings import *
+from Transfer.Transaction import *
+from Transfer.Credit import *
+from Transfer.Daemon import *
 
 
 class ATMWithdrawMenu(Frame):
@@ -13,6 +23,22 @@ class ATMWithdrawMenu(Frame):
 
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=0)
 
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Number: " + str(self.master.selected_card.number)) \
+            .place(x=15, y=60)
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Type: " + str(self.master.selected_card.type)) \
+            .place(x=15, y=90)
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Balance: " + str(format(float(self.master.selected_card.balance), '.2f'))) \
+            .place(x=15, y=120)
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Active: " + str(self.master.selected_card.valid)) \
+            .place(x=15, y=150)
+        self.user_money = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="On hand:  " +
+                                                                                        str(format(float(
+                                                                                            self.master.user_data.money),
+                                                                                                   '.2f')))
+        self.user_money.place(x=15, y=150)
+
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
         Label(self, bg="#bed2dd", width=960, image=master.mp_name).grid(columnspan=4, row=1)
@@ -20,38 +46,38 @@ class ATMWithdrawMenu(Frame):
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=2)
 
         master.put_details = PhotoImage(file='../images/ATM/PutWithdraw/atm_amount_withdraw.png')
-        Label(self, bg="#f7f0c6", width=960, image=master.put_details).grid(columnspan=4, row=3)
+        Label(self, bg="#f7f0c6", image=master.put_details).grid(columnspan=4, row=3)
 
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=4)
 
-        master.amount_50 = PhotoImage(file='../images/ATM/PutWithdraw/atm_500.png')
+        master.amount_50 = PhotoImage(file='../images/ATM/PutWithdraw/atm_50.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.amount_50,
-               width=170, height=50, command=lambda: self.put_amount(50)) \
+               width=170, height=50, command=lambda: self.withdraw_amount(50)) \
             .grid(column=1, row=5, pady=(0, 5))
 
         master.amount_100 = PhotoImage(file='../images/ATM/PutWithdraw/atm_100.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.amount_100,
-               width=170, height=50, command=lambda: self.put_amount(100)) \
+               width=170, height=50, command=lambda: self.withdraw_amount(100)) \
             .grid(column=1, row=6, pady=(0, 5))
 
         master.amount_200 = PhotoImage(file='../images/ATM/PutWithdraw/atm_200.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.amount_200,
-               width=170, height=50, command=lambda: self.put_amount(200)) \
+               width=170, height=50, command=lambda: self.withdraw_amount(200)) \
             .grid(column=1, row=7, pady=(0, 5))
 
         master.amount_500 = PhotoImage(file='../images/ATM/PutWithdraw/atm_500.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.amount_500,
-               width=170, height=50, command=lambda: self.put_amount(500)) \
+               width=170, height=50, command=lambda: self.withdraw_amount(500)) \
             .grid(column=2, row=5, pady=(0, 5))
 
         master.amount_1000 = PhotoImage(file='../images/ATM/PutWithdraw/atm_1000.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.amount_1000,
-               width=170, height=50, command=lambda: self.put_amount(1000)) \
+               width=170, height=50, command=lambda: self.withdraw_amount(1000)) \
             .grid(column=2, row=6, pady=(0, 5))
 
         master.amount_5000 = PhotoImage(file='../images/ATM/PutWithdraw/atm_5000.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.amount_5000,
-               width=170, height=50, command=lambda: self.put_amount(5000)) \
+               width=170, height=50, command=lambda: self.withdraw_amount(5000)) \
             .grid(column=2, row=7, pady=(0, 5))
 
         master.my_amount = PhotoImage(file='../images/ATM/PutWithdraw/atm_my_amount.png')
@@ -87,15 +113,26 @@ class ATMWithdrawMenu(Frame):
             self.amount_entry.config(state="disabled")
             self.active_bool = True
 
-    def put_amount(self, value):
-        self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_success_withdraw.png')
-        self.check_data.config(image=self.status)
-        self.money.set("")
-        print(value)
+    def withdraw_amount(self, value):
+        if (value > self.master.selected_card.balance) or (value <= 0):
+            self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_error.png')
+            self.check_data.config(image=self.status)
+        else:
+            self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_success_withdraw.png')
+            self.check_data.config(image=self.status)
+            self.money.set("")
+            self.master.selected_card.withdraw(value)
+            print(self.master.selected_card)
+            data = con.restoreUser(self.master.user_data.login)
+            self.master.user_data = User(data[0], data[1], data[2], data[3])
+            print(self.master.user_data)
+            print(value)
+            self.master.switch_frame("ATMWithdrawMenu")
 
     def check_amount(self):
-        if self.money.get().isdigit():
-            self.put_amount(int(self.money.get()))
-        else:
+        try:
+            float(self.money.get())
+            self.withdraw_amount(float(self.money.get()))
+        except:
             self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_error.png')
             self.check_data.config(image=self.status)

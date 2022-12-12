@@ -1,4 +1,14 @@
 from tkinter import *
+from User.User import *
+from Account.Account import *
+from ATM.ATM import *
+from Bank.Bank import *
+from Card.Checking import Checking
+from Card.Credit import *
+from Card.Savings import *
+from Transfer.Transaction import *
+from Transfer.Credit import *
+from Transfer.Daemon import *
 
 
 class ATMPutOnMenu(Frame):
@@ -13,6 +23,22 @@ class ATMPutOnMenu(Frame):
 
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=0)
 
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Number: " + str(self.master.selected_card.number)) \
+            .place(x=15, y=60)
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Type: " + str(self.master.selected_card.type)) \
+            .place(x=15, y=90)
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Balance: " + str(format(float(self.master.selected_card.balance), '.2f'))) \
+            .place(x=15, y=120)
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Active: " + str(self.master.selected_card.valid)) \
+            .place(x=15, y=150)
+        self.user_money = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="On hand:  " +
+                                                                                        str(format(float(
+                                                                                            self.master.user_data.money),
+                                                                                                   '.2f')))
+        self.user_money.place(x=15, y=150)
+
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
         Label(self, bg="#bed2dd", width=960, image=master.mp_name).grid(columnspan=4, row=1)
@@ -20,7 +46,7 @@ class ATMPutOnMenu(Frame):
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=2)
 
         master.put_details = PhotoImage(file='../images/ATM/PutWithdraw/atm_amount_put.png')
-        Label(self, bg="#f7f0c6", width=960, image=master.put_details).grid(columnspan=4, row=3)
+        Label(self, bg="#f7f0c6", image=master.put_details).grid(columnspan=4, row=3)
 
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=4)
 
@@ -88,14 +114,25 @@ class ATMPutOnMenu(Frame):
             self.active_bool = True
 
     def put_amount(self, value):
-        self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_success_put.png')
-        self.check_data.config(image=self.status)
-        self.money.set("")
-        print(value)
+        if (value > self.master.user_data.money) or (value <= 0):
+            self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_error.png')
+            self.check_data.config(image=self.status)
+        else:
+            self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_success_put.png')
+            self.check_data.config(image=self.status)
+            self.money.set("")
+            self.master.selected_card.putMoney(self.master.user_id, value)
+            print(self.master.selected_card)
+            data = con.restoreUser(self.master.user_data.login)
+            self.master.user_data = User(data[0], data[1], data[2], data[3])
+            print(self.master.user_data)
+            print(value)
+            self.master.switch_frame("ATMPutOnMenu")
 
     def check_amount(self):
-        if self.money.get().isdigit():
-            self.put_amount(int(self.money.get()))
-        else:
+        try:
+            float(self.money.get())
+            self.put_amount(float(self.money.get()))
+        except:
             self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_error.png')
             self.check_data.config(image=self.status)

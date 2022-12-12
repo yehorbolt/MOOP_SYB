@@ -117,7 +117,7 @@ class ATMCardPin(Frame):
             self.incorrect_image = PhotoImage(file='../images/ATM/CardPin/atm_invalid_pass.png')
             self.incorrect_pin.config(image=self.incorrect_image)
         else:
-            if self.master.selected_card[2] == int(pin_code):
+            if self.master.selected_card.password == int(pin_code):
                 self.incorrect_pin.config(image="")
                 self.master.switch_frame("ATMCardPage")
             else:

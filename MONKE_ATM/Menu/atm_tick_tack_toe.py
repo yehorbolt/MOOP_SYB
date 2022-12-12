@@ -93,8 +93,6 @@ class TicTacToe(Frame):
     def win(self):
         self.master.user_data.money += 100
         self.master.user_data.updateMoney()
-        data = con.restoreUser(self.master.user_data.login)
-        self.master.user_data = User(data[0], data[1], data[2], data[3])
         print(self.master.user_data)
 
     def erase_after(self):
