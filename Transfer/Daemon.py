@@ -42,6 +42,16 @@ class Daemon(Transfer):
             self.process.start()
 
     """
+    This method changes activeness of daemon and makes it false 
+    :param: self
+    :type: Daemon
+    :returns: nothing
+    """
+    def inactive(self):
+        self.process.daemon = False
+        super(Daemon, self).inactive()
+
+    """
     This is the task that will be runned by Daemon process
     :param:self, nextDate
     :type: Daemon, date

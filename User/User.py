@@ -26,6 +26,7 @@ class User:
             self.id = con.getLastId("user") + 1
             self.login = login
             self.password = password
+            self.money = money
             self.createUser()
         else:
             id = int (self.findUserId(login))
@@ -92,8 +93,8 @@ class User:
     :returns: nothing
     """
     def createUser(self):
-        query = "INSERT INTO user (id, login, password) VALUES (%s, %s, %s);"
-        val = (self.id, self.login, self.password)
+        query = "INSERT INTO user (id, login, password, money) VALUES (%s, %s, %s, %s);"
+        val = (self.id, self.login, self.password, self.money)
         con.executeWithVal(query, val)
 
     """
@@ -134,7 +135,7 @@ class User:
         assert newMoney >= 0, "newMoney must be more than -1"
         if newMoney == self.newMoney:
             raise Exception("You have entered same amount of money!")
-        self.password = newMoney
+        self.money = newMoney
         self.updateMoney()
 
     """
@@ -158,6 +159,18 @@ class User:
         query = "SELECT money FROM user WHERE id = '" + str (user_id) + "';"
         records = con.executeReturn(query)
         self.money = records.getitem(0)
+
+    """
+    This method returns user balance
+    :param: self, user_id
+    :type: User, int
+    :returns: nothing
+    """
+    def returnMoney(user_id):
+        query = "SELECT money FROM user WHERE id = '" + str (user_id) + "';"
+        records = con.executeReturn(query)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
     """
     Deletes the User from the database
