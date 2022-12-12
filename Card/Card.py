@@ -249,7 +249,8 @@ class Card:
     def getBalance(self):
         query = "SELECT balance FROM card WHERE id = '" + str (self.id) + "';"
         records = con.executeReturn(query)
-        return records.__getitem__(0)[0]
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
     """
     This method gets how much money the user 'left to pay' to the bank from the database
@@ -289,7 +290,8 @@ class Card:
     def checkUserMoney(self, user_id):
         query = "SELECT money FROM user WHERE id = '" + str (user_id) + "';"
         records = con.executeReturn(query)
-        return records.__getitem__(0)[0]
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
     """
     This method changes the Card valid status and deletes the Card if Card becomes invalid 
@@ -330,7 +332,7 @@ class Card:
             raise Exception("You have entered same limit for a Card!")
         assert newLimit >= 0, "newLimit must be equal or more than 0!"
         self.limit = newLimit
-        self.updateValid()
+        self.updateLimit()
 
         """
     This method updates the Card limit in the database

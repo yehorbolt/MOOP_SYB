@@ -1,3 +1,5 @@
+from ConnectToDB import ConnectToDb as con
+from User.User import User
 from Transfer.Transfer import Transfer
 
 """
@@ -23,13 +25,43 @@ class Transaction(Transfer):
     :returns: nothing
     """
     def __init__(self, fromCard, toCard, amount, card_id, type, card_account_id):
-        super(Transfer, self).__init__(fromCard, toCard, amount, self.type, 0, 0, card_id, card_account_id, self.atm_id, self.atm_bank_id)
+        super(Transaction, self).__init__(fromCard, toCard, amount, type, 0, 0, card_id, card_account_id)
         if type == "transaction":
             self.transaction(fromCard, toCard, amount)
         if type == "withdraw":
             self.withdraw(fromCard, amount)
+            self.userChangeMoney(amount, type, card_account_id)
         if type == "putMoney":
             self.putMoney(toCard, amount)
+            self.userChangeMoney(amount, type, card_account_id)
+
+
+    """
+    This method changes amount of money user has with him
+    :param:
+    :type:
+    :returns: nothing
+    """
+    def userChangeMoney(self, amount, type, card_account_id):
+        user_id = self.findUserId(card_account_id)
+        if type == "withdraw":
+            user_balance = User.returnMoney(user_id) + amount
+        if type == "putMoney":
+            user_balance = User.returnMoney(user_id) - amount
+        query = "UPDATE user SET money = %s WHERE id = %s"
+        values = (user_balance, user_id)
+        con.executeWithVal(query, values)
+
+    """
+    Retunrs user id from db by account id given
+    :param: self, card_account_id
+    :type: Transaction, int
+    :returns: user_id
+    :rtype: int
+    """
+    def findUserId(self, card_account_id):
+        query = "SELECT user_id FROM account WHERE id = '" + str(card_account_id) + "';"
+        return tuple(con.executeReturn(query)).__getitem__(0)[0]
 
     """
     This method changes in database amount of money on the cards

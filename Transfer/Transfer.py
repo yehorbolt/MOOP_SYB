@@ -11,7 +11,7 @@ class Transfer:
     toCard = int (0)
     amount = float (0)
     date = str ("default")
-    type = str ("default")
+    transferType = str ("default")
     active = bool (0)
     frequency = int (0)
     card_id = int (0)             # from which card (id) is transfer
@@ -29,22 +29,37 @@ class Transfer:
         assert self.cardExists(fromCard) == True, "Card from which you want to make a transfer doesn't exist!"
         assert self.cardExists(toCard) == True, "Card on which you want to make a transfer doesn't exist!"
         assert amount > 0, "You can't make a Transaction with amount less than 1!"
-        assert self.enoughMoney(fromCard, amount) == True, "You can't transfer more money than you have on the Card!"
+        if transferType != "putMoney":
+            assert self.getBalance(fromCard) >= amount, "You can't transfer more money than you have on the Card!"
         assert self.validType(transferType) == True, "You can't make a transfer with type different from Transaction, Daemon or Credit"
         assert type(leftToPay) == float or int, "You can't use other type than float or int for initialising leftToPay!"
         assert type(frequency) == float or int, "You can't set frequency for a daemon using other type than float or int!"
         self.id = con.getLastId("transfer") + 1
-        self.fromCard = fromCard.id
-        self.toCard = toCard.id
+        self.fromCard = fromCard
+        self.toCard = toCard
         self.amount = amount
         self.date = self.getTime()
-        self.type = type
+        self.transferType = transferType
         self.active = bool (1)
         self.leftToPay = float (leftToPay)
         self.frequency = float (frequency)
         self.card_id = card_id
         self.card_account_id = card_account_id
+        self.createTransfer()
 
+    """
+    This method adds transfer to db
+    :param: self
+    :type: Transfer
+    :returns: nothing
+    """
+    def createTransfer(self):
+        query = 'INSERT INTO transfer (id, "from", "to", amount, date, type, active, card_id, card_account_id, atm_id, atm_bank_id) ' \
+                'VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);'
+        val = (str (self.id), self.fromCard, self.toCard, self.amount, self.date,
+               self.transferType, int (self.active), str (self.card_id),
+               str (self.card_account_id), str (self.atm_id), str (self.atm_bank_id))
+        con.executeWithVal(query, val)
 
     """
     This method returns date for a transfer
@@ -76,24 +91,12 @@ class Transfer:
     :rtype: bool
     """
     def cardExists(self, card):
-        query = "SELECT * FROM card WHERE id = " + str (card.id) + ";"
+        query = "SELECT * FROM card WHERE number = " + str (card) + ";"
         res = con.executeReturn(query)
         if res.__len__() == 0:
             return False
         else:
             return True
-
-    """
-    This method checks if money of amount given can be transferred from a card
-    :param: self, fromCard, amount
-    :type: Transfer, int, float/int
-    :returns: True or False
-    :rtype: bool
-    """
-    def enoughMoney(self, fromCard, amount):
-        query = "SELECT balance FROM card WHERE number = " + str (fromCard) + ";"
-        records = con.executeReturn(query)
-        return records.__getitem__(0) >= amount
 
     """
     This method checks if the type given is valid (transaction, daemon or credit)  
@@ -104,7 +107,7 @@ class Transfer:
     """
     def validType(self, type):
         type = str (type)
-        if type != "transaction" or type != "daemon" or type != "credit":
+        if type != "transaction" and type != "putMoney" and type != "withdraw" and type != "credit":
             return False
         else:
             return True
@@ -119,7 +122,8 @@ class Transfer:
     def getBalance(self, card):
         query = "SELECT balance FROM card WHERE number = " + str (card) + ";"
         records = con.executeReturn(query)
-        return records.__getitem__(0)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
     """
     This method returns type of the card given
@@ -131,7 +135,7 @@ class Transfer:
     def getCardType(self, card):
         query = "SELECT type FROM card WHERE number = " + str (card) + ";"
         records = con.executeReturn(query)
-        return records.__getitem__(0)
+        return str (records.__getitem__(0))
 
     """
     This method returns leftToPay of the card given
@@ -143,7 +147,8 @@ class Transfer:
     def getLeftToPay(self, card):
         query = "SELECT leftToPay FROM card WHERE number = " + str (card) + ";"
         records = con.executeReturn(query)
-        return records.__getitem__(0)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
     """
     This method changes balance

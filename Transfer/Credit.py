@@ -31,7 +31,7 @@ class Credit(Transfer):
             raise AssertionError(e)
 
         amount *= 1,1 # amount of the money with bank interest
-        super(Transfer, self).__init__(fromCard, toCard, amount, "credit",  amount, 0, card_id, card_account_id, self.atm_id, self.atm_bank_id)
+        super(Credit, self).__init__(fromCard, toCard, amount, "credit",  amount, 0, card_id, card_account_id)
         if self.checkIfValid(card_id, amount) == True:
             self.changeBalance(fromCard, toCard, amount, True)
 
