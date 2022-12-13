@@ -48,7 +48,7 @@ class ATMPutOnMenu(Frame):
 
         Label(self, bg="#f7f0c6").grid(columnspan=4, row=4)
 
-        master.amount_50 = PhotoImage(file='../images/ATM/PutWithdraw/atm_500.png')
+        master.amount_50 = PhotoImage(file='../images/ATM/PutWithdraw/atm_50.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.amount_50,
                width=170, height=50, command=lambda: self.put_amount(50)) \
             .grid(column=1, row=5, pady=(0, 5))
