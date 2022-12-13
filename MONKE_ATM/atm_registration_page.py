@@ -118,24 +118,45 @@ class ATMRegistrationPage(Frame):
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
-    def check(self):
+    def checkInput(self):
         if (len(self.login.get()) < 3) or (len(self.name.get()) < 3) or (len(self.surname.get()) < 3):
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect.png')
             self.check_data.config(image=self.incorrect_dt)
+            return False
         elif len(self.pin.get()) != 4 or (not self.pin.get().isdigit()):
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect.png')
             self.check_data.config(image=self.incorrect_dt)
+            return False
         elif len(self.password.get()) < 8:
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect_pass.png')
             self.check_data.config(image=self.incorrect_dt)
-            self.password.set("")
-            self.conf_password.set("")
+            return False
         elif self.password.get() != self.conf_password.get():
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect_conf.png')
             self.check_data.config(image=self.incorrect_dt)
             self.password.set("")
             self.conf_password.set("")
+            return False
         else:
+            return True
+
+    def emptyData(self):
+        self.name.set("")
+        self.surname.set("")
+        self.login.set("")
+        self.password.set("")
+        self.conf_password.set("")
+        self.card_type.set("Credit")
+        self.pin.set("")
+        self.status.set("workless")
+        self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_success.png')
+        self.check_data.config(image=self.incorrect_dt)
+
+    def check(self):
+
+        correct = self.checkInput()
+
+        if correct:
             try:
                 ch_login = str(self.login.get())
                 ch_pass = self.password.get()
@@ -162,16 +183,7 @@ class ATMRegistrationPage(Frame):
                         new_card = Checking(ch_pin, "checking", ch_acc_id, False)
 
                     print(new_card)
-                    self.name.set("")
-                    self.surname.set("")
-                    self.login.set("")
-                    self.password.set("")
-                    self.conf_password.set("")
-                    self.card_type.set("Credit")
-                    self.pin.set("")
-                    self.status.set("workless")
-                    self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_success.png')
-                    self.check_data.config(image=self.incorrect_dt)
+                    self.emptyData()
             except Exception as e:
                 print(e)
                 self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect_conf.png')
