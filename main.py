@@ -3,7 +3,7 @@ from Account.Account import *
 from ATM.ATM import *
 from Bank.Bank import *
 from Card.Checking import Checking
-from Card.Credit import *
+from Card.Credit import Credit as credit
 from Card.Savings import *
 from Transfer.Transaction import *
 from Transfer.Credit import *
@@ -18,17 +18,7 @@ def createBasicData(self):
 
 """ Main file that start everything """
 if __name__ == '__main__':
-    #ac = con.restoreAccount(1)
-    #print(ac)
-    #print("-------------------------------------")
-    #u = con.restoreUser("login")
-    #print(u)
-    #print("-------------------------------------")
-    #c = con.restoreCards(ac.id)
-    #card = c[0]
-    #print(card)
-    #print(card.__class__)
-
+    """
     u = User("test", "123456789", 5000, True)
     ac = Account("Test", "Testov", "working", u.id, True)
     ch = Checking(1111, "checking", ac.id, True)
@@ -62,5 +52,72 @@ if __name__ == '__main__':
         ch.withdraw(500)
     except Exception as e:
         print(e)
+    """
 
+    u = User("test", "123456789", 5000, True)
+    ac = Account("Test", "Testov", "working", u.id, True)
+    # I've manually added 2.5k to user's money
+    # I've manually added 10k on the Checking card to test Credit system
+    cr = credit(1111, "credit", ac.id, True)
 
+    try:
+        cr.takeCredit(100000)
+    except Exception as e:
+        print(e)
+    print(cr)
+
+    #cr.changeLimit(20000)
+    #print(cr)
+
+    try:
+        cr.takeCredit(40000)
+    except Exception as e:
+        print(e)
+
+    cr.changeLimit(40000)
+    print(cr)
+
+    try:
+        cr.takeCredit(40000)
+    except Exception as e:
+        print(e)
+    print(cr)
+
+    try:
+        cr.putMoney(u.id, 10000)
+    except Exception as e:
+        print(e)
+    print(cr)
+
+    try:
+        cr.putMoney(u.id, 3000)
+    except Exception as e:
+        print(e)
+    print(cr)
+
+    try:
+        cr.makeTransaction(601226214, 250000)
+    except Exception as e:
+        print(e)
+
+    try:
+        cr.makeTransaction(601226214, 25000)
+    except Exception as e:
+        print(e)
+    print(cr)
+
+    try:
+        cr.withdraw(1000000)
+    except Exception as e:
+        print(e)
+
+    try:
+        cr.withdraw(5000)
+    except Exception as e:
+        print(e)
+    print(cr)
+    try:
+        cr.takeCredit(10000)
+    except Exception as e:
+        print(e)
+    print(cr)

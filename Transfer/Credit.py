@@ -26,14 +26,13 @@ class Credit(Transfer):
     """
     def __init__(self, fromCard, toCard, amount, card_id, card_account_id):
         try:
-            self.checkIfValid(toCard, amount)
+            self.checkIfValid(toCard, amount, card_account_id)
         except Exception as e:
             raise AssertionError(e)
-
+        assert self.getCreditSum(card_account_id) + amount <= self.findCardLimit(fromCard), "You can't take other credit, as you've put a limit!"
         amount *= 1,1 # amount of the money with bank interest
         super(Credit, self).__init__(fromCard, toCard, amount, "credit",  amount, 0, card_id, card_account_id)
-        if self.checkIfValid(card_id, amount) == True:
-            self.changeBalance(fromCard, toCard, amount, True)
+        self.changeBalance(toCard, amount, True)
 
     """
     This method checks if the user can get a credit on his account
@@ -42,10 +41,49 @@ class Credit(Transfer):
     :returns: True/False
     :rtype: bool
     """
-    def checkIfValid(self, card, amount):
+    def checkIfValid(self, card, amount, card_account_id):
         assert self.checkActiveCredit(card) == False, "The user already has an active credit!"
-        assert self.mayPay(card) == True, "User doesn't have enough money on his cards!"
+        assert self.mayPay(card, amount) == True, "User doesn't have enough money on his cards!"
         return True
+
+    """
+    This method finds user_id by card_account_id
+    :param: self, card_account_id
+    :type: Credit, int
+    :returns: user_id
+    :rtype: int
+    """
+    def findUserId(self, card_account_id):
+        query = "SELECT user_id FROM account WHERE id = '" + str (card_account_id) + "';"
+        records = con.executeReturn(query)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
+
+    """
+    This method finds a card limit
+    :param: self, account_id
+    :type: Credit, int
+    :returns: limit
+    :rtype: float/int
+    """
+    def findCardLimit(self, account_id):
+        query = 'SELECT "limit" FROM card WHERE account_id = \'' + str (account_id) + '\';'
+        records = con.executeReturn(query)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
+
+    """
+    This method returns sum of all active credits the user took
+    :param: self, card_account_id
+    :type: Credit, int
+    :returns: sum
+    :type: float
+    """
+    def getCreditSum(self, card_account_id):
+        query = "SELECT COUNT (amount) FROM transfer WHERE  \"type\" = \"credit\" AND card_account_id = '" + str (card_account_id) + "';"
+        records = con.executeReturn(query)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
     """
     This method checks if the user has active credits
@@ -55,12 +93,12 @@ class Credit(Transfer):
     :rtype: bool
     """
     def checkActiveCredit(self, card):
-        query = "SELECT * FROM transfer WHERE number = " + str (card) + " AND type = 'credit' AND active = 1;"
+        query = "SELECT * FROM transfer WHERE \"from\" = " + str (card) + " AND type = 'credit' AND active = 1;"
         records = con.executeReturn(query)
         if records.__len__() == 0:
-            return True
-        else:
             return False
+        else:
+            return True
 
     """
     This method checks if the user has enough money on his cards
@@ -74,23 +112,23 @@ class Credit(Transfer):
     """
     def mayPay(self, card, amount):
         account_id = self.getAccountId(card)
-        overallBalance = self.countMoneyOnCards()
+        overallBalance = self.countMoneyOnCards(account_id)
         query = "SELECT balance FROM card WHERE number = " + str (card) + " AND account_id = '" + str (account_id) + "';"
         records = con.executeReturn(query)
         if records.__len__() == 0:
             return False
         else:
             for i in records:
-                overallBalance += records[i][0]
-        query = "SELECT status FROM account WHERE id = " + str (account_id) + "';"
+                overallBalance += i[0]
+        query = "SELECT status FROM account WHERE id = '" + str (account_id) + "';"
         records = con.executeReturn(query)
-        if records[0][0] == "has a job":
-            if 1/4 * overallBalance >= amount:
+        if ''.join(records[0][0]) == "working":
+            if overallBalance >= amount * 1/4:
                 return True
             else:
                 return False
         else:
-            if 1/2 * overallBalance >= amount:
+            if overallBalance >= amount * 1/2:
                 return True
             else:
                 return False
@@ -102,9 +140,11 @@ class Credit(Transfer):
     :returns: money
     :rtype: float/int
     """
-    def countMoneyOnCards(self, user_id):
-        query = "SELECT COUNT(balance) FROM card where user_id = '" + str (user_id) + "' AND WHERE type <> 'credit';"
-        return float (con.executeReturn(query).__getitem__(0))
+    def countMoneyOnCards(self, account_id):
+        query = "SELECT COUNT(balance) FROM card where account_id = '" + str (account_id) + "' AND type <> 'credit';"
+        records = con.executeReturn(query)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
     """
     This method gets accountid from the database by the card number given
@@ -116,7 +156,8 @@ class Credit(Transfer):
     def getAccountId(self, card):
         query = "SELECT account_id FROM card WHERE number = " + str (card) + ";"
         records = con.executeReturn(query)
-        return records.__getitem__(0)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
 
 
