@@ -3,7 +3,7 @@ from User.User import User
 from ConnectToDB import ConnectToDb as con
 
 
-class ATMChangePassword(Frame):
+class ATMChangePin(Frame):
 
     def __init__(self, master):
         Frame.__init__(self, master)
@@ -18,22 +18,18 @@ class ATMChangePassword(Frame):
         panel.pack()
 
         self.incorrect_dt = ""
-        self.new_password = StringVar()
-        self.conf_password = StringVar()
+        self.new_pin = StringVar()
+        self.conf_pin = StringVar()
 
-        master.pass_reg = PhotoImage(file='../images/ATM/ChangePass/ch_enter_pass.png')
-        Label(self, text="", bg='#f7f0c6', image=master.pass_reg).pack()
+        master.pin_reg = PhotoImage(file='../images/ATM/ChangePass/ch_enter_pin.png')
+        Label(self, text="", bg='#f7f0c6', image=master.pin_reg).pack()
 
-        self.password_entry = Entry(self, font=("arial", 12), textvariable=self.new_password)
-        self.password_entry.config(fg='black', show='●')
-        self.password_entry.pack(pady=(0, 10))
+        Entry(self, font=("orbitron", 14), textvariable=self.new_pin, width=4,fg='black', show='●').pack(pady=(0, 10))
 
-        master.conf_reg = PhotoImage(file='../images/ATM/ChangePass/ch_confirm_pass.png')
+        master.conf_reg = PhotoImage(file='../images/ATM/ChangePass/ch_confirm_pin.png')
         Label(self, text="", bg='#f7f0c6', image=master.conf_reg).pack()
 
-        self.conf_password_entry = Entry(self, font=("arial", 12), textvariable=self.conf_password)
-        self.conf_password_entry.config(fg='black', show='●')
-        self.conf_password_entry.pack(pady=(0, 10))
+        Entry(self, font=("orbitron", 14), textvariable=self.conf_pin, width=4, fg='black', show='●').pack(pady=(0, 10))
 
         self.check_data = Label(self, text="", bg='#f7f0c6', image=self.incorrect_dt)
         self.check_data.pack(pady=(10, 10))
@@ -51,20 +47,20 @@ class ATMChangePassword(Frame):
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
     def check(self):
-        if len(self.new_password.get()) < 8:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_invalid_pass.png')
+        if len(self.new_pin.get()) != 4 or (not self.new_pin.get().isdigit()):
+            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_pin_error.png')
             self.check_data.config(image=self.incorrect_dt)
-        elif self.new_password.get() != self.conf_password.get():
-            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_invalid_pass.png')
+        elif self.new_pin.get() != self.conf_pin.get():
+            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_pin_error.png')
             self.check_data.config(image=self.incorrect_dt)
-        elif self.new_password.get() == self.master.user_data.password:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_invalid_pass.png')
-            self.check_data.config(image=self.incorrect_dt)
+        elif self.new_pin.get() == self.master.selected_card.password:
+            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_pin_success.png')
+            self.new_pin.set("")
+            self.conf_pin.set("")
         else:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_success.png')
+            self.incorrect_dt = PhotoImage(file='../images/ATM/ChangePass/ch_pin_success.png')
             self.check_data.config(image=self.incorrect_dt)
-            self.master.user_data.changePassword(self.new_password.get())
-            data = con.restoreUser(self.master.user_data.login)
-            self.master.user_data = User(data[0], data[1], data[2], data[3])
-            self.new_password.set("")
-            self.conf_password.set("")
+            self.master.selected_card.changePassword(int(self.new_pin.get()))
+            self.master.card_list = con.restoreCards(self.master.account_data.id)
+            self.new_pin.set("")
+            self.conf_pin.set("")

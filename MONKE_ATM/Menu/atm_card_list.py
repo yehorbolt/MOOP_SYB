@@ -25,8 +25,6 @@ class ATMCardListPage(Frame):
                   font=('orbitron', 14, 'bold')).pack()
             Label(self, bg="#f7f0c6", width=170, text="Type: " + str(self.master.card_list[i].type),
                   font=('orbitron', 14, 'bold')).pack()
-            Label(self, bg="#f7f0c6", width=170, text="Activated: " + str(self.master.card_list[i].valid),
-                  font=('orbitron', 14, 'bold')).pack()
             Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT,
                    image=master.select_card_btn, width=130, height=40,
                    command=lambda a=i: self.function(a)).pack(pady=(0, 15))
@@ -49,7 +47,6 @@ class ATMCardListPage(Frame):
         # self.master.card_list[val].balance, self.master.card_list[val].valid,
         # self.master.card_list[val].limit, self.master.card_list[val].leftToPay,
         # self.master.card_list[val].account_id
-
         if self.master.card_list[val].type == "checking":
             self.master.selected_card = Checking(self.master.card_list[val].password, "checking",
                                                  self.master.card_list[val].account_id, True)

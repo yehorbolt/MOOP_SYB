@@ -25,8 +25,6 @@ class ATMTransferMenu(Frame):
         self.card_bal = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
                               text="Balance: " + str(format(float(self.master.selected_card.balance), '.2f')))
         self.card_bal.place(x=15, y=120)
-        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Active: " + str(self.master.selected_card.valid)) \
-            .place(x=15, y=150)
 
         # add MonkePay on the head
         master.mp_name = PhotoImage(file='../images/ATM/mp_name.png')
