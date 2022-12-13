@@ -61,8 +61,8 @@ class Card:
     :returns: id
     :rtype: int
     """
-    def findCardId(self, account_id):
-        query = "SELECT id FROM card WHERE account_id = '" + str (account_id) + "';"
+    def findCardId(self, account_id, cardType):
+        query = "SELECT id FROM card WHERE account_id = '" + str (account_id) + "' AND \"type\" = '" + str (cardType) + "';"
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
@@ -72,8 +72,8 @@ class Card:
     :returns: id
     :rtype: int
     """
-    def findCardNumber(self, account_id):
-        query = "SELECT number FROM card WHERE account_id = '" + str (account_id) + "';"
+    def findCardNumber(self, account_id, cardType):
+        query = "SELECT number FROM card WHERE account_id = '" + str (account_id) + "' AND \"type\" = '" + str (cardType) + "';"
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
@@ -83,8 +83,8 @@ class Card:
     :returns: balance
     :rtype: float/int
     """
-    def findCardBalance(self, account_id):
-        query = "SELECT balance FROM card WHERE account_id = '" + str (account_id) + "';"
+    def findCardBalance(self, account_id, cardType):
+        query = "SELECT balance FROM card WHERE account_id = '" + str (account_id) + "' AND \"type\" = '" + str (cardType) + "';"
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """
@@ -94,8 +94,8 @@ class Card:
     :returns: limit
     :rtype: float/int
     """
-    def findCardLimit(self, account_id):
-        query = 'SELECT "limit" FROM card WHERE account_id = \'' + str (account_id) + '\';'
+    def findCardLimit(self, account_id, cardType):
+        query = "SELECT \"limit\" FROM card WHERE account_id = '" + str (account_id) + "' AND \"type\" = '" + str (cardType) + "';"
         records = con.executeReturn(query)
         res = float('.'.join(str(ele) for ele in records[0]))
         return res
@@ -107,8 +107,8 @@ class Card:
     :returns: id
     :rtype: int
     """
-    def findLeftToPay(self, account_id):
-        query = "SELECT leftToPay FROM card WHERE account_id = '" + str (account_id) + "';"
+    def findLeftToPay(self, account_id, cardType):
+        query = "SELECT leftToPay FROM card WHERE account_id = '" + str (account_id) + "' AND \"type\" = '" + str (cardType) + "';"
         return tuple (con.executeReturn(query)).__getitem__(0)[0]
 
     """

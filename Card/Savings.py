@@ -26,12 +26,12 @@ class Savings(Card):
         if restore == False:
             super(Savings, self).__init__(password, "savings", account_id, restore)
         if restore == True:
-            id = self.findCardId(account_id)
-            number = self.findCardNumber(account_id)
-            balance = self.findCardBalance(account_id)
+            id = self.findCardId(account_id, cardType)
+            number = self.findCardNumber(account_id, cardType)
+            balance = self.findCardBalance(account_id, cardType)
             self.valid = True
-            limit = self.findCardLimit(account_id)
-            leftToPay = self.findLeftToPay(account_id)
+            limit = self.findCardLimit(account_id, cardType)
+            leftToPay = self.findLeftToPay(account_id, cardType)
             self.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
         Daemon(self.number, self.number, self.balance, 5, True, self.id, self.account_id)
 
