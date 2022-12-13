@@ -80,10 +80,12 @@ class Credit(Transfer):
     :type: float
     """
     def getCreditSum(self, card_account_id):
-        query = "SELECT COUNT (amount) FROM transfer WHERE  \"type\" = \"credit\" AND card_account_id = '" + str (card_account_id) + "';"
+        query = "SELECT SUM(amount) FROM transfer WHERE  \"type\" = 'credit' AND card_account_id = '" + str (card_account_id) + "';"
         records = con.executeReturn(query)
-        res = float('.'.join(str(ele) for ele in records[0]))
-        return res
+        if None in records[0][0]:
+            return 0
+        else:
+            return float('.'.join(str(ele) for ele in records(0)))
 
     """
     This method checks if the user has active credits
@@ -113,13 +115,6 @@ class Credit(Transfer):
     def mayPay(self, card, amount):
         account_id = self.getAccountId(card)
         overallBalance = self.countMoneyOnCards(account_id)
-        query = "SELECT balance FROM card WHERE number = " + str (card) + " AND account_id = '" + str (account_id) + "';"
-        records = con.executeReturn(query)
-        if records.__len__() == 0:
-            return False
-        else:
-            for i in records:
-                overallBalance += i[0]
         query = "SELECT status FROM account WHERE id = '" + str (account_id) + "';"
         records = con.executeReturn(query)
         if ''.join(records[0][0]) == "working":
@@ -141,7 +136,7 @@ class Credit(Transfer):
     :rtype: float/int
     """
     def countMoneyOnCards(self, account_id):
-        query = "SELECT COUNT(balance) FROM card where account_id = '" + str (account_id) + "' AND type <> 'credit';"
+        query = "SELECT SUM(balance) FROM card where account_id = '" + str (account_id) + "' AND type <> 'credit';"
         records = con.executeReturn(query)
         res = float('.'.join(str(ele) for ele in records[0]))
         return res
