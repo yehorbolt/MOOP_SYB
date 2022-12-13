@@ -96,7 +96,9 @@ class Card:
     """
     def findCardLimit(self, account_id):
         query = 'SELECT "limit" FROM card WHERE account_id = \'' + str (account_id) + '\';'
-        return tuple (con.executeReturn(query)).__getitem__(0)[0]
+        records = con.executeReturn(query)
+        res = float('.'.join(str(ele) for ele in records[0]))
+        return res
 
     """
     This method finds a card leftToPay
