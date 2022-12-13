@@ -66,11 +66,11 @@ if __name__ == '__main__':
         print(e)
     print(cr)
 
-    #cr.changeLimit(20000)
-    #print(cr)
+    cr.changeLimit(20000)
+    print(cr)
 
     try:
-        cr.takeCredit(40000)
+        cr.takeCredit(float (40000))
     except Exception as e:
         print(e)
 
@@ -88,6 +88,8 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
     print(cr)
+
+
 
     try:
         cr.putMoney(u.id, 3000)
