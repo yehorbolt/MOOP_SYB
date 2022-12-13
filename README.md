@@ -60,4 +60,5 @@ pip install -r requirements.txt
 And you can start the project!
 
 ## That's all!
-Clone the project & enjoy it!
+Clone the project & enjoy it! 
+P.s. to run hte project go to folder MONKE_ATM, then choose atm_run.py and run it.
