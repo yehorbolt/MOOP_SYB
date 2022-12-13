@@ -128,9 +128,13 @@ class ATMRegistrationPage(Frame):
         elif len(self.password.get()) < 8:
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect_pass.png')
             self.check_data.config(image=self.incorrect_dt)
+            self.password.set("")
+            self.conf_password.set("")
         elif self.password.get() != self.conf_password.get():
             self.incorrect_dt = PhotoImage(file='../images/ATM/RegMenu/reg_incorrect_conf.png')
             self.check_data.config(image=self.incorrect_dt)
+            self.password.set("")
+            self.conf_password.set("")
         else:
             try:
                 ch_login = str(self.login.get())
