@@ -26,8 +26,6 @@ class ATMCardPage(Frame):
         Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
               text="Balance: " + str(format(float(self.master.selected_card.balance), '.2f'))) \
             .place(x=15, y=120)
-        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Active: " + str(self.master.selected_card.valid)) \
-            .place(x=15, y=150)
 
         if self.master.selected_card.type == "checking":
             master.cp_put = PhotoImage(file='../images/ATM/CardMenu/cm_put_on.png')
@@ -102,9 +100,10 @@ class ATMCardPage(Frame):
                    width=170, height=50, command=lambda: master.switch_frame("ATMLimitMenu")) \
                 .grid(column=1, row=6, pady=(0, 5))
 
-        master.cp_active = PhotoImage(file='../images/ATM/CardMenu/cm_active.png')
-        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_active,
-               width=170, height=50, command=lambda: master.switch_frame("ATMActiveMenu")) \
+
+        master.cp_change_pin = PhotoImage(file='../images/ATM/CardMenu/cm_change_pin.png')
+        Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_change_pin,
+               width=170, height=50, command=lambda: master.switch_frame("ATMChangePin")) \
             .grid(column=2, row=3, pady=(0, 5))
 
         master.cp_delete = PhotoImage(file='../images/ATM/CardMenu/cm_delete.png')

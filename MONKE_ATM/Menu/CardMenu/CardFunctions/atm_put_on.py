@@ -31,8 +31,6 @@ class ATMPutOnMenu(Frame):
         Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
               text="Balance: " + str(format(float(self.master.selected_card.balance), '.2f'))) \
             .place(x=15, y=120)
-        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="Active: " + str(self.master.selected_card.valid)) \
-            .place(x=15, y=150)
         self.user_money = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'), text="On hand:  " +
                                                                                         str(format(float(
                                                                                             self.master.user_data.money),
