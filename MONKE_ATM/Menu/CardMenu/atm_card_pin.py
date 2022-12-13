@@ -9,6 +9,7 @@ class ATMCardPin(Frame):
         self.pin = StringVar()
         self.incorrect_image = ""
 
+        self.incorrect_enter = 0
         Label(self, bg="#f7f0c6").grid(columnspan=9, row=0)
 
         # add MonkePay on the head
@@ -111,11 +112,11 @@ class ATMCardPin(Frame):
                width=170, height=50, command=quit).grid(columnspan=9, row=13)
 
     def check(self):
-        print(self.master.selected_card)
         pin_code = self.pin.get()
         if len(pin_code) != 4:
             self.incorrect_image = PhotoImage(file='../images/ATM/CardPin/atm_invalid_pass.png')
             self.incorrect_pin.config(image=self.incorrect_image)
+            self.incorrect_enter += 1
         else:
             if self.master.selected_card.password == int(pin_code):
                 self.incorrect_pin.config(image="")
@@ -123,6 +124,9 @@ class ATMCardPin(Frame):
             else:
                 self.incorrect_image = PhotoImage(file='../images/ATM/CardPin/atm_invalid_pass.png')
                 self.incorrect_pin.config(image=self.incorrect_image)
+                self.incorrect_enter += 1
+        if self.incorrect_enter == 3:
+            self.master.switch_frame("ATMCardListPage")
 
 
     def add(self, value):
