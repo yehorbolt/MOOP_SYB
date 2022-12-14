@@ -81,11 +81,11 @@ class ATMCreateCard(Frame):
         else:
             if check_type:
                 if sel_type == "credit":
-                    new_card = Credit(int(pin_code), "credit", self.master.account_data.id, False)
+                    Credit(int(pin_code), "credit", self.master.account_data.id, False)
                 elif sel_type == "savings":
-                    new_card = Savings(int(pin_code), "savings", self.master.account_data.id, False)
+                    Savings(int(pin_code), "savings", self.master.account_data.id, False)
                 elif sel_type == "checking":
-                    new_card = Checking(int(pin_code), "checking", self.master.account_data.id, False)
+                    Checking(int(pin_code), "checking", self.master.account_data.id, False)
                 self.master.card_list = con.restoreCards(self.master.account_data.id)
                 self.incorrect_image = PhotoImage(file='../images/ATM/CreateCard/create_card_success.png')
                 self.check_data.config(image=self.incorrect_image)

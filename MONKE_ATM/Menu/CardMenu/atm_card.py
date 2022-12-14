@@ -64,21 +64,6 @@ class ATMCardPage(Frame):
                    width=170, height=50, command=lambda: master.switch_frame("ATMWithdrawMenu")) \
                 .grid(column=1, row=4, pady=(0, 5))
 
-            master.cp_transfer = PhotoImage(file='../images/ATM/CardMenu/cm_transfer.png')
-            Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_transfer,
-                   width=170, height=50, command=lambda: master.switch_frame("ATMTransferMenu")) \
-                .grid(column=1, row=5, pady=(0, 5))
-
-            master.cp_daemon = PhotoImage(file='../images/ATM/CardMenu/cm_daemon.png')
-            Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_daemon,
-                   width=170, height=50, command=lambda: master.switch_frame("ATMDaemonMenu")) \
-                .grid(column=1, row=6, pady=(0, 5))
-
-            master.cp_deposit = PhotoImage(file='../images/ATM/CardMenu/cm_deposit.png')
-            Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_deposit,
-                   width=170, height=50, command=lambda: master.switch_frame("ATMDepositMenu")) \
-                .grid(column=1, row=7, pady=(0, 5))
-
         else:
             master.cp_put = PhotoImage(file='../images/ATM/CardMenu/cm_put_on.png')
             Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_put,

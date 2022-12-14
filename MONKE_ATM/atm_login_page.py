@@ -9,6 +9,7 @@ class ATMLoginPage(Frame):
     def __init__(self, master):
         Frame.__init__(self, master)
 
+        self.master.isLogged = False
         self.master.user_id = 0
         self.master.user_data = ""
         self.master.account_data = ""
@@ -90,4 +91,5 @@ class ATMLoginPage(Frame):
                 print(self.master.card_list[i])
             print(self.master.user_data)
             print(self.master.account_data)
+            self.master.isLogged = True
             self.master.switch_frame("ATMMainMenuPage")
