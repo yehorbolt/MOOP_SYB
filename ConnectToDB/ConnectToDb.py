@@ -1,8 +1,12 @@
 import mysql.connector
+import os
+from dotenv import load_dotenv
 from mysql.connector import Error
 from User.User import *
 from Account.Account import *
 from Card.Card import *
+
+
 
 connected = False
 connection = ""
@@ -15,12 +19,18 @@ def db_connect():
     global connected
     global connection
     global connection_config_dict
+    load_dotenv()
+    USER = os.getenv('USER')
+    PASSWORD = os.getenv('PASSWORD')
+    HOST = os.getenv('HOST')
+    PORT = os.getenv('PORT')
+    DATABASE = os.getenv('DATABASE')
     connection_config_dict = {
-        'user': 'severhin1',
-        'password': 'AVNS_6rTR6l_ji_IFCMJbuSj',
-        'host': 'db-mysql-lon1-41175-do-user-12692486-0.b.db.ondigitalocean.com',
-        'port': '25060',
-        'database': 'defaultdb',
+        'user': USER,
+        'password': PASSWORD,
+        'host': HOST,
+        'port': PORT,
+        'database': DATABASE,
     }
     try:
         connection = mysql.connector.connect(**connection_config_dict)
