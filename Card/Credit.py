@@ -65,7 +65,7 @@ class Credit(Card):
     def takeCredit(self, amount):
         try:
             cred(self.number, self.number, amount, self.id, self.account_id)
-            self.balance = amount
+            self.balance += amount
             self.leftToPay = amount * float(1.1)
             self.updateLeftToPay(self.leftToPay)
         except Exception as e:
