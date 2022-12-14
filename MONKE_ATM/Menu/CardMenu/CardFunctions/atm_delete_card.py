@@ -58,7 +58,7 @@ class ATMDeleteCard(Frame):
             self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteAccount/incorrect_pass.png')
             self.check_data.config(image=self.incorrect_dt)
         elif len(self.master.card_list) < 2:
-            self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteAccount/cant_del.png')
+            self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteCard/cant_del.png')
             self.check_data.config(image=self.incorrect_dt)
         else:
             self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteCard/del_card.png')
@@ -66,9 +66,9 @@ class ATMDeleteCard(Frame):
             # delete card
             card_num = 0
             for i in range(len(self.master.card_list)):
-                if self.master.card_list[i].type == self.master.selected_card[3]:
+                if self.master.card_list[i].type == self.master.selected_card.type:
                     print(i)
                     card_num = i
-            Card.deleteCard(self.master.card_list[card_num])
+            self.master.card_list[card_num].deleteCard()
             self.master.card_list = con.restoreCards(self.master.account_data.id)
             self.master.switch_frame("ATMMainMenuPage")
