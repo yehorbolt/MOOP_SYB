@@ -9,6 +9,7 @@ from Transfer.Transaction import *
 from Transfer.Credit import *
 from Transfer.Daemon import *
 
+from ConnectToDB import ConnectToDb as con
 
 def createBasicData(self):
     pass
@@ -18,6 +19,10 @@ def createBasicData(self):
 
 """ Main file that start everything """
 if __name__ == '__main__':
+    """
+    con.db_connect()    
+    """
+
     """
     u = User("test", "123456789", 5000, True)
     ac = Account("Test", "Testov", "working", u.id, True)
