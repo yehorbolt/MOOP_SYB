@@ -8,14 +8,8 @@ from Card.Savings import *
 from Transfer.Transaction import *
 from Transfer.Credit import *
 from Transfer.Daemon import *
-
+import time
 from ConnectToDB import ConnectToDb as con
-
-def createBasicData(self):
-    pass
-    #u =
-    #hs = Account("Hryhorii", "Skovoroda", "working", 1, False)
-    #c1 = Card(1111, "checking", 1, False)
 
 """ Main file that start everything """
 if __name__ == '__main__':
