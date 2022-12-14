@@ -105,3 +105,4 @@ class ATMCardPage(Frame):
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_exit,
                width=170, height=50, command=lambda: quit())\
             .grid(column=2, row=6, pady=(0, 5))
+

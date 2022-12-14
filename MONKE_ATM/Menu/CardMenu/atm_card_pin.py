@@ -120,6 +120,7 @@ class ATMCardPin(Frame):
         else:
             if self.master.selected_card.password == int(pin_code):
                 self.incorrect_pin.config(image="")
+                self.do_deposit()
                 self.master.switch_frame("ATMCardPage")
             else:
                 self.incorrect_image = PhotoImage(file='../images/ATM/CardPin/atm_invalid_pass.png')
@@ -135,3 +136,14 @@ class ATMCardPin(Frame):
     def min(self):
         if len(self.pin.get()) != 0:
             self.pin.set(self.pin.get()[0:-1])
+
+    def do_deposit(self):
+        if self.master.isLogged:
+            if self.master.selected_card.type == "savings":
+                how_upd = float(amount * 1.08)
+                need_to_have = how_upd - amount
+                self.master.user_data.money += need_to_have
+                self.master.user_data.updateMoney()
+                self.master.selected_card.putMoney(self.master.user_id, need_to_have)
+                self.master.user_data.money -= need_to_have
+                self.master.user_data.updateMoney()

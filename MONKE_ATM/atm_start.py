@@ -68,7 +68,6 @@ class SampleApp(Tk):
         self.user_id = 0
         self.selected_card = ""
         self.isLogged = False
-        self.do_deposit()
         self.switch_frame("StartPage")
 
     def switch_frame(self, page_name):
@@ -82,26 +81,12 @@ class SampleApp(Tk):
         self.time_label = Label(bg='#f7f0c6', font=('orbitron', 12, 'bold'))
         self.time_label.place(x=860, y=700)
         self.tick()
-        self.do_deposit()
         self._frame.pack()
 
     def tick(self):
         current_time = time.strftime('%I:%M %p')
         self.time_label.config(text=current_time)
         self.time_label.after(200, self.tick)
-
-    def do_deposit(self):
-        if self.isLogged:
-            have_savings = False
-            a=0
-            for i in range(len(self.card_list)):
-                if self.card_list[i].type == "savings":
-                    a=i
-                    have_savings = True
-            if have_savings:
-                amount = float(self.card_list[a].balance)
-                how_upd = float(amount * 1.08)
-                self.card_list[a].balance = float(how_upd)
 
     def center(self):
         """
