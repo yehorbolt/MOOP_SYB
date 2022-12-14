@@ -35,7 +35,7 @@ class Savings(Card):
             leftToPay = self.findLeftToPay(account_id, cardType)
             self.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
             if self.balance != 0:
-                self.process = Daemon(self.number, self.number, self.balance, 1, self.id, self.account_id).inactive()
+                self.process = Daemon(self.number, self.number, self.balance, 1, self.id, self.account_id)
 
     """
     Constructor for restoring Card
@@ -56,7 +56,7 @@ class Savings(Card):
     def withdraw(self, amount):
         self.balance = self.getBalance() # updates card balance
         assert type(amount) == float or int, "You must enter amount as a float or an int!"
-        assert amount < self.balance, "You can't withdraw more money than you have on your card!"
+        assert amount <= self.balance, "You can't withdraw more money than you have on your card!"
         Transaction(self.number, self.number, amount, self.id, "withdraw", self.account_id)
         self.balance = self.getBalance()
         if self.balance == 0:
@@ -74,7 +74,7 @@ class Savings(Card):
         assert type(user_id) == int, "user_id can be only int!"
         assert type(amount) == float or int, "You must enter amount as a float or an int!"
         assert amount < self.checkUserMoney(user_id), "User can't put on the Card more money that he has!"
-        Transaction(self.number, self.number, amount, self.id, "putMoney-savings", self.account_id)
+        Transaction(self.number, self.number, amount, self.id, "putMoney", self.account_id)
         self.balance = self.getBalance()
         if self.balance - amount == 0:
             self.process = Daemon(self.number, self.number, self.balance, 1, self.id, self.account_id)

@@ -132,12 +132,8 @@ if __name__ == '__main__':
         s.putMoney(u.id, 3000)
     except Exception as e:
         print(e)
-    print(s)
 
-    try:
-        s.withdraw(1000000)
-    except Exception as e:
-        print(e)
+    print(s)
 
     try:
         s.withdraw(3000)
