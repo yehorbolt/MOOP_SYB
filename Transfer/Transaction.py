@@ -34,7 +34,7 @@ class Transaction(Transfer):
         if type == "withdraw":
             self.withdraw(fromCard, amount)
             self.userChangeMoney(amount, type, card_account_id)
-        if type == "putMoney" or "putMoney-savings":
+        if type == "putMoney":
             self.putMoney(toCard, amount)
             self.userChangeMoney(amount, type, card_account_id)
             if self.getCardType(toCard) == "credit":
