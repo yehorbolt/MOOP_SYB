@@ -140,6 +140,7 @@ class ATMCardPin(Frame):
     def do_deposit(self):
         if self.master.isLogged:
             if self.master.selected_card.type == "savings":
+                amount = self.master.selected_card.balance
                 how_upd = float(amount * 1.08)
                 need_to_have = how_upd - amount
                 self.master.user_data.money += need_to_have
