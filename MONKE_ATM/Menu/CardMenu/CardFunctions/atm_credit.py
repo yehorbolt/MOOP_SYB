@@ -21,7 +21,7 @@ class ATMCreditMenu(Frame):
         self.lim_bal.place(x=15, y=90)
 
         self.credit_bal = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
-                              text="Left to repay: " + str(format(float(self.master.selected_card.limit), '.2f')))
+                              text="Left to repay: " + str(format(float(self.master.selected_card.leftToPay), '.2f')))
         self.credit_bal.place(x=15, y=120)
 
         # add banana logo
@@ -63,6 +63,8 @@ class ATMCreditMenu(Frame):
         else:
             try:
                 # get credit
+                credit_amount = float(self.new_credit.get())
+                self.master.selected_card.takeCredit(credit_amount)
                 self.stat = PhotoImage(file='../images/ATM/Credit/cr_approved.png')
                 self.check_data.configure(image=self.stat)
                 self.master.switch_frame("ATMCreditMenu")
