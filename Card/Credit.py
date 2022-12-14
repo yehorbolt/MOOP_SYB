@@ -98,7 +98,7 @@ class Credit(Card):
             assert (self.balance - amount) >= self.limit, "You can't make a transaction, because of the limit!"
         Transaction(self.number, toCard, amount, self.id, "transaction", self.account_id)
         self.balance = self.getBalance()
-        self.leftToPay = self.getLeftToPay()
+        self.leftToPays = self.getLeftToPay()
 
     """
     Withdraws the money from the Checking Card
