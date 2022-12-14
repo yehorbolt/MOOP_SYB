@@ -76,7 +76,7 @@ class ATMTransferMenu(Frame):
 
         master.exit_btn = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
-               width=170, height=50, command=quit).grid(columnspan=4, row=14, pady=(0, 20))
+               width=170, height=50, command=lambda: master.quit_app()).grid(columnspan=4, row=14, pady=(0, 20))
 
         self.receipt_entry = Text(self, font=("orbitron", 12), width=19, height=3)
         self.receipt_entry.config(fg='black', bg="light yellow", state=DISABLED)

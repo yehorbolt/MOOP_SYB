@@ -88,6 +88,11 @@ class SampleApp(Tk):
         self.time_label.config(text=current_time)
         self.time_label.after(200, self.tick)
 
+    def quit_app(self):
+        if self.isLogged:
+            con.db_close()
+        self.destroy()
+
     def center(self):
         """
         centers a tkinter window

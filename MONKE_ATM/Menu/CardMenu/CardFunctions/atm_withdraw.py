@@ -101,7 +101,7 @@ class ATMWithdrawMenu(Frame):
 
         master.exit_btn = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
-               width=170, height=50, command=quit).grid(columnspan=4, row=13)
+               width=170, height=50, command=lambda: master.quit_app()).grid(columnspan=4, row=13)
 
     def my_upd(self):
         if self.active_bool:

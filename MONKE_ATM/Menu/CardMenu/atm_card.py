@@ -43,16 +43,6 @@ class ATMCardPage(Frame):
                    width=170, height=50, command=lambda: master.switch_frame("ATMTransferMenu")) \
                 .grid(column=1, row=5, pady=(0, 5))
 
-            master.cp_daemon = PhotoImage(file='../images/ATM/CardMenu/cm_daemon.png')
-            Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_daemon,
-                   width=170, height=50, command=lambda: master.switch_frame("ATMDaemonMenu")) \
-                .grid(column=1, row=6, pady=(0, 5))
-
-            master.cp_limit = PhotoImage(file='../images/ATM/CardMenu/limit_btn.png')
-            Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_limit,
-                   width=170, height=50, command=lambda: master.switch_frame("ATMLimitMenu")) \
-                .grid(column=1, row=7, pady=(0, 5))
-
         elif self.master.selected_card.type == "savings":
             master.cp_put = PhotoImage(file='../images/ATM/CardMenu/cm_put_on.png')
             Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_put,

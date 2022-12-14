@@ -39,7 +39,20 @@ def db_connect():
         print(e)
 
 
+"""
+Close database
+"""
+def db_close():
+    global connection
+    connection.close()
 
+
+"""
+Execute lastID in database
+:param: query
+:type: str 
+:returns: last id 
+"""
 def getLastId(table):
     global connected
     global connection
