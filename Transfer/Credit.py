@@ -120,7 +120,7 @@ class Credit(Transfer):
     :rtype: float/int
     """
     def countMoneyOnCards(self, account_id):
-        query = "SELECT SUM(balance) FROM card where account_id = '" + str (account_id) + "' AND type <> 'credit';"
+        query = "SELECT IFNULL(SUM(balance),0) FROM card where account_id = '" + str (account_id) + "' AND type <> 'credit';"
         records = con.executeReturn(query)
         res = float('.'.join(str(ele) for ele in records[0]))
         return res
