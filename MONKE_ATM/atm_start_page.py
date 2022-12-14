@@ -30,7 +30,7 @@ class StartPage(Frame):
 
         master.exit_btn = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
-               width=170, height=50, command=quit).pack(pady=(0, 5))
+               width=170, height=50, command=lambda: master.quit_app()).pack(pady=(0, 5))
 
         Label(self, text="", bg='#f7f0c6', height=13).pack()
 

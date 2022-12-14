@@ -61,7 +61,7 @@ class ATMDepositMenu(Frame):
 
         master.exit_btn = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
-               width=170, height=50, command=quit).grid(columnspan=4, row=11)
+               width=170, height=50, command=lambda: master.quit_app()).grid(columnspan=4, row=11)
 
     def put_on(self):
         if self.put.get().isdigit():

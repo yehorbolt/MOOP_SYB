@@ -115,7 +115,7 @@ class ATMRegistrationPage(Frame):
 
         master.exit_btn = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
-               width=170, height=50, command=quit).pack(pady=(0, 5))
+               width=170, height=50, command=lambda: master.quit_app()).pack(pady=(0, 5))
 
     def checkInput(self):
         if (len(self.login.get()) < 3) or (len(self.name.get()) < 3) or (len(self.surname.get()) < 3):
