@@ -131,6 +131,7 @@ class ATMPutOnMenu(Frame):
         try:
             float(self.money.get())
             self.put_amount(float(self.money.get()))
-        except:
+        except Exception as e:
+            print(e)
             self.status = PhotoImage(file='../images/ATM/PutWithdraw/atm_error.png')
             self.check_data.config(image=self.status)
