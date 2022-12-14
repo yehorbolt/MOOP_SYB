@@ -28,13 +28,28 @@ class Transaction(Transfer):
         super(Transaction, self).__init__(fromCard, toCard, amount, type, 0, 0, card_id, card_account_id)
         if type == "transaction":
             self.transaction(fromCard, toCard, amount)
+            if self.getCardType(toCard) == "credit":
+                if self.getLeftToPay(toCard) == 0:
+                    self.creditInactive(toCard, card_account_id)
         if type == "withdraw":
             self.withdraw(fromCard, amount)
             self.userChangeMoney(amount, type, card_account_id)
         if type == "putMoney":
             self.putMoney(toCard, amount)
             self.userChangeMoney(amount, type, card_account_id)
+            if self.getCardType(toCard) == "credit":
+                if self.getLeftToPay(toCard) == 0:
+                    self.creditInactive(toCard, card_account_id)
 
+    """
+    This method find credit transfer and makes it inactive
+    :param: self, toCard, card_account_id
+    :type: Transaction, int, int
+    :returns: nothing
+    """
+    def creditInactive(self, toCard, card_account_id):
+        query = "UPDATE transfer SET active = 0 WHERE \"to\" = '" + str (toCard) + "' AND card_account_id = '" + str (card_account_id) + "';"
+        con.execute(query)
 
     """
     This method changes amount of money user has with him

@@ -29,7 +29,7 @@ class Transfer:
         assert self.cardExists(fromCard) == True, "Card from which you want to make a transfer doesn't exist!"
         assert self.cardExists(toCard) == True, "Card on which you want to make a transfer doesn't exist!"
         assert amount > 0, "You can't make a Transaction with amount less than 1!"
-        if transferType != "putMoney":
+        if transferType == "credit" and fromCard != toCard or transferType == "putMoney" and fromCard == toCard:
             assert self.getBalance(fromCard) >= amount, "You can't transfer more money than you have on the Card!"
         assert self.validType(transferType) == True, "You can't make a transfer with type different from Transaction, Daemon or Credit"
         assert type(leftToPay) == float or int, "You can't use other type than float or int for initialising leftToPay!"
@@ -135,7 +135,12 @@ class Transfer:
     def getCardType(self, card):
         query = "SELECT type FROM card WHERE number = " + str (card) + ";"
         records = con.executeReturn(query)
-        return str (records.__getitem__(0))
+        res = str (records.__getitem__(0))
+        res = res.replace(',', '')
+        res = res.replace(')', '')
+        res = res.replace('(', '')
+        res = res.replace("'", '')
+        return res
 
     """
     This method returns leftToPay of the card given

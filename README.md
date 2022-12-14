@@ -47,6 +47,7 @@ That's all! After card creation he can use them according to the bank policy (it
 1. Savings (user is paid for his money on this card, user interest - 8%)
 2. Credit (user can only take credit money and all the money he will transfer or put on this card will go to pay for the credit, bank interest - 10%)
 3. Checking (user can sue this card for different transactions and payments)
+
 User can withdraw money from: savings and checking cards.
 User can put on all cards his money.
 User can make a transfer only from: credit and checking cards.

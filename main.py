@@ -54,10 +54,9 @@ if __name__ == '__main__':
         print(e)
     """
 
+    """
     u = User("test", "123456789", 5000, True)
     ac = Account("Test", "Testov", "working", u.id, True)
-    # I've manually added 2.5k to user's money
-    # I've manually added 10k on the Checking card to test Credit system
     cr = credit(1111, "credit", ac.id, True)
 
     try:
@@ -66,11 +65,11 @@ if __name__ == '__main__':
         print(e)
     print(cr)
 
-    #cr.changeLimit(20000)
-    #print(cr)
+    cr.changeLimit(20000)
+    print(cr)
 
     try:
-        cr.takeCredit(40000)
+        cr.takeCredit(float (40000))
     except Exception as e:
         print(e)
 
@@ -121,3 +120,72 @@ if __name__ == '__main__':
     except Exception as e:
         print(e)
     print(cr)
+
+    """
+    u = User("test", "123456789", 5000, True)
+    ac = Account("Test", "Testov", "working", u.id, True)
+    s = Savings(1111, "savings", ac.id, True)
+
+    try:
+        s.takeCredit(100000)
+    except Exception as e:
+        print(e)
+    print(s)
+
+    s.changeLimit(20000)
+    print(s)
+
+    try:
+        s.takeCredit(float (40000))
+    except Exception as e:
+        print(e)
+
+    s.changeLimit(40000)
+    print(s)
+
+    try:
+        s.takeCredit(40000)
+    except Exception as e:
+        print(e)
+
+    print(s)
+
+    try:
+        s.putMoney(u.id, 10000)
+    except Exception as e:
+        print(e)
+    print(s)
+
+    try:
+        s.putMoney(u.id, 3000)
+    except Exception as e:
+        print(e)
+    print(s)
+
+    try:
+        s.makeTransaction(601226214, 250000)
+    except Exception as e:
+        print(e)
+
+    try:
+        s.makeTransaction(601226214, 25000)
+    except Exception as e:
+        print(e)
+    print(s)
+
+    try:
+        s.withdraw(1000000)
+    except Exception as e:
+        print(e)
+
+    try:
+        s.withdraw(5000)
+    except Exception as e:
+        print(e)
+    print(s)
+    try:
+        s.takeCredit(10000)
+    except Exception as e:
+        print(e)
+    print(s)
+

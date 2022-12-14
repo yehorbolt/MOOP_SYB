@@ -65,9 +65,21 @@ class Credit(Card):
     def takeCredit(self, amount):
         try:
             cred(self.number, self.number, amount, self.id, self.account_id)
-            self.leftToPay = amount
+            self.balance = amount
+            self.leftToPay = amount * float(1.1)
+            self.updateLeftToPay(self.leftToPay)
         except Exception as e:
             raise Exception(e)
+
+    """
+    This method changes leftToPay in database
+    :param: self, leftToPay
+    :type: Credit, float/int
+    :returns: nothing
+    """
+    def updateLeftToPay(self, leftToPay):
+        query = "UPDATE card SET leftToPay = '" + str (leftToPay)  + "' WHERE id = '" + str (self.id) + "';"
+        con.execute(query)
 
     """
     Makes transaction from the Checking Card
@@ -81,7 +93,9 @@ class Credit(Card):
         assert self.cardExists(toCard) == True, "You can't make a transaction on the card that doesn't exist!"
         assert type(amount) == float or int, "You must enter amount as a float or an int!"
         assert amount < self.balance, "You can't make Transaction with more money than you have on your card!"
-        assert (self.balance - amount) >= self.limit, "You can't make a transaction, because of the limit!"
+        from Transfer.Transfer import Transfer
+        if Transfer.getCardType(Transfer, self.number) != "credit":
+            assert (self.balance - amount) >= self.limit, "You can't make a transaction, because of the limit!"
         Transaction(self.number, toCard, amount, self.id, "transaction", self.account_id)
         self.balance = self.getBalance()
         self.leftToPay = self.getLeftToPay()

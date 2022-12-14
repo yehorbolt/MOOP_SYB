@@ -26,12 +26,11 @@ class Credit(Transfer):
     """
     def __init__(self, fromCard, toCard, amount, card_id, card_account_id):
         try:
-            self.checkIfValid(toCard, amount, card_account_id)
+            self.checkIfValid(toCard, amount)
         except Exception as e:
             raise AssertionError(e)
-        assert self.getCreditSum(card_account_id) + amount <= self.findCardLimit(fromCard), "You can't take other credit, as you've put a limit!"
-        amount *= 1,1 # amount of the money with bank interest
-        super(Credit, self).__init__(fromCard, toCard, amount, "credit",  amount, 0, card_id, card_account_id)
+        leftToPay = amount * float (1.1) # amount of the money with bank interest
+        super(Credit, self).__init__(fromCard, toCard, amount, "credit",  leftToPay, 0, card_id, card_account_id)
         self.changeBalance(toCard, amount, True)
 
     """
@@ -41,7 +40,7 @@ class Credit(Transfer):
     :returns: True/False
     :rtype: bool
     """
-    def checkIfValid(self, card, amount, card_account_id):
+    def checkIfValid(self, card, amount):
         assert self.checkActiveCredit(card) == False, "The user already has an active credit!"
         assert self.mayPay(card, amount) == True, "User doesn't have enough money on his cards!"
         return True
@@ -71,21 +70,6 @@ class Credit(Transfer):
         records = con.executeReturn(query)
         res = float('.'.join(str(ele) for ele in records[0]))
         return res
-
-    """
-    This method returns sum of all active credits the user took
-    :param: self, card_account_id
-    :type: Credit, int
-    :returns: sum
-    :type: float
-    """
-    def getCreditSum(self, card_account_id):
-        query = "SELECT SUM(amount) FROM transfer WHERE  \"type\" = 'credit' AND card_account_id = '" + str (card_account_id) + "';"
-        records = con.executeReturn(query)
-        if None in records[0][0]:
-            return 0
-        else:
-            return float('.'.join(str(ele) for ele in records(0)))
 
     """
     This method checks if the user has active credits
