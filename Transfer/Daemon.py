@@ -2,6 +2,7 @@ from Transfer.Transfer import Transfer
 from multiprocessing import Process
 from datetime import datetime, timedelta
 from threading import Thread
+import time
 
 """
     This class is responsible for a Daemon entity
@@ -31,7 +32,7 @@ class Daemon(Transfer):
     """
     def __init__(self, fromCard, toCard, amount, frequency, card_id, card_account_id):
         super(Daemon, self).__init__(fromCard, toCard, amount, "daemon",  0, frequency, card_id, card_account_id)
-        self.thread = Thread(target=self.getMoney(), daemon=True)
+        self.thread = Thread(target=self.getMoney)
         self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
         #self.process = Process(target=self.getMoney(), daemon=True)
         #self.process.start()
@@ -44,8 +45,7 @@ class Daemon(Transfer):
     :returns: nothing
     """
     def inactive(self):
-        self.thread.daemon = False
-        #self.thread.join()
+        self.thread.join()
         super(Daemon, self).inactive()
 
     """
@@ -56,10 +56,12 @@ class Daemon(Transfer):
     """
     def getMoney(self):
         date = self.getTime()
-        if date == self.nextDate:
-            self.amount = self.amount * 1.08 - self.amount
-            self.changeBalance(self.fromCard, self.amount, True)
-            self.nextDate = datetime.strptime(date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
+        while date != self.nextDate:
+            time.sleep(1)
+            if date == self.nextDate:
+                self.amount = self.amount * 1.08 - self.amount
+                self.changeBalance(self.fromCard, self.amount, True)
+                self.nextDate = datetime.strptime(date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
 
     """
     This method changes Frequency of the daemon
