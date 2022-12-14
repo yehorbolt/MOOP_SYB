@@ -93,6 +93,6 @@ class ATMCardPage(Frame):
 
         master.cp_exit = PhotoImage(file='../images/ATM/exit_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.cp_exit,
-               width=170, height=50, command=lambda: quit())\
+               width=170, height=50, command=lambda: master.quit_app())\
             .grid(column=2, row=6, pady=(0, 5))
 
