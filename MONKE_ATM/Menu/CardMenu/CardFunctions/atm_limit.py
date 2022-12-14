@@ -20,6 +20,10 @@ class ATMLimitMenu(Frame):
                              text="Limit: " + str(format(float(self.master.selected_card.limit), '.2f')))
         self.lim_bal.place(x=15, y=90)
 
+        self.credit_bal = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+                                text="Left to repay: " + str(format(float(self.master.selected_card.leftToPay), '.2f')))
+        self.credit_bal.place(x=15, y=120)
+
         # add banana logo
         master.logo = PhotoImage(file='../images/ATM/mp_logo.png')
         panel = Label(self, image=master.logo, bg='#f7f0c6')
