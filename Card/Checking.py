@@ -82,7 +82,7 @@ class Checking(Card):
         self.balance = self.getBalance() #updates card balance
         assert type(user_id) == int, "user_id can be only int!"
         assert type(amount) == float or int, "You must enter amount as a float or an int!"
-        assert amount < self.checkUserMoney(user_id), "User can't put on the Card more money that he has!"
+        assert amount <= self.checkUserMoney(user_id), "User can't put on the Card more money that he has!"
         Transaction(self.number, self.number, amount, self.id, "putMoney", self.account_id)
         self.balance = self.getBalance()
 

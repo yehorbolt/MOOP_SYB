@@ -122,8 +122,11 @@ class Credit(Transfer):
     def countMoneyOnCards(self, account_id):
         query = "SELECT IFNULL(SUM(balance),0) FROM card where account_id = '" + str (account_id) + "' AND type <> 'credit';"
         records = con.executeReturn(query)
-        res = float('.'.join(str(ele) for ele in records[0]))
-        return res
+        records = str(records)
+        records = records.replace(',', '')
+        records = records.replace('(', '')
+        records = records.replace(')', '')
+        return float(records)
 
     """
     This method gets accountid from the database by the card number given
