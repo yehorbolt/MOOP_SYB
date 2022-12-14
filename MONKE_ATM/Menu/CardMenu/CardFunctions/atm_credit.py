@@ -12,7 +12,17 @@ class ATMCreditMenu(Frame):
 
         self.new_credit = StringVar()
 
-        # my credit info left
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Number: " + str(self.master.selected_card.number)) \
+            .place(x=15, y=60)
+
+        self.lim_bal = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+                             text="Limit: " + str(format(float(self.master.selected_card.limit), '.2f')))
+        self.lim_bal.place(x=15, y=90)
+
+        self.credit_bal = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+                              text="Left to repay: " + str(format(float(self.master.selected_card.limit), '.2f')))
+        self.credit_bal.place(x=15, y=120)
 
         # add banana logo
         master.logo = PhotoImage(file='../images/ATM/mp_logo.png')
@@ -35,7 +45,7 @@ class ATMCreditMenu(Frame):
 
         master.change_credit_btn = PhotoImage(file='../images/ATM/Credit/cr_apply_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.change_credit_btn,
-               width=170, height=50, command=lambda: self.get_credit()).pack(pady=(0, 5))
+               width=170, height=50, command=lambda: self.check_credit()).pack(pady=(0, 5))
 
         master.menu_btn = PhotoImage(file='../images/ATM/menu_btn.png')
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.menu_btn,
@@ -45,10 +55,28 @@ class ATMCreditMenu(Frame):
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
-    def get_credit(self):
-        if not self.new_credit.get().isdigit():
+
+    def get_credit(self, value):
+        if value <= 0:
             self.stat = PhotoImage(file='../images/ATM/Credit/cr_error.png')
             self.check_data.configure(image=self.stat)
         else:
-            self.stat = PhotoImage(file='../images/ATM/Credit/cr_approved.png')
+            try:
+                # get credit
+                self.stat = PhotoImage(file='../images/ATM/Credit/cr_approved.png')
+                self.check_data.configure(image=self.stat)
+                self.master.switch_frame("ATMCreditMenu")
+            except Exception as e:
+                print(e)
+                self.stat = PhotoImage(file='../images/ATM/Credit/cr_error.png')
+                self.check_data.configure(image=self.stat)
+
+
+    def check_credit(self):
+        try:
+            float(self.new_credit.get())
+            self.get_credit(float(self.new_credit.get()))
+        except Exception as e:
+            print(e)
+            self.stat = PhotoImage(file='../images/ATM/Credit/cr_error.png')
             self.check_data.configure(image=self.stat)

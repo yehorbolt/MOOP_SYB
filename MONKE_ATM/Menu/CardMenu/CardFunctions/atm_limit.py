@@ -12,8 +12,13 @@ class ATMLimitMenu(Frame):
 
         self.new_lim = StringVar()
 
-        # my limit
-        # lim info left
+        Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+              text="Number: " + str(self.master.selected_card.number)) \
+            .place(x=15, y=60)
+
+        self.lim_bal = Label(self, bg='#f7f0c6', font=('orbitron', 12, 'bold'),
+                             text="Limit: " + str(format(float(self.master.selected_card.limit), '.2f')))
+        self.lim_bal.place(x=15, y=90)
 
         # add banana logo
         master.logo = PhotoImage(file='../images/ATM/mp_logo.png')
@@ -46,11 +51,23 @@ class ATMLimitMenu(Frame):
         Button(self, bg='#f7f0c6', activebackground='#f7f0c6', relief=FLAT, image=master.exit_btn,
                width=170, height=50, command=quit).pack(pady=(0, 5))
 
-
-    def upd_limit(self):
-        if not self.new_lim.get().isdigit():
+    def change_lim(self, value):
+        if value <= 0:
             self.stat = PhotoImage(file='../images/ATM/Limit/lim_error.png')
             self.check_data.configure(image=self.stat)
         else:
             self.stat = PhotoImage(file='../images/ATM/Limit/lim_upd.png')
             self.check_data.configure(image=self.stat)
+            self.master.selected_card.changeLimit(float(self.new_lim.get()))
+            print(self.master.selected_card)
+            self.master.switch_frame("ATMLimitMenu")
+
+    def upd_limit(self):
+        try:
+            float(self.new_lim.get())
+            self.change_lim(float(self.new_lim.get()))
+        except Exception as e:
+            print(e)
+            self.stat = PhotoImage(file='../images/ATM/Limit/lim_error.png')
+            self.check_data.configure(image=self.stat)
+
