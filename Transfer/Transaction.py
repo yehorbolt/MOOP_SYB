@@ -34,7 +34,7 @@ class Transaction(Transfer):
         if type == "withdraw":
             self.withdraw(fromCard, amount)
             self.userChangeMoney(amount, type, card_account_id)
-        if type == "putMoney":
+        if type == "putMoney" or "putMoney-savings":
             self.putMoney(toCard, amount)
             self.userChangeMoney(amount, type, card_account_id)
             if self.getCardType(toCard) == "credit":
@@ -59,9 +59,10 @@ class Transaction(Transfer):
     """
     def userChangeMoney(self, amount, type, card_account_id):
         user_id = self.findUserId(card_account_id)
+        user_balance = 0
         if type == "withdraw":
             user_balance = User.returnMoney(user_id) + amount
-        if type == "putMoney":
+        if type == "putMoney" or type == "putMoney-savings":
             user_balance = User.returnMoney(user_id) - amount
         query = "UPDATE user SET money = %s WHERE id = %s"
         values = (user_balance, user_id)

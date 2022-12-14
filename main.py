@@ -126,49 +126,10 @@ if __name__ == '__main__':
     ac = Account("Test", "Testov", "working", u.id, True)
     s = Savings(1111, "savings", ac.id, True)
 
-    try:
-        s.takeCredit(100000)
-    except Exception as e:
-        print(e)
-    print(s)
-
-    s.changeLimit(20000)
-    print(s)
-
-    try:
-        s.takeCredit(float (40000))
-    except Exception as e:
-        print(e)
-
-    s.changeLimit(40000)
-    print(s)
-
-    try:
-        s.takeCredit(40000)
-    except Exception as e:
-        print(e)
-
-    print(s)
-
-    try:
-        s.putMoney(u.id, 10000)
-    except Exception as e:
-        print(e)
     print(s)
 
     try:
         s.putMoney(u.id, 3000)
-    except Exception as e:
-        print(e)
-    print(s)
-
-    try:
-        s.makeTransaction(601226214, 250000)
-    except Exception as e:
-        print(e)
-
-    try:
-        s.makeTransaction(601226214, 25000)
     except Exception as e:
         print(e)
     print(s)
@@ -179,13 +140,10 @@ if __name__ == '__main__':
         print(e)
 
     try:
-        s.withdraw(5000)
+        s.withdraw(3000)
     except Exception as e:
         print(e)
+
     print(s)
-    try:
-        s.takeCredit(10000)
-    except Exception as e:
-        print(e)
-    print(s)
+
 

@@ -28,18 +28,11 @@ class Daemon(Transfer):
     :type: Credit, int, int, float/int, date, str, int, int, int, int
     :returns: nothing
     """
-    def __init__(self, fromCard, toCard, amount, frequency, increaseMoney, card_id, card_account_id):
-        assert type(increaseMoney) == bool, "You must give a bool as one of the parameters that will be responsible for increasing or decreasing card balance!"
+    def __init__(self, fromCard, toCard, amount, frequency, card_id, card_account_id):
         super(Daemon, self).__init__(fromCard, toCard, amount, "daemon",  0, frequency, card_id, card_account_id)
-        self.increase = increaseMoney
-        if self.increase == False: # for checking card
-            self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
-            self.process = Process(target=self.transferMoney(), daemon=True)
-            self.process.start()
-        if self.increase == True: # for savings card
-            self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
-            self.process = Process(target=self.getMoney(), daemon=True)
-            self.process.start()
+        self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
+        self.process = Process(target=self.getMoney(), daemon=True)
+        self.process.start()
 
     """
     This method changes activeness of daemon and makes it false 
@@ -50,24 +43,6 @@ class Daemon(Transfer):
     def inactive(self):
         self.process.daemon = False
         super(Daemon, self).inactive()
-
-    """
-    This is the task that will be runned by Daemon process
-    :param:self, nextDate
-    :type: Daemon, date
-    :returns: nothing
-    """
-    def transferMoney(self):
-        date = self.getTime()
-        if date == self.nextDate:
-            if self.enoughMoney(self.fromCard, self.amount):
-                self.changeBalance(self.fromCard, self.amount, False)
-                self.changeBalance(self.toCard, self.amount, True)
-                self.nextDate = datetime.strptime(date, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
-            else:
-                self.process.daemon = False
-                self.process.terminate()
-
 
     """
     This is the task that will be runned by Daemon process
