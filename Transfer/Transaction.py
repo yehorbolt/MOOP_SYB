@@ -29,7 +29,7 @@ class Transaction(Transfer):
         if type == "transaction":
             self.transaction(fromCard, toCard, amount)
             if self.getCardType(toCard) == "credit":
-                if self.getLeftToPay(toCard) == 0.0:
+                if self.getLeftToPay(toCard) == 0:
                     self.creditInactive(toCard, card_account_id)
         if type == "withdraw":
             self.withdraw(fromCard, amount)
@@ -38,7 +38,7 @@ class Transaction(Transfer):
             self.putMoney(toCard, amount)
             self.userChangeMoney(amount, type, card_account_id)
             if self.getCardType(toCard) == "credit":
-                if self.getLeftToPay(toCard) == 0.0:
+                if self.getLeftToPay(toCard) == 0:
                     self.creditInactive(toCard, card_account_id)
 
     """
