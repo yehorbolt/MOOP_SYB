@@ -1,5 +1,4 @@
 from tkinter import *
-from ConnectToDB import ConnectToDb as con
 from Account.Account import *
 from User.User import User
 from Card.Card import *

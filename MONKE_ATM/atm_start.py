@@ -1,5 +1,6 @@
 from tkinter import *
 import time
+from ConnectToDB import ConnectToDb as con
 
 from Menu.atm_tick_tack_toe import TicTacToe
 from atm_main_menu_page import ATMMainMenuPage
@@ -50,10 +51,9 @@ pages = {
 
 class SampleApp(Tk):
 
-    amount = 0
-
     def __init__(self):
         Tk.__init__(self)
+        con.db_connect()
         self.time_label = None
         self.resizable(False, False)
         self.geometry("960x740")
