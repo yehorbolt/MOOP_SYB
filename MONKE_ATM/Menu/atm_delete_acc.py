@@ -1,4 +1,11 @@
 from tkinter import *
+from ConnectToDB import ConnectToDb as con
+from Account.Account import *
+from User.User import User
+from Card.Card import *
+from Card.Credit import Credit
+from Card.Checking import Checking
+from Card.Savings import Savings
 
 
 class ATMDeleteAccount(Frame):
@@ -51,4 +58,15 @@ class ATMDeleteAccount(Frame):
             self.incorrect_dt = PhotoImage(file='../images/ATM/DeleteAccount/delete_acc.png')
             self.check_data.config(image=self.incorrect_dt)
             # account deleting
+
+            # card delete
+            for i in range(len(self.master.card_list)):
+                    self.master.card_list[i].deleteCard()
+
+            # account delete
+            self.master.account_data.deleteAccount()
+
+            # user delete
+            self.master.user_data.deleteUser()
+
             self.master.switch_frame("ATMLoginPage")
