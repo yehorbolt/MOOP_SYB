@@ -1,14 +1,7 @@
-from User.User import *
 from Account.Account import *
-from ATM.ATM import *
-from Bank.Bank import *
 from Card.Checking import Checking
 from Card.Credit import Credit as credit
-from Card.Savings import *
 from Transfer.Transaction import *
-from Transfer.Credit import *
-from Transfer.Daemon import *
-import time
 from ConnectToDB import ConnectToDb as con
 
 """ Main file that start everything """
@@ -42,7 +35,7 @@ if __name__ == '__main__':
     print()
 
     """ Changing name and status of the account """
-    account.changeName("Taras Grygorovych")
+    account.changeName("TarasGrygorovych")
     account.changeStatus("working")
     print("Account:")
     print(account)
@@ -59,6 +52,7 @@ if __name__ == '__main__':
         checking.makeTransaction(601226214, 2000)
     except Exception as e:
         print(e)
+
     """ Withdraw with 0 money """
     try:
         checking.withdraw(2000)
@@ -134,7 +128,7 @@ if __name__ == '__main__':
     print()
 
     """ Let's change the credit limit """
-    credit.changeLimit(90000)
+    credit.changeLimit(9000)
     print("Credit:")
     print(credit)
     print()
@@ -149,25 +143,25 @@ if __name__ == '__main__':
     print()
 
     """ Change limit again """
-    credit.changeLimit(40000)
+    credit.changeLimit(30000)
     print("Credit:")
     print(credit)
     print()
 
     """ Let's take a credit """
-    credit.takeCredit(30000)
+    credit.takeCredit(10000)
     print("Credit:")
     print(credit)
     print()
 
     """ Make a transaction """
-    credit.makeTransaction(601226214, 10000)
+    credit.makeTransaction(601226214, 2000)
     print("Credit:")
     print(credit)
     print()
 
     """ Withdraw money """
-    credit.withdraw(10000)
+    credit.withdraw(2000)
     print("Credit:")
     print(credit)
     print()
