@@ -34,8 +34,6 @@ class Savings(Card):
             limit = self.findCardLimit(account_id, cardType)
             leftToPay = self.findLeftToPay(account_id, cardType)
             self.restoreCard(id, number, password, cardType, balance, limit, leftToPay, account_id)
-            if self.balance != 0:
-                self.process = Daemon(self.number, self.number, self.balance, 1, self.id, self.account_id)
 
     """
     Constructor for restoring Card
@@ -59,8 +57,6 @@ class Savings(Card):
         assert amount <= self.balance, "You can't withdraw more money than you have on your card!"
         Transaction(self.number, self.number, amount, self.id, "withdraw", self.account_id)
         self.balance = self.getBalance()
-        if self.balance == 0:
-            self.process.inactive()
 
     """
     THis method puts money on the Checking Card
@@ -76,5 +72,3 @@ class Savings(Card):
         assert amount <= self.checkUserMoney(user_id), "User can't put on the Card more money that he has!"
         Transaction(self.number, self.number, amount, self.id, "putMoney", self.account_id)
         self.balance = self.getBalance()
-        if self.balance - amount == 0:
-            self.process = Daemon(self.number, self.number, self.balance, 1, self.id, self.account_id)

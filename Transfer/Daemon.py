@@ -1,7 +1,5 @@
 from Transfer.Transfer import Transfer
-from multiprocessing import Process
 from datetime import datetime, timedelta
-from threading import Thread
 import time
 
 """
@@ -16,7 +14,6 @@ class Daemon(Transfer):
     type = str ("daemon")
     frequency = int (0)
     nextDate = str (0)
-    thread = 0
     increase = bool (0)
     active = bool (1)
     card_id = int (0)             # from which card (id) is transfer
@@ -32,21 +29,6 @@ class Daemon(Transfer):
     """
     def __init__(self, fromCard, toCard, amount, frequency, card_id, card_account_id):
         super(Daemon, self).__init__(fromCard, toCard, amount, "daemon",  0, frequency, card_id, card_account_id)
-        self.thread = Thread(target=self.getMoney)
-        self.nextDate = datetime.strptime(self.getTime(), "%Y-%m-%d %H:%M:%S") + timedelta(minutes=self.frequency)
-        #self.process = Process(target=self.getMoney(), daemon=True)
-        #self.process.start()
-        self.thread.start()
-
-    """
-    This method changes activeness of daemon and makes it false 
-    :param: self
-    :type: Daemon
-    :returns: nothing
-    """
-    def inactive(self):
-        self.thread.join()
-        super(Daemon, self).inactive()
 
     """
     This is the task that will be runned by Daemon process
